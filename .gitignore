@@ -141,11 +141,7 @@ modules.xml
 .nfs*
 
 ### VisualStudioCode ###
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+.vscode
 *.code-workspace
 
 ### VisualStudioCode Patch ###
@@ -179,3 +175,5 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/c++,visualstudiocode,clion+all,windows,linux
+*.diff
+*.patch
