@@ -1,30 +1,30 @@
-#ifndef ALGORITHM_01_
-#define ALGORITHM_01_
+#ifndef SDP_SOLVER_
+#define SDP_SOLVER_
 
 #include <bits/stdc++.h>
 #include <memory>
 #include <Eigen/Dense>
 #include <unsupported/Eigen/MatrixFunctions>
 
-template <size_t N, typename ElementType = double>
 class SDPSolver
 {
 public:
-    typedef Eigen::Matrix<ElementType, N, N> MatrixN;
+    typedef double ElementType;
+    typedef Eigen::Matrix<ElementType, Eigen::Dynamic, Eigen::Dynamic> MatrixX;
 
-    SDPSolver(int matrices) noexcept;
+    SDPSolver() = default;
     void input(const std::string& filename) noexcept;
-    MatrixN calc() noexcept;
+    MatrixX calc() noexcept;
 
 private:
-    typedef std::vector<MatrixN> MatrixList;
+    typedef std::vector<MatrixX> MatrixList;
     typedef Eigen::Matrix<ElementType, Eigen::Dynamic, 1> VectorX;
 
+    size_t matrices_dimension;
     size_t matrices_count;
     MatrixList matrices_list;
-    MatrixN w;
+    MatrixX w;
     VectorX b;
 };
 
-#include "SDPSolver-inl.h"
 #endif
