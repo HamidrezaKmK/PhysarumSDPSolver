@@ -20,7 +20,7 @@ private:
     typedef std::vector<MatrixN> MatrixList;
     typedef Eigen::Matrix<ElementType, Eigen::Dynamic, 1> VectorX;
 
-    int matrices_count;
+    size_t matrices_count;
     MatrixList matrices_list;
     MatrixN w;
     VectorX b;
