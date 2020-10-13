@@ -179,5 +179,5 @@ $RECYCLE.BIN/
 *.patch
 
 # Manual
-HAMIDREZA_*.cpp
+HAMIDREZA_*
 out/*
