@@ -11,7 +11,7 @@ output_directory="out/" ;
 echo $src_directory ;
 echo $test_directory ;
 
-g++ --verbose "$1" -O2 -c && g++ "$src_directory/main.cpp" SDPSolver.o -O2 -o main
+g++ "$1" -O2 -c -o "${src_directory}SDPSolver".o && g++ "${src_directory}main.cpp" "${src_directory}SDPSolver".o -O2 -o "${src_directory}main"
 
 echo "Done!" ;
 
