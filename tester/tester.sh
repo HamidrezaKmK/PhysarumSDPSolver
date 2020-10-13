@@ -12,7 +12,7 @@ for test_list in ${dir_list[*]};
 do
 test_name=(`echo "$test_list" | awk -F "/" '{print $NF}'`) ;
 echo "${1} ${2} $test_directory$test_name"
-"${1} ${2}" < "$test_directory$test_name" > "$output_directory$test_name.out"
+"${1}" "${2}" < "$test_directory$test_name" > "$output_directory$test_name.out"
 done
 
 read -n 1 -r -s -p $'Press enter to continue...\n'
