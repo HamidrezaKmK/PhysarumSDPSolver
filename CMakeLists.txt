@@ -11,4 +11,4 @@ add_executable(SDPSolver
         main.cpp
         README.md
         SDPSolver-inl.h
-        SDPSolver.h)
+        SDPSolver.h src/test.cpp src/test.h)

@@ -3,17 +3,17 @@
 # ${2} test folder,   testData/sdplip/*.in
 cd ..
 mkdir -p out
-dirlist=(`ls ${2}`) ;
-srcdirectory= (`echo "${2}" | sed 's/[^/]*$//'`) ;
-testdirectory=(`echo "${2}" | sed 's/[^/]*$//'`) ;
-outputdirectory="out/" ;
+dir_list=(`ls ${2}`) ;
+src_directory=(`echo "${2}" | sed 's/[^/]*$//'`) ;
+test_directory=(`echo "${2}" | sed 's/[^/]*$//'`) ;
+output_directory="out/" ;
 
-g++ "$1" -O2 -c && g++ "$srcdirectory/main.cpp" SDPSolver.o -O2 -o main
+g++ "$1" -O2 -c && g++ "$src_directory/main.cpp" SDPSolver.o -O2 -o main
 
-for testlist in ${dirlist[*]};
+for test_list in ${dir_list[*]};
 do
-	testname=(`echo "$testlist" | awk -F "/" '{print $NF}'`) ;
-	"$srcdirectory/main" "$testdirectory$testname" > "$outputdirectory$testname.out"
+	test_name=(`echo "$test_list" | awk -F "/" '{print $NF}'`) ;
+	"$src_directory/main" "$test_directory$test_name" > "$output_directory$test_name.out"
 done
 
 
