@@ -5,8 +5,7 @@
 First you should compile the given sources and create an executable file.
 This can be done using the script below:
 ```bash
-g++ src/SDPSolver.cpp -O2 -c && g++ src/main.cpp SDPSolver.o -O2 -o main
-./main input.txt 2> /dev/null (or main.exe input.txt 2> NUL)
+g++ src/SDPSolver.cpp -O2 -c && g++ src/main.cpp SDPSolver.o -O2 -o main.exe
 ```
 you can also use the `CMake` that is given:
 
