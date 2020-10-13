@@ -13,7 +13,13 @@ public:
     typedef Eigen::Matrix<ElementType, Eigen::Dynamic, Eigen::Dynamic> MatrixX;
 
     SDPSolver() = default;
-    void input(const std::string& filename) noexcept;
+    /*
+     * The function gets the input using the
+     * input stream using the standard format explained in "testData/FORMAT"
+     * after running this function the values of constraint matrices, W, and b
+     * will be initialized
+     */
+    void input() noexcept;
     MatrixX calc() noexcept;
 
 private:
