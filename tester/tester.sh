@@ -18,5 +18,5 @@ echo "Done!" ;
 for test_list in ${dir_list[*]};
 do
    test_name=(`echo "$test_list" | awk -F "/" '{print $NF}'`) ;
-   "${src_directory}main" "../$test_directory$test_name" > "$output_directory$test_name.out"
+   "${src_directory}main" < "../$test_directory$test_name" > "$output_directory$test_name.out"
 done
