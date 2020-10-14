@@ -134,29 +134,43 @@ auto SDPSolver::calc() noexcept -> MatrixX {
         std::cerr << "I - hsbar:" << std::endl
                   << (MatrixX::Identity(matrices_dimension, matrices_dimension) - h * s_bar) << std::endl;
 
-        MatrixX tmp = (w_tilda * (MatrixX::Identity(matrices_dimension, matrices_dimension) - h * s_bar) * w_tilda);
-        std::cerr << "X:" << std::endl << tmp << std::endl;
-        std::cerr << "tr(X): " << tmp.trace() << std::endl;
+        //we want to compute I xor W-1 + W-1 xor I in Z
+        MatrixX w_tilda_inverse = w_tilda.inverse();
+        MatrixX Z(matrices_dimension * matrices_dimension, matrices_dimension * matrices_dimension);
 
-        gap = tmp.trace() - bTy;
-        std::cerr << "gap: " << gap << std::endl;
-
-        solver.compute(tmp);
-
-        auto eigenvalues = solver.eigenvalues();
-        for (size_t i = 0; i < matrices_dimension; ++i) {
-            auto &lambda = eigenvalues[i];
-            if (lambda < 0)
-                lambda = 0;
-            else
-                lambda = sqrt(lambda);
+        for (size_t i = 0; i < matrices_dimension * matrices_dimension; i++) {
+            for (size_t j = 0; j < matrices_dimension * matrices_dimension; j++) {
+                size_t i1 = i / matrices_dimension, j1 = j / matrices_dimension;
+                size_t i2 = i % matrices_dimension, j2 = j % matrices_dimension;
+                Z(i, j) = 0;
+                if (i1 == j1) Z(i, j) += w_tilda_inverse(i2, j2);
+                if (i2 == j2) Z(i, j) += w_tilda_inverse(i1, j1);
+            }
         }
-        std::cerr << "Eigenvalues:" << std::endl << eigenvalues << std::endl;
-        std::cerr << "Eigenvectors:" << std::endl << solver.eigenvectors() << std::endl;
+        std::cerr << "I xor W-1 + W-1 xor I" << std::endl << Z << std::endl;
 
-        w_tilda = solver.eigenvectors() * eigenvalues.asDiagonal() * solver.eigenvectors().transpose();
+        VectorX vec_s = Eigen::VectorXd(matrices_dimension * matrices_dimension);
 
-        std::cerr << "W~:" << std::endl << w_tilda << std::endl << "_______________" << std::endl;
+        for (size_t i=0; i<matrices_dimension; i++) {
+            for (size_t j = 0; j < matrices_dimension; j++) {
+                vec_s(i + j * matrices_dimension) = s_bar(i, j);
+            }
+        }
+
+        std::cerr << "vec(S)" << std::endl << vec_s << std::endl;
+
+        //Z . vec_w_dot = -vec_s
+        VectorX vec_w_dot = Z.llt().solve(-vec_s);
+        std::cerr << "vec(w_dot)" << std::endl << vec_w_dot << std::endl;
+
+
+        //w = w + h * w_dot
+        for (size_t i=0; i<matrices_dimension; i++)
+            for (size_t j=0; j<matrices_dimension; j++)
+                w_tilda(i, j) += h * vec_w_dot(i + j * matrices_dimension);
+
+        std::cerr << "new w_tilda" << std::endl << w_tilda << std::endl;
+
     }
 
     return w_tilda;
