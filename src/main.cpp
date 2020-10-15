@@ -1,4 +1,5 @@
 #include "SDPSolver.h"
+#include "SDPSolverDerivative.h"
 
 using namespace std;
 
@@ -6,22 +7,30 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-    cout << "HHI" << endl;
-    if (argc != 2)
-    {
-        std::cout << "Please enter one argument: the input file path." << std::endl;
-        return EXIT_FAILURE;
-    }
+	if (argc != 2)
+	{
+		std::cout << "Please enter one argument: the method that is going to be used." << std::endl;
+		return EXIT_FAILURE;
+	}
 
-    const std::string implementationType = argv[1];
-//    switch (implementationType) {
-//        case "Standard":
-//            break;
-//    }
-    SDPSolver a;
-    a.input();
-    auto ans = a.calc();
+	const int implementation_type = std::stoi(argv[1]);
+	std::unique_ptr<BaseSDPSolver> a;
+	switch (implementation_type)
+	{
+		case 1:
+		{
+			a = std::unique_ptr<SDPSolver>(new SDPSolver());
+			break;
+		}
+		default:
+		{
+			a = std::unique_ptr<SDPSolverDerivative>(new SDPSolverDerivative());
+			break;
+		}
+	}
+	a->input();
+	auto ans = a->calc();
 
-    cout << ans << endl;
-    return 0;
+	cout << ans << endl;
+	return 0;
 }

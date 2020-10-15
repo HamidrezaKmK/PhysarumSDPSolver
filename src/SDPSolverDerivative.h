@@ -1,9 +1,9 @@
-#ifndef SDP_SOLVER_
-#define SDP_SOLVER_
+#ifndef SDP_SOLVER_DERIVATIVE_
+#define SDP_SOLVER_DERIVATIVE_
 
 #include "BaseSDPSolver.h"
 
-class SDPSolver : public BaseSDPSolver
+class SDPSolverDerivative : public BaseSDPSolver
 {
 public:
 	void input() noexcept override;
