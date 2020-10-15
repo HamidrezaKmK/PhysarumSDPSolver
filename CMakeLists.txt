@@ -5,5 +5,11 @@ project(SDPSolver)
 
 #include_directories(.)
 
-add_executable(SDPSolver src/main.cpp src/SDPSolver.h src/SDPSolver_derivativeMethod.cpp)
+add_executable(SDPSolver src/main.cpp
+        src/BaseSDPSolver.h
+        src/main.cpp
+        src/SDPSolver.cpp
+        src/SDPSolver.h
+        src/SDPSolverDerivative.cpp
+        src/SDPSolverDerivative.h)
 #add_compile_options(--verbose)

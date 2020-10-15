@@ -29,7 +29,7 @@ protected:
 	size_t matrices_dimension;
 	size_t matrices_count;
 	MatrixList matrices_list;
-	MatrixX w;
+	MatrixX w, C;
 	VectorX b;
 };
 
