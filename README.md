@@ -1,6 +1,8 @@
 # SDPSolver
 
 ## How to compile and run
+### Pre-requisites
+
 ### Compilation
 First you should compile the given sources and create an executable file.
 This can be done using the script below:
