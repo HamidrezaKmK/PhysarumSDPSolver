@@ -78,6 +78,22 @@
 
 # CMake
 cmake-build-*/
+### CMake ###
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+
+### CMake Patch ###
+# External projects
+*-prefix/
 
 # Mongo Explorer plugin
 .idea/**/mongoSettings.xml
@@ -182,3 +198,4 @@ $RECYCLE.BIN/
 HAMIDREZA_*
 out/*
 bin/*
+build

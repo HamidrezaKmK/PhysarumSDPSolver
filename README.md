@@ -10,8 +10,12 @@ This can be done using the script below:
 g++ src/SDPSolver.cpp -O2 -c && g++ src/SDPSolverDerivative.cpp -O2 -c && g++ src/main.cpp SDPSolver.o SDPSolverDerivative.o -O2 -o main.exe
 ```
 you can also use the `CMake` that is given:
-
-????????????
+```bash
+mkdir build
+cd build
+cmake .. # Maybe you should choose the proper CMake generator.
+make
+```
 
 ### Testing the code
 
