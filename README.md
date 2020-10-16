@@ -30,6 +30,8 @@ make
 This creates an executable `SDPSolver.exe` file in the `bin` directory.
 
 * Note: Be sure to configure the cmake directory of `Eigen` in your system
+for this you **must use cmake** on the `CMakeList` provided on the [Eigen](https://eigen.tuxfamily.org/dox/GettingStarted.html)
+ website
 
 ### Testing the code
 
@@ -40,7 +42,7 @@ standard format; more explanations are available in `testData/FORMAT`.
 To run the code you should set up "three" arguments in the bash script below:
 
 1) `EXECUTABLE_FILE_LOCATION`: You shoud enter the executable file location 
-as the first argument. Since the executable file is located in `bin/SDPSolver.exe`
+as the first argument. Since the executable file is located in `build/SDPSolver.exe`
 you can simply set this value by default
 
 2) `IMPLEMENTATION_METHOD`: The Physarum solver has been implemented in multiple ways.
@@ -56,13 +58,13 @@ located in `testData` directory
 Run the bash script below after customizing the options above:
  
 ```bash
-tester/tester.sh EXECUTABLE_FILE_LOCATION IMPLEMENTATION_METHOD TEST_DATA_REGEX
+tester/tester.sh build/SDPSolver.exe IMPLEMENTATION_METHOD TEST_DATA_REGEX
 ```
 
-A sample is shown below (if the executable is located in src/main.exe)
+A sample is shown below (if the executable is located in `build/SDPSolver.exe`)
 
 ```bash
-tester/tester.sh src/main.exe Standard sample\d+.dat-s
+tester/tester.sh build/SDPSolver.exe Standard sample\d+.dat-s
 ```
 
 After running the script above the output files corresponding to each test

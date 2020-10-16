@@ -48,12 +48,12 @@ void SDPSolverDerivative::input() noexcept {
                 stringstream ss(line);
                 matrices_dimension = 0;
                 blocks_partial_sum[0] = 0;
-                for (int i = 0; i < block_count; i++) {
+                for (size_t i = 0; i < block_count; i++) {
                     ss >> blocks[i];
                     matrices_dimension += abs(blocks[i]);
                     blocks_partial_sum[i + 1] = blocks_partial_sum[i] + blocks[i];
                 }
-                for (int i = 0; i < matrices_count; i++) {
+                for (size_t i = 0; i < matrices_count; i++) {
                     matrices_list.emplace_back(matrices_dimension, matrices_dimension);
                     matrices_list.back().setZero(matrices_dimension, matrices_dimension);
                 }
