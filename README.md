@@ -27,6 +27,15 @@ cmake .. # Maybe you should choose the proper CMake generator.
 make
 ```
 
+If you are using windows and compilers such as `MinGW` you should be able to run the code below
+
+```
+mkdir build
+cd build
+cmake -G "MinGW Makefiles" ..
+mingw32-make
+```
+
 This creates an executable `SDPSolver.exe` file in the `bin` directory.
 
 * Note: Be sure to configure the cmake directory of `Eigen` in your system
