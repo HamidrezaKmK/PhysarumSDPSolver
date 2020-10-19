@@ -4,9 +4,10 @@
 # ${3} test file(s) in testSet as regex,   e.g. SDPA/testSet/sdplip/*.in => regex = "sdplip/*.in"
 cd ../
 mkdir -p out
-dir_list=(`ls "SDPA/testSet/${3}"`) ;
+dir_list=(`ls SDPA/testSet/${3}`) ;
 test_directory=(`echo "SDPA/testSet/${3}" | sed 's/[^/]*$//'`) ;
 output_directory="out/" ;
+
 
 for test_list in ${dir_list[*]};
 do
