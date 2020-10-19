@@ -15,7 +15,7 @@ public:
 	BaseSDPSolver() = default;
 	/*
 	 * The function gets the input using the
-	 * input stream using the standard format explained in "testData/FORMAT"
+	 * input stream using the standard format explained in "testSet/FORMAT"
 	 * after running this function the values of constraint matrices, W, and b
 	 * will be initialized
 	 */
