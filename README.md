@@ -36,7 +36,13 @@ cmake -G "MinGW Makefiles" ..
 mingw32-make
 ```
 
-This creates an executable `SDPSolver.exe` file in the `bin` directory.
+* Be sure to delete the `build` file before running again! there may be cached
+data from the previous cmake
+
+* You can make the process faster by options such as `make -j 8` or `mingw32-make -j 8`
+
+
+This creates an executable `SDPSolver.exe` file in the `build` directory.
 
 * Note: Be sure to configure the cmake directory of `Eigen` in your system
 for this you **must use cmake** on the `CMakeList` provided on the [Eigen](https://eigen.tuxfamily.org/dox/GettingStarted.html)
@@ -83,5 +89,24 @@ of the code with the given input.
 
 
 ### Test-data explanation
+
+The test data used in this project is in the standard [SDPA](http://plato.asu.edu/ftp/sdpa_format.txt) format and is located at
+`SDPA/testSet`
+many categories of sample input data can be seen there and you can also add your own sample in this directory.
+
+There is also a standard SDPA solver located in `SDPA` which is currently accessible by windows users
+in which a solver is located.
+
+By running `SolveTestSet.bat` file all the tests stored in `testSet` will be solved by the standard
+solver and their result will be stored next to the input as a `.res` file.
+e.g. let's say we have file `sample1.dat-s` then after running ‍`SolverTestSet.bat` 
+a file named `sample1.dat-s.res` will be created next to the file containing the result.
+
+
+The code below "only" works on windows:
+```
+cd SDPA/windows
+SolvetestSet.bat
+```
 
 
