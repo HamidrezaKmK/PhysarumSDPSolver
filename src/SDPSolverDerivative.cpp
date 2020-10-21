@@ -145,7 +145,10 @@ void SDPSolverDerivative::standardize_input() noexcept
 auto SDPSolverDerivative::calc() noexcept -> MatrixX {
     this->standardize_input();
 
-    MatrixX w_tilda = w;
+    MatrixX w_tilda = MatrixX(matrices_dimension, matrices_dimension);
+    for (size_t i = 0; i < matrices_dimension; ++i)
+        for (size_t j = 0; j < matrices_dimension; ++j)
+            w_tilda(i, j) = (i == j) * 100;
 
     Eigen::SelfAdjointEigenSolver<MatrixX> solver;
 
