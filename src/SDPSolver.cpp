@@ -2,6 +2,7 @@
 
 using namespace std;
 
+
 void SDPSolver::input() noexcept
 {
 	cin >> matrices_dimension >> matrices_count;

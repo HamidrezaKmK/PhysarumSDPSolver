@@ -1,7 +1,15 @@
 #include "SDPSolverDerivative.h"
+#include "CustomExceptions.h"
 
 using namespace std;
 
+const int ITERATION_LIMIT = 500;
+
+struct MyException : public exception {
+    const char * what () const throw () {
+        return "C++ Exception";
+    }
+};
 
 namespace InputStates {
     enum State {
@@ -131,11 +139,12 @@ void SDPSolverDerivative::standardize_input() noexcept
 {
     using namespace Eigen;
     cerr << "\n--- Standardizing input ----\n";
-    MatrixX C_ = this->calc_sqrt(C);
-    cerr << "Sqrt of C:\n" << C_ << "\n";
+    this->R_prime = this->calc_sqrt(C);
+    this->R_double_prime = this->R_prime;
+    cerr << "Sqrt of C:\n" << R_prime << "\n";
     cerr << "New values of A_i's:\n";
     for (int i = 0; i < (int) matrices_list.size(); i++) {
-        matrices_list[i] = C_.inverse() * matrices_list[i] * C_.inverse();
+        matrices_list[i] = R_prime.inverse() * matrices_list[i] * R_double_prime.inverse();
         cerr << "A_" << i+1 << '\n';
         cerr << matrices_list[i] << '\n';
     }
@@ -154,7 +163,11 @@ auto SDPSolverDerivative::calc() noexcept -> MatrixX {
 
     ElementType infeasibility = 1;
     ElementType gap = 1;
-    while (infeasibility > 1e-6 || gap > 1e-6) {
+
+    int iteration_counter = 0;
+    while (iteration_counter < ITERATION_LIMIT && (infeasibility > 1e-6 || gap > 1e-6)) {
+        iteration_counter++;
+
         infeasibility = 0;
         MatrixList a_hat(matrices_count);
         for (size_t i = 0; i < matrices_count; ++i) {
@@ -239,5 +252,26 @@ auto SDPSolverDerivative::calc() noexcept -> MatrixX {
                   << w_tilda << std::endl;
     }
 
+    cerr << "-------- THIS IS THE ANSWER!!!! ------\n";
+    cerr << "This is R_prime\n";
+    cerr << this->R_prime << '\n';
+    cerr << "This is the inverse\n";
+    cerr << this->R_prime.inverse() << '\n';
+    cerr << "Just for checking!\n";
+    cerr << this->R_prime * this->R_prime.inverse() << '\n';
+    cerr << "This is R_double_prime\n";
+    cerr << this->R_double_prime << '\n';
+    cerr << "This is the inverse\n";
+    cerr << this->R_double_prime.inverse() << '\n';
+    cerr << "Just for checking!\n";
+    cerr << this->R_double_prime * this->R_double_prime.inverse() << '\n';
+    cerr << "ANS:\n";
+    MatrixX standardized_ans = w_tilda * w_tilda;
+    MatrixX ans = (this->R_double_prime.inverse() * standardized_ans * this->R_prime.inverse());
+    cerr << ans << '\n';
+    for (int i = 0; i < (int) this->matrices_list.size(); i++) {
+        cerr << "tr(A_" << i+1 << "X) = " << (matrices_list[i] * standardized_ans).trace() << '\n';
+        cerr << "b" << i+1 << " = " << this->b[i] << '\n';
+    }
     return w_tilda;
 }

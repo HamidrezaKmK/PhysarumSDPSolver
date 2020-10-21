@@ -10,7 +10,7 @@ set(SOURCES
     src/main.cpp
     src/SDPSolver.cpp
     src/SDPSolverDerivative.cpp
-)
+        )
 
 add_executable(SDPSolver ${SOURCES})
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)

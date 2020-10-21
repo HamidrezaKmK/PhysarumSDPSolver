@@ -12,6 +12,7 @@ public:
 private:
 	MatrixX calc_sqrt(MatrixX A) noexcept;
 	void standardize_input() noexcept;
+	MatrixX R_prime, R_double_prime;
 };
 
 #endif
