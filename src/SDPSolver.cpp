@@ -25,6 +25,7 @@ void SDPSolver::input() noexcept
 			cin >> w(i, j);
 }
 
+
 auto SDPSolver::calc() noexcept -> MatrixX
 {
 	MatrixX w_tilda = w;

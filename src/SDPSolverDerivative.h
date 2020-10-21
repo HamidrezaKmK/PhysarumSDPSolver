@@ -8,6 +8,10 @@ class SDPSolverDerivative : public BaseSDPSolver
 public:
 	void input() noexcept override;
 	MatrixX calc() noexcept override;
+
+private:
+	MatrixX calc_sqrt(MatrixX A) noexcept;
+	void standardize_input() noexcept;
 };
 
 #endif

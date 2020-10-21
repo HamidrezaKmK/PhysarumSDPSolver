@@ -2,6 +2,7 @@
 
 using namespace std;
 
+
 namespace InputStates {
     enum State {
         M = 1,
@@ -95,11 +96,55 @@ void SDPSolverDerivative::input() noexcept {
         cerr << "Matrix No." << i+1 << ":\n";
         cerr << matrices_list[i] << endl;
     }
-    cerr << "---End of input---";
+    cerr << "---End of input---\n";
 
 }
 
+auto SDPSolverDerivative::calc_sqrt(MatrixX A) noexcept -> MatrixX
+{
+    using namespace Eigen;
+    cerr << "---Calculating the SQRT of:\n" << A << '\n';
+    SelfAdjointEigenSolver<MatrixX>solver;
+    solver.compute(A);
+    auto eigenvalues = solver.eigenvalues();
+    for (size_t i = 0; i < matrices_dimension; ++i)
+    {
+        auto &lambda = eigenvalues[i];
+        if (lambda < 0)
+            lambda = 0;
+        else
+            lambda = sqrt(lambda);
+    }
+    std::cerr << "Eigenvalues:" << std::endl
+              << eigenvalues << std::endl;
+    std::cerr << "Eigenvectors:" << std::endl
+              << solver.eigenvectors() << std::endl;
+    MatrixX ret = solver.eigenvectors() * eigenvalues.asDiagonal() * solver.eigenvectors().transpose();
+    cerr << "SQRT:\n" << ret << '\n';
+    cerr << "---End of sqrt calculation---\n";
+    return ret;
+}
+
+// Changes the SDP problem such that C becomes identity
+// *Supported for problems with positive definite C
+void SDPSolverDerivative::standardize_input() noexcept
+{
+    using namespace Eigen;
+    cerr << "\n--- Standardizing input ----\n";
+    MatrixX C_ = this->calc_sqrt(C);
+    cerr << "Sqrt of C:\n" << C_ << "\n";
+    cerr << "New values of A_i's:\n";
+    for (int i = 0; i < (int) matrices_list.size(); i++) {
+        matrices_list[i] = C_.inverse() * matrices_list[i] * C_.inverse();
+        cerr << "A_" << i+1 << '\n';
+        cerr << matrices_list[i] << '\n';
+    }
+    cerr << "--- End of Standardization ---\n";
+}
+
 auto SDPSolverDerivative::calc() noexcept -> MatrixX {
+    this->standardize_input();
+
     MatrixX w_tilda = w;
 
     Eigen::SelfAdjointEigenSolver<MatrixX> solver;
