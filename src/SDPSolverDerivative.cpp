@@ -105,7 +105,6 @@ void SDPSolverDerivative::input() noexcept {
         cerr << matrices_list[i] << endl;
     }
     cerr << "---End of input---\n";
-
 }
 
 auto SDPSolverDerivative::calc_sqrt(MatrixX A) noexcept -> MatrixX

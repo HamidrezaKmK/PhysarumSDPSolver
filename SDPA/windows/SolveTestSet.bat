@@ -1,6 +1,5 @@
 @echo off
 
-echo "goozo"
 set pp=%CD%
 cd ../testSet
 
