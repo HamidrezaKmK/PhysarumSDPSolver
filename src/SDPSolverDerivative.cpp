@@ -151,13 +151,23 @@ void SDPSolverDerivative::standardize_input() noexcept
     cerr << "--- End of Standardization ---\n";
 }
 
-auto SDPSolverDerivative::calc() noexcept -> MatrixX {
-    this->standardize_input();
-
-    MatrixX w_tilda = MatrixX(matrices_dimension, matrices_dimension);
+BaseSDPSolver::MatrixX init_w_tilda(size_t matrices_dimension) {
+    BaseSDPSolver::MatrixX w_tilda = BaseSDPSolver::MatrixX(matrices_dimension, matrices_dimension);
     for (size_t i = 0; i < matrices_dimension; ++i)
         for (size_t j = 0; j < matrices_dimension; ++j)
             w_tilda(i, j) = (i == j) * 100;
+    return w_tilda;
+}
+
+auto SDPSolverDerivative::calc() noexcept -> MatrixX {
+    this->standardize_input();
+
+    /*MatrixX w_tilda = MatrixX(matrices_dimension, matrices_dimension);
+    for (size_t i = 0; i < matrices_dimension; ++i)
+        for (size_t j = 0; j < matrices_dimension; ++j)
+            w_tilda(i, j) = (i == j) * 100;
+    */
+    MatrixX w_tilda = init_w_tilda(matrices_dimension);
 
     Eigen::SelfAdjointEigenSolver<MatrixX> solver;
 
@@ -167,7 +177,7 @@ auto SDPSolverDerivative::calc() noexcept -> MatrixX {
     int iteration_counter = 0;
     while (iteration_counter < ITERATION_LIMIT && (infeasibility > 1e-4 || gap > 1e-4)) {
         iteration_counter++;
-        std::cerr << "Iteration #" << iteration_counter << std::endl;
+        std::cerr << "---------- Iteration #" << iteration_counter << std::endl;
         infeasibility = 0;
         MatrixList a_hat(matrices_count);
         for (size_t i = 0; i < matrices_count; ++i) {
@@ -201,7 +211,7 @@ auto SDPSolverDerivative::calc() noexcept -> MatrixX {
         VectorX q = s_bar.eigenvalues().real();
         ElementType h = 0.5 / q.maxCoeff();
 
-        // bTy /= 1 - std::max(0.0, q.minCoeff());
+        //TODO bTy /= 1 - std::max(0.0, q.minCoeff()); {is it necessary?/ is it correct?}
 
         std::cerr << q << std::endl
                   << "H: " << h << std::endl;
