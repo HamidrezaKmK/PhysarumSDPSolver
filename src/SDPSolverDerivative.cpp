@@ -134,12 +134,12 @@ auto SDPSolverDerivative::calc_sqrt(MatrixX A) noexcept -> MatrixX
 }
 
 // Changes the SDP problem such that C becomes identity
-// *Supported for problems with positive definite C
+// *Supported for problems with Negative definite C
 void SDPSolverDerivative::standardize_input() noexcept
 {
     using namespace Eigen;
     cerr << "\n--- Standardizing input ----\n";
-    this->R_prime = this->calc_sqrt(C);
+    this->R_prime = this->calc_sqrt(-C);
     this->R_double_prime = this->R_prime;
     cerr << "Sqrt of C:\n" << R_prime << "\n";
     cerr << "New values of A_i's:\n";
