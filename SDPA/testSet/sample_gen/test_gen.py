@@ -24,7 +24,7 @@ def gen_random_positive_definite(n):
 
 def show_matrice(X, n, m_id):
     for i in range(n):
-        for j in range(n):
+        for j in range(i, n):
             print(m_id, 1, i + 1, j + 1, X[i][j])
 
 
@@ -51,6 +51,6 @@ A = []
 for i in range(m):
     A.append(gen_random_symmertic(n))
 
-C = gen_random_positive_definite(n)
+C = -gen_random_positive_definite(n)
 
 show_SDP_format(C, A, n, m)
