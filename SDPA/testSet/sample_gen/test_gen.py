@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def gen_random_symmertic(n):
     A = np.zeros((n, n))
     for i in range(n):
@@ -20,10 +21,11 @@ def gen_random_positive_definite(n):
 
     return np.dot(Q, np.dot(D, np.transpose(Q)))
 
+
 def show_matrice(X, n, m_id):
     for i in range(n):
         for j in range(n):
-            print(m_id, 1, i+1, j+1, X[i][j])
+            print(m_id, 1, i + 1, j + 1, X[i][j])
 
 
 def show_SDP_format(C, A, n, m):
@@ -32,20 +34,19 @@ def show_SDP_format(C, A, n, m):
     print('{', n, '}', sep='')
     for i in range(m):
         _end = ' '
-        if i == m-1:
+        if i == m - 1:
             _end = '\n'
         print(np.trace(A[i]), end=_end)
 
     show_matrice(C, n, 0)
     for i in range(m):
         show_matrice(A[i], n, i + 1)
-        
-    
+
 
 m = 2
 n = 3
 
-A=[]
+A = []
 
 for i in range(m):
     A.append(gen_random_symmertic(n))

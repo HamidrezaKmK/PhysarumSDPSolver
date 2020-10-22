@@ -165,9 +165,9 @@ auto SDPSolverDerivative::calc() noexcept -> MatrixX {
     ElementType gap = 1;
 
     int iteration_counter = 0;
-    while (iteration_counter < ITERATION_LIMIT && (infeasibility > 1e-6 || gap > 1e-6)) {
+    while (iteration_counter < ITERATION_LIMIT && (infeasibility > 1e-4 || gap > 1e-4)) {
         iteration_counter++;
-
+        std::cerr << "Iteration #" << iteration_counter << std::endl;
         infeasibility = 0;
         MatrixList a_hat(matrices_count);
         for (size_t i = 0; i < matrices_count; ++i) {
@@ -176,6 +176,8 @@ auto SDPSolverDerivative::calc() noexcept -> MatrixX {
             infeasibility += abs(residual);
             std::cerr << "b(" << i << ") - tr( A_" << i << " X) = " << residual << std::endl;
         }
+
+        std::cerr << "Infeasibility of current X: " << infeasibility << std::endl;
 
         MatrixX M(matrices_count, matrices_count);
         for (size_t k = 0; k < matrices_count; ++k)
@@ -198,7 +200,8 @@ auto SDPSolverDerivative::calc() noexcept -> MatrixX {
         std::cerr << "Eigenvalues..." << std::endl;
         VectorX q = s_bar.eigenvalues().real();
         ElementType h = 0.5 / q.maxCoeff();
-        bTy /= 1 - std::max(0.0, q.minCoeff());
+
+        // bTy /= 1 - std::max(0.0, q.minCoeff());
 
         std::cerr << q << std::endl
                   << "H: " << h << std::endl;
@@ -250,8 +253,13 @@ auto SDPSolverDerivative::calc() noexcept -> MatrixX {
 
         std::cerr << "new w_tilda" << std::endl
                   << w_tilda << std::endl;
-    }
 
+        MatrixX X = w_tilda * w_tilda;
+        gap = X.trace() - bTy;
+        std::cerr << "Gap between primal and dual solution: " << gap << std::endl;
+
+    }
+    cerr << "Answer has been found in " << iteration_counter << " iterations\n";
     cerr << "-------- THIS IS THE ANSWER!!!! ------\n";
     cerr << "This is R_prime\n";
     cerr << this->R_prime << '\n';
@@ -273,5 +281,7 @@ auto SDPSolverDerivative::calc() noexcept -> MatrixX {
         cerr << "tr(A_" << i+1 << "X) = " << (matrices_list[i] * standardized_ans).trace() << '\n';
         cerr << "b" << i+1 << " = " << this->b[i] << '\n';
     }
-    return w_tilda;
+    MatrixX temp2 = this->C * ans;
+    cerr << "Trace Of CtX: " << standardized_ans.trace() << " == " << temp2.trace() << '\n';
+    return ans;
 }
