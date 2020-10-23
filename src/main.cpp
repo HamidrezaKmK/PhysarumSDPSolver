@@ -3,8 +3,7 @@
 
 using namespace std;
 
-// the second argument suggest the implementation type
-
+/// The second argument suggests the implementation type
 int main(int argc, char *argv[])
 {
 	if (argc != 2)

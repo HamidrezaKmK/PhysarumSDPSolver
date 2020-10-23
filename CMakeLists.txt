@@ -8,9 +8,10 @@ include_directories(${PROJECT_SOURCE_DIR}/src)
 
 set(SOURCES
     src/main.cpp
+    src/BaseSDPSolver.cpp
     src/SDPSolver.cpp
     src/SDPSolverDerivative.cpp
-        )
+    )
 
 add_executable(SDPSolver ${SOURCES})
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)

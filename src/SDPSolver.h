@@ -6,8 +6,7 @@
 class SDPSolver : public BaseSDPSolver
 {
 public:
-	void input() noexcept override;
-	MatrixX calc() noexcept override;
+	MatrixX iterate() noexcept override;
 };
 
 #endif

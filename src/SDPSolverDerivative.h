@@ -5,14 +5,11 @@
 
 class SDPSolverDerivative : public BaseSDPSolver
 {
-public:
-	void input() noexcept override;
-	MatrixX calc() noexcept override;
+protected:
+	MatrixX iterate() noexcept override;
 
 private:
-	MatrixX calc_sqrt(MatrixX A) noexcept;
-	void standardize_input() noexcept;
-	MatrixX R_prime, R_double_prime;
+	MatrixX init_w_tilda(size_t matrices_dimension) noexcept;
 };
 
 #endif

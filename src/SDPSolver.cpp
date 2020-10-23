@@ -2,32 +2,7 @@
 
 using namespace std;
 
-
-void SDPSolver::input() noexcept
-{
-	cin >> matrices_dimension >> matrices_count;
-
-	for (size_t index = 0; index < matrices_count; ++index)
-	{
-		matrices_list.emplace_back(matrices_dimension, matrices_dimension);
-
-		for (size_t i = 0; i < matrices_dimension; ++i)
-			for (size_t j = 0; j < matrices_dimension; ++j)
-				cin >> matrices_list[index](i, j);
-	}
-
-	b = Eigen::VectorXd(matrices_count);
-	for (size_t i = 0; i < matrices_count; ++i)
-		cin >> b(i);
-
-	w = MatrixX(matrices_dimension, matrices_dimension);
-	for (size_t i = 0; i < matrices_dimension; ++i)
-		for (size_t j = 0; j < matrices_dimension; ++j)
-			cin >> w(i, j);
-}
-
-
-auto SDPSolver::calc() noexcept -> MatrixX
+auto SDPSolver::iterate() noexcept -> MatrixX
 {
 	MatrixX w_tilda = w;
 
