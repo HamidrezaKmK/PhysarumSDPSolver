@@ -21,18 +21,22 @@ public:
 	 */
 	void input() noexcept;
 	void input_simple() noexcept;
-	MatrixX calc() noexcept;
+	MatrixX calc();
 
 protected:
 	typedef std::vector<MatrixX> MatrixList;
 	typedef Eigen::Matrix<ElementType, Eigen::Dynamic, 1> VectorX;
 
 	virtual MatrixX iterate() noexcept = 0;
-	MatrixX calc_sqrt(MatrixX A) noexcept;
-	/** Changes the SDP problem such that C becomes identity
-	 * Supported for problems with Negative definite C
+	/** calculates the sqrt of matrix A and gives exception
+	 * when it is not positive definite
 	 */
-	void standardize_input() noexcept;
+	MatrixX calc_sqrt(MatrixX A);
+	/** Changes the SDP problem such that C becomes identity
+	 * Supported for problems with Positive/Negative definite C
+	 * Semi-definiteness is "not" handled!
+	 */
+	void standardize_input();
 	
 	/// Revert the changes made in standardize_input function.
 	MatrixX revert_to_c(MatrixX w_tilda) noexcept;
@@ -43,6 +47,7 @@ protected:
 	MatrixX w, C;
 	VectorX b;
 	MatrixX R_prime, R_double_prime;
+	bool is_C_pos_definite, is_C_neg_definite;
 };
 
 #endif

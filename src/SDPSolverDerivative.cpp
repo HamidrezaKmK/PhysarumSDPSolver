@@ -1,13 +1,7 @@
 #include "SDPSolverDerivative.h"
-#include "CustomExceptions.h"
+
 
 using namespace std;
-
-struct MyException : public exception {
-    const char * what () const throw () {
-        return "C++ Exception";
-    }
-};
 
 auto SDPSolverDerivative::init_w_tilda(size_t matrices_dimension) noexcept -> MatrixX
 {
@@ -20,7 +14,7 @@ auto SDPSolverDerivative::init_w_tilda(size_t matrices_dimension) noexcept -> Ma
 }
 
 auto SDPSolverDerivative::iterate() noexcept -> MatrixX {
-    constexpr int ITERATION_LIMIT = 500;
+    constexpr int ITERATION_LIMIT = 5000;
 
     MatrixX w_tilda = init_w_tilda(matrices_dimension);
 

@@ -120,14 +120,14 @@ void BaseSDPSolver::input_simple() noexcept
 	C = -MatrixX::Identity(matrices_dimension, matrices_dimension);
 }
 
-auto BaseSDPSolver::calc() noexcept -> MatrixX
+auto BaseSDPSolver::calc() -> MatrixX
 {
 	standardize_input();
 	
 	return revert_to_c(iterate());
 }
 
-auto BaseSDPSolver::calc_sqrt(MatrixX A) noexcept -> MatrixX
+auto BaseSDPSolver::calc_sqrt(MatrixX A) -> MatrixX
 {
     using namespace Eigen;
     std::cerr << "---Calculating the SQRT of:\n" << A << '\n';
@@ -137,8 +137,8 @@ auto BaseSDPSolver::calc_sqrt(MatrixX A) noexcept -> MatrixX
     for (size_t i = 0; i < matrices_dimension; ++i)
     {
         auto &lambda = eigenvalues[i];
-        if (lambda < 0)
-            lambda = 0;
+        if (lambda <= 0)
+            throw "Matrix does not have a unique square root!";
         else
             lambda = sqrt(lambda);
     }
@@ -152,14 +152,25 @@ auto BaseSDPSolver::calc_sqrt(MatrixX A) noexcept -> MatrixX
     return ret;
 }
 
-void BaseSDPSolver::standardize_input() noexcept
+void BaseSDPSolver::standardize_input()
 {
     using namespace Eigen;
     using namespace std;
 	cerr << "\n--- Standardizing input ----\n";
-    this->R_prime = this->calc_sqrt(-C);
-    this->R_double_prime = this->R_prime;
-    cerr << "Sqrt of C:\n" << R_prime << "\n";
+	this->is_C_pos_definite = false;
+	this->is_C_neg_definite = false;
+	try {
+	    this->R_prime = this->R_double_prime = this->calc_sqrt(-C);
+	    this->is_C_neg_definite = true;
+	} catch (const char * msg) {
+	    throw "C is not negative definite!";
+	    //TODO handling positive definite C's
+	}
+    cerr << "R_prime:\n" << R_prime << "\nR_double_prime:\n" << R_double_prime << "\n";
+	if (this->is_C_pos_definite)
+	    R_prime = -1 * R_prime;
+	cerr << "Is C negative definite = " << this->is_C_neg_definite << '\n';
+	cerr << "Is C positive definite = " << this->is_C_pos_definite << '\n';
     cerr << "New values of A_i's:\n";
     for (int i = 0; i < (int) matrices_list.size(); i++) {
         matrices_list[i] = R_prime.inverse() * matrices_list[i] * R_double_prime.inverse();
@@ -173,28 +184,18 @@ auto BaseSDPSolver::revert_to_c(MatrixX w_tilda) noexcept -> MatrixX
 {
 	using namespace std;
 	cerr << "-------- THIS IS THE ANSWER!!!! ------\n";
-    cerr << "This is R_prime\n";
-    cerr << this->R_prime << '\n';
-    cerr << "This is the inverse\n";
-    cerr << this->R_prime.inverse() << '\n';
-    cerr << "Just for checking!\n";
-    cerr << this->R_prime * this->R_prime.inverse() << '\n';
-    cerr << "This is R_double_prime\n";
-    cerr << this->R_double_prime << '\n';
-    cerr << "This is the inverse\n";
-    cerr << this->R_double_prime.inverse() << '\n';
-    cerr << "Just for checking!\n";
-    cerr << this->R_double_prime * this->R_double_prime.inverse() << '\n';
     cerr << "ANS:\n";
     MatrixX standardized_ans = w_tilda * w_tilda;
     MatrixX ans = (this->R_double_prime.inverse() * standardized_ans * this->R_prime.inverse());
+    if (this->is_C_pos_definite)
+        ans = -1 * ans;
     cerr << ans << '\n';
+    cerr << "Feasibility check:\n";
     for (size_t i = 0; i < this->matrices_list.size(); i++) {
         cerr << "tr(A_" << i+1 << "X) = " << (matrices_list[i] * standardized_ans).trace() << '\n';
         cerr << "b" << i+1 << " = " << this->b[i] << '\n';
     }
-    MatrixX temp2 = this->C * ans;
-    cerr << "Trace Of CtX: " << standardized_ans.trace() << " == " << temp2.trace() << '\n';
+    cerr << "Trace Of CtX: " << (ans * this->C).trace() << "\n";
 
     return ans;
 }
