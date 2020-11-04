@@ -5,7 +5,7 @@ def gen_random_symmertic(n):
     A = np.zeros((n, n))
     for i in range(n):
         for j in range(i + 1):
-            A[i][j] = A[j][i] = np.random.randint(20)
+            A[i][j] = A[j][i] = np.random.randint(-20, 20)
     return A
 
 
@@ -42,15 +42,39 @@ def show_SDP_format(C, A, n, m):
     for i in range(m):
         show_matrice(A[i], n, i + 1)
 
+##print("Choose range for m:")
+#from
+lm = int(input())
+#to
+rm = int(input())
+m = np.random.randint(low=lm, high=rm + 1)
 
-m = 2
-n = 3
+## Choose range for n:
+#from
+ln = int(input())
+#to
+rn = int(input())
+n = np.random.randint(low=ln, high=rn + 1)
 
 A = []
 
 for i in range(m):
     A.append(gen_random_symmertic(n))
 
-C = -gen_random_positive_definite(n)
+# """
+# Choose between options below for C:\n
+# [1] positive definite
+# [2] negative definite
+# [3] general form
+# """
+opt = int(input())
+if opt == 1:
+    C = gen_random_positive_definite(n)
+elif opt == 2:
+    C = -gen_random_positive_definite(n)
+elif opt == 3:
+    C = gen_random_symmertic(n)
+else:
+    C = np.zeros(n, n)
 
 show_SDP_format(C, A, n, m)

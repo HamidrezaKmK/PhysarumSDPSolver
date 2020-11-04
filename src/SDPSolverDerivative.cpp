@@ -3,8 +3,7 @@
 
 using namespace std;
 
-auto SDPSolverDerivative::init_w_tilda(size_t matrices_dimension) noexcept -> MatrixX
-{
+auto SDPSolverDerivative::init_w_tilda(size_t matrices_dimension) noexcept -> MatrixX {
     MatrixX w_tilda(matrices_dimension, matrices_dimension);
     for (size_t i = 0; i < matrices_dimension; ++i)
         for (size_t j = 0; j < matrices_dimension; ++j)
@@ -14,7 +13,7 @@ auto SDPSolverDerivative::init_w_tilda(size_t matrices_dimension) noexcept -> Ma
 }
 
 auto SDPSolverDerivative::iterate() noexcept -> SDPResult {
-    constexpr int ITERATION_LIMIT = 50;
+    constexpr int ITERATION_LIMIT = 100;
 
     MatrixX w_tilda = init_w_tilda(matrices_dimension);
     VectorX p_hat;
@@ -61,13 +60,14 @@ auto SDPSolverDerivative::iterate() noexcept -> SDPResult {
         VectorX q = s_bar.eigenvalues().real();
         ElementType h = 0.5 / q.maxCoeff();
 
-        //TODO bTy /= 1 - std::max(0.0, q.minCoeff()); {is it necessary?/ is it correct?}
+        bTy /= 1 - std::max(0.0, q.minCoeff()); //{is it necessary?/ is it correct?}
 
         std::cerr << q << std::endl << "H: " << h << std::endl;
 
         std::cerr << "Calculating X..." << std::endl;
-        std::cerr << "W_tilda:" << std::endl  << w_tilda << std::endl;
-        std::cerr << "I - hsbar:" << std::endl << (MatrixX::Identity(matrices_dimension, matrices_dimension) - h * s_bar) << std::endl;
+        std::cerr << "W_tilda:" << std::endl << w_tilda << std::endl;
+        std::cerr << "I - hsbar:" << std::endl
+                  << (MatrixX::Identity(matrices_dimension, matrices_dimension) - h * s_bar) << std::endl;
 
         //we want to compute I xor W-1 + W-1 xor I in Z
         MatrixX w_tilda_inverse = w_tilda.inverse();
@@ -100,15 +100,20 @@ auto SDPSolverDerivative::iterate() noexcept -> SDPResult {
         VectorX vec_w_dot = Z.llt().solve(-vec_s);
         std::cerr << "vec(w_dot)" << std::endl << vec_w_dot << std::endl;
 
+
         //w = w + h * w_dot
+        MatrixX w_sv = w_tilda;
         for (size_t i = 0; i < matrices_dimension; i++)
             for (size_t j = 0; j < matrices_dimension; j++)
                 w_tilda(i, j) += h * vec_w_dot(i + j * matrices_dimension);
 
         std::cerr << "new w_tilda" << std::endl << w_tilda << std::endl;
-
         MatrixX X = w_tilda * w_tilda;
         gap = X.trace() - bTy;
+        if (gap < 0) {
+            w_tilda = w_sv;
+            break;
+        }
         std::cerr << "Gap between primal and dual solution: " << gap << std::endl;
     }
     cerr << "Answer has been found in " << iteration_counter << " iterations\n";
