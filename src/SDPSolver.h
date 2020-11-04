@@ -2,11 +2,12 @@
 #define SDP_SOLVER_
 
 #include "BaseSDPSolver.h"
+#include "SDPResult.h"
 
 class SDPSolver : public BaseSDPSolver
 {
 public:
-	MatrixX iterate() noexcept override;
+	SDPResult iterate() noexcept override;
 };
 
 #endif

@@ -27,7 +27,10 @@ int main(int argc, char *argv[]) {
         a->input();
         auto ans = a->calc();
 
-        cout << ans << endl;
+        cout << "X:\n";
+        cout << ans.X << endl;
+        cout << "y:\n";
+        cout << ans.y << endl;
     } catch (const char * msg){
         cerr << msg << endl;
         return EXIT_FAILURE;

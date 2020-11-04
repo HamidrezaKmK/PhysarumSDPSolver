@@ -2,7 +2,7 @@
 
 using namespace std;
 
-auto SDPSolver::iterate() noexcept -> MatrixX
+auto SDPSolver::iterate() noexcept -> SDPResult
 {
 	MatrixX w_tilda = w;
 
@@ -87,5 +87,7 @@ auto SDPSolver::iterate() noexcept -> MatrixX
 				  << "_______________" << std::endl;
 	}
 
-	return w_tilda;
+	SDPResult res;
+	res.setW(w_tilda);
+	return res;
 }

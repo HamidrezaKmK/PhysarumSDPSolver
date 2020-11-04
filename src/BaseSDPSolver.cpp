@@ -120,12 +120,77 @@ void BaseSDPSolver::input_simple() noexcept
 	C = -MatrixX::Identity(matrices_dimension, matrices_dimension);
 }
 
-auto BaseSDPSolver::calc() -> MatrixX
+const double DELTA = 0.001;
+
+auto BaseSDPSolver::calc() -> SDPResult
 {
-	standardize_input();
-	
-	return revert_to_c(iterate());
+    this->C *= -1;
+    Eigen::SelfAdjointEigenSolver<MatrixX> solver;
+    solver.compute(this->C);
+    double min_lambda = solver.eigenvalues().minCoeff();
+    if (min_lambda < 0) {
+        MatrixX tmp_C = this->C - (1 + DELTA) * min_lambda * MatrixX::Identity(matrices_dimension, matrices_dimension);
+        std::cerr << "this is tmp_C\n" << tmp_C << std::endl;
+        solver.compute(tmp_C);
+        std::cerr << "This is tmp_C's eigenvalues:\n" << solver.eigenvalues() << std::endl;
+
+
+        // add the new constraint
+        VectorX sv_b = this->b;
+        matrices_list.push_back(MatrixX::Identity(matrices_dimension, matrices_dimension));
+        matrices_count++;
+        std::cerr << "These are A_i's BEFORE:\n";
+        this->b = VectorX::Zero(matrices_count);
+        this->b(matrices_count-1) = 1;
+        for (size_t i = 0; i < matrices_count; i++)
+            std::cerr << "A_" << i << "\n" << matrices_list[i] << std::endl;
+
+        SDPResult res = calc_pos_def(solver.eigenvectors(), solver.eigenvalues());
+        matrices_count--;
+        matrices_list.pop_back();
+        this->b = sv_b;
+
+        std::cerr << "These are A_i's AFTER:\n";
+        for (size_t i = 0; i < matrices_count; i++)
+            std::cerr << "A_" << i << "\n" << matrices_list[i] << "\n";
+        std::cerr << "DONE HEREEE!!!" << std::endl;
+        tmp_C = this->C;
+        for (size_t i = 0; i < matrices_count; i++)
+            tmp_C = tmp_C - matrices_list[i] * res.y(i);
+        solver.compute(tmp_C);
+    }
+    SDPResult res = calc_pos_def(solver.eigenvectors(), solver.eigenvalues());
+    res.y *= -1;
+    return res;
 }
+
+auto BaseSDPSolver::calc_pos_def(Eigen::SelfAdjointEigenSolver<MatrixX>::EigenvectorsType eigenvectors,
+                                 Eigen::SelfAdjointEigenSolver<MatrixX>::RealVectorType eigenvalues) -> SDPResult
+{
+    for (size_t i = 0; i < matrices_dimension; ++i)
+    {
+        auto &lambda = eigenvalues[i];
+        if (lambda <= 0)
+            throw "Matrix not positive definite in calc_pos_def!";
+        else
+            lambda = sqrt(lambda);
+    }
+    this->R_prime = this->R_double_prime
+            = eigenvectors * eigenvalues.asDiagonal() * eigenvectors.transpose();
+    for (size_t i = 0; i < matrices_count; i++) {
+        matrices_list[i] = R_prime.inverse() * matrices_list[i] * R_double_prime.inverse();
+    }
+
+    SDPResult res = iterate();
+
+    // revert changes:
+    res.setX(this->R_double_prime.inverse() * res.W * res.W * this->R_prime.inverse());
+    for (size_t i = 0; i < matrices_count; i++) {
+        matrices_list[i] = R_prime * matrices_list[i] * R_double_prime;
+    }
+    return res;
+}
+
 
 auto BaseSDPSolver::calc_sqrt(MatrixX A) -> MatrixX
 {
@@ -180,9 +245,10 @@ void BaseSDPSolver::standardize_input()
     cerr << "--- End of Standardization ---\n";
 }
 
-auto BaseSDPSolver::revert_to_c(MatrixX w_tilda) noexcept -> MatrixX
+auto BaseSDPSolver::revert_to_c(SDPResult res_in) noexcept -> SDPResult
 {
 	using namespace std;
+	MatrixX w_tilda = res_in.W;
 	cerr << "-------- THIS IS THE ANSWER!!!! ------\n";
     cerr << "ANS:\n";
     MatrixX standardized_ans = w_tilda * w_tilda;
@@ -197,5 +263,7 @@ auto BaseSDPSolver::revert_to_c(MatrixX w_tilda) noexcept -> MatrixX
     }
     cerr << "Trace Of CtX: " << (ans * this->C).trace() << "\n";
 
-    return ans;
+    SDPResult res_out;
+    res_out.setX(ans);
+    return res_out;
 }

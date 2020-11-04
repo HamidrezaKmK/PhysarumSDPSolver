@@ -5,12 +5,14 @@
 #include <memory>
 #include <Eigen/Dense>
 #include <unsupported/Eigen/MatrixFunctions>
+#include "SDPResult.h"
 
 class BaseSDPSolver
 {
 public:
 	typedef double ElementType;
 	typedef Eigen::Matrix<ElementType, Eigen::Dynamic, Eigen::Dynamic> MatrixX;
+	typedef Eigen::Matrix<ElementType, Eigen::Dynamic, 1> VectorX;
 
 	BaseSDPSolver() = default;
 
@@ -21,13 +23,18 @@ public:
 	 */
 	void input() noexcept;
 	void input_simple() noexcept;
-	MatrixX calc();
+	SDPResult calc();
 
 protected:
 	typedef std::vector<MatrixX> MatrixList;
-	typedef Eigen::Matrix<ElementType, Eigen::Dynamic, 1> VectorX;
-
-	virtual MatrixX iterate() noexcept = 0;
+	virtual SDPResult iterate() noexcept = 0;
+	/**
+	 * calculates the answer for a SDP problem with positive definite C
+	 * the input parameters are the normalized eigenvectors and eigenvalues
+	 * of C
+	 */
+	SDPResult calc_pos_def(Eigen::SelfAdjointEigenSolver<MatrixX>::EigenvectorsType eigenvectors,
+							Eigen::SelfAdjointEigenSolver<MatrixX>::RealVectorType eigenvalues);
 	/** calculates the sqrt of matrix A and gives exception
 	 * when it is not positive definite
 	 */
@@ -37,9 +44,8 @@ protected:
 	 * Semi-definiteness is "not" handled!
 	 */
 	void standardize_input();
-	
 	/// Revert the changes made in standardize_input function.
-	MatrixX revert_to_c(MatrixX w_tilda) noexcept;
+	SDPResult revert_to_c(SDPResult res) noexcept;
 
 	size_t matrices_dimension;
 	size_t matrices_count;
