@@ -1,4 +1,4 @@
-SDPA start at [Wed Nov 04 15:48:15 2020]
+SDPA start at [Wed Nov 11 18:14:17 2020]
 param  is ./param.sdpa 
 data   is G:\Research\SDP\SDPSolver\SDPA\testSet\generated\DenseGeneralized_SMALL\sample_7.dat-s  : sparse
 out    is G:\Research\SDP\SDPSolver\SDPA\testSet\generated\DenseGeneralized_SMALL\sample_7.dat-s.res
@@ -30,7 +30,7 @@ objValPrimal = -1.0427661262165593e+001
 objValDual   = -1.0427661387627928e+001
 p.feas.error = +1.1546319456101628e-014
 d.feas.error = +7.6809669735666830e-012
-total time   = 0.007869
+total time   = 0.008577
 ** Paramters **
 maxIteration = 100
 epsilonStar  = +9.9999999999999995e-008
@@ -48,40 +48,40 @@ YPrint       = %+8.3e
 infPrint     = %+10.16e 
 
                          Time(sec)  Ratio(% : MainLoop) 
- Predictor time  =       0.003887,  52.719382
- Corrector time  =       0.000992,  13.454496
- Make bMat time  =       0.001985,  26.922555
+ Predictor time  =       0.002482,  30.733036
+ Corrector time  =       0.003171,  39.264487
+ Make bMat time  =       0.001488,  18.424963
  Make bDia time  =       0.000000,  0.000000
  Make bF1  time  =       0.000000,  0.000000
  Make bF2  time  =       0.000000,  0.000000
  Make bF3  time  =       0.000000,  0.000000
  Make bPRE time  =       0.000000,  0.000000
- Make rMat time  =       0.001902,  25.796826
- Make gVec Mul   =       0.000000,  0.000000
- Make gVec time  =       0.000000,  0.000000
+ Make rMat time  =       0.002197,  27.204061
+ Make gVec Mul   =       0.000497,  6.154037
+ Make gVec time  =       0.000497,  6.154037
  Cholesky bMat   =       0.000000,  0.000000
  Ste Pre time    =       0.000000,  0.000000
  Ste Cor time    =       0.000000,  0.000000
  solve           =       0.000000,  0.000000
- sumDz           =       0.000497,  6.740811
+ sumDz           =       0.000496,  6.141654
  makedX          =       0.000000,  0.000000
- symmetriseDx    =       0.000495,  6.713685
- makedXdZ        =       0.000992,  13.454496
- xMatTime        =       0.000508,  6.890004
- zMatTime        =       0.001986,  26.936118
+ symmetriseDx    =       0.000975,  12.072808
+ makedXdZ        =       0.001471,  18.214463
+ xMatTime        =       0.000499,  6.178801
+ zMatTime        =       0.001121,  13.880634
  invzMatTime     =       0.000000,  0.000000
  xMatzMatTime    =       0.000000,  0.000000
  EigxMatTime     =       0.000000,  0.000000
  EigzMatTime     =       0.000000,  0.000000
  EigxMatzMatTime =       0.000000,  0.000000
- updateRes       =       0.000000,  0.000000
+ updateRes       =       0.000803,  9.943041
  EigTime         =       0.000000,  0.000000
- sub_total_bMat  =       0.005388,  73.077445
- Main Loop       =       0.007373,  100.000000
+ sub_total_bMat  =       0.006588,  81.575037
+ Main Loop       =       0.008076,  100.000000
  File Check      =       0.000000,  0.000000
  File Change     =       0.000000,  0.000000
- File Read       =       0.000496,  6.727248
- Total           =       0.007869,  106.727248
+ File Read       =       0.000501,  6.203566
+ Total           =       0.008577,  106.203566
 
 xVec = 
 {+7.926e-001,+9.061e-001}
@@ -97,10 +97,10 @@ yMat =
   {-2.752e-001,+3.506e-001,-4.422e-001 },
   {+3.470e-001,-4.422e-001,+5.576e-001 }   }
 }
-    main loop time = 0.007373
-        total time = 0.007869
+    main loop time = 0.008076
+        total time = 0.008577
   file  check time = 0.000000
   file change time = 0.000000
-  file   read time = 0.000496
-SDPA end at [Wed Nov 04 15:48:15 2020]
-ALL TIME = 0.009852
+  file   read time = 0.000501
+SDPA end at [Wed Nov 11 18:14:17 2020]
+ALL TIME = 0.010059
