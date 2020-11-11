@@ -13,7 +13,8 @@ auto SDPSolverDerivative::init_w_tilda(size_t matrices_dimension) noexcept -> Ma
 }
 
 auto SDPSolverDerivative::iterate() noexcept -> SDPResult {
-    constexpr int ITERATION_LIMIT = 100;
+
+    constexpr int ITERATION_LIMIT = 1000;
 
     MatrixX w_tilda = init_w_tilda(matrices_dimension);
     VectorX p_hat;
@@ -46,14 +47,12 @@ auto SDPSolverDerivative::iterate() noexcept -> SDPResult {
             }
 
         std::cerr << "Solving..." << std::endl;
-        p_hat = M.llt().solve(b);
 
-        cerr << "Matrice M:\n";
-        cerr << M << '\n';
-        cerr << "Vector b:\n";
-        cerr << b << '\n';
-        cerr << "p_hat equals: Mp = b\n";
-        cerr << p_hat << '\n';
+
+        p_hat = M.llt().solve(b);
+        std::cerr << "This is M:\n";
+        std::cerr << M << std::endl;
+        std::cerr << "M * p_hat = \n" << M * p_hat << "\n b = \n" << b << std::endl;
 
         MatrixX s_bar = MatrixX::Identity(matrices_dimension, matrices_dimension);
         ElementType bTy = 0;
@@ -66,6 +65,7 @@ auto SDPSolverDerivative::iterate() noexcept -> SDPResult {
         std::cerr << "Eigenvalues..." << std::endl;
         VectorX q = s_bar.eigenvalues().real();
         ElementType h = 0.5 / q.maxCoeff();
+
         //bTy /= 1 - std::max(0.0, q.minCoeff()); //{is it necessary?/ is it correct?}
 
         std::cerr << q << std::endl << "H: " << h << std::endl;
@@ -117,7 +117,8 @@ auto SDPSolverDerivative::iterate() noexcept -> SDPResult {
         MatrixX X = w_tilda * w_tilda;
         gap = X.trace() - bTy;
         if (gap < 0) {
-            cerr << "[Negative Gap due to infeasibility]";
+            std::cerr << "[ERROR] Gap less than zero: " << gap << std::endl;
+            //w_tilda = w_sv;
             //break;
         }
         std::cerr << "Gap between primal and dual solution: " << gap << std::endl;
@@ -128,6 +129,7 @@ auto SDPSolverDerivative::iterate() noexcept -> SDPResult {
     res.setW(w_tilda);
     res.sety(p_hat);
     res.setIterationCount(iteration_counter);
+    res.setGap(gap);
 
     return res;
 }

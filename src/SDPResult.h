@@ -17,11 +17,13 @@ public:
     MatrixX X, W;
     VectorX y;
     int iteration_count;
+    double gap;
 
     SDPResult();
     SDPResult setX(MatrixX X);
     SDPResult sety(VectorX y);
     SDPResult setW(MatrixX W);
+    SDPResult setGap(double gap);
     SDPResult setIterationCount(const int &count);
 };
 

@@ -31,6 +31,9 @@ int main(int argc, char *argv[]) {
         cout << ans.X << endl;
         cout << "y:\n";
         cout << ans.y << endl;
+        cout << "gap:\n";
+        cout << ans.gap << endl;
+
     } catch (const char * msg){
         cerr << msg << endl;
         return EXIT_FAILURE;
