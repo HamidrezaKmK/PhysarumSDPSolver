@@ -6,8 +6,11 @@
 
 class SDPSolver : public BaseSDPSolver
 {
+private:
+	MatrixX init_w_tilda(size_t matrices_dimension) noexcept;
 public:
 	SDPResult iterate() noexcept override;
+
 };
 
 #endif

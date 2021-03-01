@@ -10,6 +10,11 @@ SDPResult SDPResult::setX(MatrixX X){
     return *this;
 }
 
+SDPResult SDPResult::setGap(double gap) {
+    this->gap = gap;
+    return *this;
+}
+
 SDPResult SDPResult::sety(VectorX y){
     this->y = y;
     return *this;
