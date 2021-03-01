@@ -27,7 +27,7 @@ auto SDPSolverDerivative::iterate() noexcept -> SDPResult {
     int iteration_counter = 0;
     while (iteration_counter < ITERATION_LIMIT && (infeasibility > 1e-4 || gap > 1e-4)) {
         iteration_counter++;
-        std::cerr << "---------- Iteration #" << iteration_counter << std::endl;
+        foutIterationSummary << "---------- Iteration #" << iteration_counter << std::endl;
         infeasibility = 0;
         MatrixList a_hat(matrices_count);
         for (size_t i = 0; i < matrices_count; ++i) {
@@ -37,7 +37,7 @@ auto SDPSolverDerivative::iterate() noexcept -> SDPResult {
             std::cerr << "b(" << i << ") - tr( A_" << i << " X) = " << residual << std::endl;
         }
 
-        std::cerr << "Infeasibility of current X: " << infeasibility << std::endl;
+        foutIterationSummary << "Infeasibility of current X: " << infeasibility << std::endl;
 
         MatrixX M(matrices_count, matrices_count);
         for (size_t k = 0; k < matrices_count; ++k)
@@ -66,7 +66,7 @@ auto SDPSolverDerivative::iterate() noexcept -> SDPResult {
         VectorX q = s_bar.eigenvalues().real();
         ElementType h = 0.5 / q.maxCoeff();
 
-        //bTy /= 1 - std::max(0.0, q.minCoeff()); //{is it necessary?/ is it correct?}
+        bTy /= 1 - std::min(0.0, q.minCoeff()); //{is it necessary?/ is it correct?}
 
         std::cerr << q << std::endl << "H: " << h << std::endl;
 
@@ -121,9 +121,9 @@ auto SDPSolverDerivative::iterate() noexcept -> SDPResult {
             //w_tilda = w_sv;
             //break;
         }
-        std::cerr << "Gap between primal and dual solution: " << gap << std::endl;
+        foutIterationSummary << "Gap between primal and dual solution: " << gap << std::endl;
     }
-    cerr << "Answer has been found in " << iteration_counter << " iterations\n";
+    foutIterationSummary << "Answer has been found in " << iteration_counter << " iterations\n";
 
     SDPResult res;
     res.setW(w_tilda);

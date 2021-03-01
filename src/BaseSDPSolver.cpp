@@ -9,7 +9,9 @@ void BaseSDPSolver::input() noexcept {
         C = 4,
         MATRICES = 5
     };
-    cerr << "---Entering Standard input---";
+    std::cerr << "CHIIIIIIZ: " << inputSummaryFileAddress << std::endl;
+
+    foutInputSummary << "---Entering Standard input---\n";
     size_t block_count;
     vector<int> blocks, blocks_partial_sum;
 
@@ -20,15 +22,15 @@ void BaseSDPSolver::input() noexcept {
     while (getline(cin, line)) {
         if (line[0] == '"' || line[0] == '*')
             continue;
-        cerr << "Input line not comment: " << line << endl;
         switch (state) {
+            // Get the number of matrices:
             case InputStates::M: {
                 stringstream ss(line);
                 ss >> matrices_count;
-                cerr << "The number of matrices in input: " << matrices_count << endl;
                 state = InputStates::N_BLOCK;
                 break;
             }
+            // Initialize block structure:
             case InputStates::N_BLOCK: {
                 stringstream ss(line);
                 ss >> block_count;
@@ -37,6 +39,7 @@ void BaseSDPSolver::input() noexcept {
                 state = InputStates::BLOCK_DESC;
                 break;
             }
+
             case InputStates::BLOCK_DESC: {
                 for (int i = 0; i < (int) line.size(); i++)
                     if (line[i] == ',' || line[i] == '(' || line[i] == ')' || line[i] == '{' || line[i] == '}')
@@ -53,7 +56,7 @@ void BaseSDPSolver::input() noexcept {
                     matrices_list.emplace_back(matrices_dimension, matrices_dimension);
                     matrices_list.back().setZero(matrices_dimension, matrices_dimension);
                 }
-                cerr << "Matrix dimensions are = " << matrices_dimension << endl;
+                foutInputSummary << "Matrix dimensions are = " << matrices_dimension << endl;
                 C = MatrixX(matrices_dimension, matrices_dimension);
                 C.setZero(matrices_dimension, matrices_dimension);
                 state = InputStates::C;
@@ -64,8 +67,8 @@ void BaseSDPSolver::input() noexcept {
                 b = Eigen::VectorXd(matrices_count);
                 for (size_t i = 0; i < matrices_count; i++)
                     ss >> b(i);
-                cerr << "Vector \"b\":\n";
-                cerr << b << endl;
+                foutInputSummary << "Vector \"b\":\n";
+                foutInputSummary << b << endl;
                 state = InputStates::MATRICES;
                 break;
             }
@@ -85,13 +88,13 @@ void BaseSDPSolver::input() noexcept {
             }
         }
     }
-    cerr << "Matrix \"C\":\n";
-    cerr << C << endl;
+    foutInputSummary << "Matrix \"C\":\n";
+    foutInputSummary << C << endl;
     for (int i = 0; i < (int) matrices_list.size(); i++) {
-        cerr << "Matrix No." << i+1 << ":\n";
-        cerr << matrices_list[i] << endl;
+        foutInputSummary << "Matrix No." << i+1 << ":\n";
+        foutInputSummary << matrices_list[i] << endl;
     }
-    cerr << "---End of input---\n";
+    foutInputSummary << "---End of input---\n";
 
 }
 
@@ -103,40 +106,48 @@ auto BaseSDPSolver::calc() -> SDPResult
     solver.compute(this->C);
     double min_lambda = solver.eigenvalues().minCoeff();
     if (min_lambda < 0) {
+        foutIterationSummary << "Negative eigenvalue detected for matrix C!" << std::endl;
         DELTA = 1;
         MatrixX tmp_C = this->C - (1 + DELTA) * min_lambda * MatrixX::Identity(matrices_dimension, matrices_dimension);
-        std::cerr << "this is tmp_C\n" << tmp_C << std::endl;
+        foutIterationSummary << "Optimization for \"C\" equal to:\n" << tmp_C << std::endl;
         solver.compute(tmp_C);
-        std::cerr << "This is tmp_C's eigenvalues:\n" << solver.eigenvalues() << std::endl;
-
+        foutIterationSummary << "With eigenvalues:\n" << solver.eigenvalues() << std::endl;
 
         // add the new constraint
         VectorX sv_b = this->b;
         matrices_list.push_back(MatrixX::Identity(matrices_dimension, matrices_dimension));
         matrices_count++;
-        std::cerr << "These are A_i's BEFORE:\n";
+        foutIterationSummary << "The \"A_i\"s and \"b\" should change!\nThese are A_i's before changing:" << std::endl;
         this->b = VectorX::Zero(matrices_count);
         this->b(matrices_count-1) = 1;
         for (size_t i = 0; i < matrices_count; i++)
-            std::cerr << "A_" << i << "\n" << matrices_list[i] << std::endl;
-        std::cerr << "This is b:\n" << this->b << std::endl;
+            foutIterationSummary << "A_" << i << "\n" << matrices_list[i] << std::endl;
+        std::cerr << "b:\n" << this->b << std::endl;
+
+        foutIterationSummary << "========== Start optimization problem ===========" << std::endl;
 
         SDPResult res = calc_pos_def(solver.eigenvectors(), solver.eigenvalues());
         matrices_count--;
         matrices_list.pop_back();
         this->b = sv_b;
+        foutIterationSummary << "========== End optimization problem ===========\n";
 
-        std::cerr << "These are A_i's AFTER:\n";
+        foutIterationSummary << "These are A_i's after the optimization:" << std::endl;
         for (size_t i = 0; i < matrices_count; i++)
-            std::cerr << "A_" << i << "\n" << matrices_list[i] << "\n";
-        std::cerr << "DONE HEREEE!!!" << std::endl;
+            foutIterationSummary << "A_" << i << "\n" << matrices_list[i] << std::endl;
         tmp_C = this->C;
         for (size_t i = 0; i < matrices_count; i++)
             tmp_C = tmp_C - matrices_list[i] * res.y(i);
+        foutIterationSummary << "calculating C - A1*y1 - A2*y2 - ..." << std::endl;
+        foutIterationSummary << "this is the C:" << std::endl << tmp_C << std::endl;
         solver.compute(tmp_C);
+    } else {
+        foutIterationSummary << "this is the C:" << std::endl << this->C << std::endl;
     }
-    std::cerr << solver.eigenvalues() << std::endl;
+    foutIterationSummary << "eigenvalues: " << solver.eigenvalues() << std::endl;
+    foutIterationSummary << "========== Start optimization problem ===========" << std::endl;
     SDPResult res = calc_pos_def(solver.eigenvectors(), solver.eigenvalues());
+    foutIterationSummary << "========== End optimization problem ===========" << std::endl;
     res.y *= -1;
     return res;
 }
@@ -166,5 +177,23 @@ auto BaseSDPSolver::calc_pos_def(Eigen::SelfAdjointEigenSolver<MatrixX>::Eigenve
         matrices_list[i] = R_prime * matrices_list[i] * R_double_prime;
     }
     return res;
+}
+
+const std::string &BaseSDPSolver::getInputSummaryFileAddress() const {
+    return inputSummaryFileAddress;
+}
+
+void BaseSDPSolver::setInputSummaryFileStream(const std::string &inputSummaryFileAddress) {
+    BaseSDPSolver::inputSummaryFileAddress = inputSummaryFileAddress;
+    foutInputSummary = std::ofstream(inputSummaryFileAddress);
+}
+
+const std::string &BaseSDPSolver::getIterationSummaryFileAddress() const {
+    return iterationSummaryFileAddress;
+}
+
+void BaseSDPSolver::setIterationSummaryFileStream(const std::string &iterationSummaryFileAddress) {
+    BaseSDPSolver::iterationSummaryFileAddress = iterationSummaryFileAddress;
+    foutIterationSummary = std::ofstream(iterationSummaryFileAddress);
 }
 

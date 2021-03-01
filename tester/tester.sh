@@ -13,7 +13,7 @@ for test_list in ${dir_list[*]};
 do
 test_name=(`echo "$test_list" | awk -F "/" '{print $NF}'`) ;
 echo "Running $test_directory$test_name with implementation=${2} ..."
-"${1}" "${2}" < "$test_directory$test_name" > "$output_directory$test_name.out" 2> "$output_directory$test_name.err"
+"${1}" "${2}" "$output_directory$test_name-input-summary.txt" "$output_directory$test_name-iteration-summary.txt" < "$test_directory$test_name" > "$output_directory$test_name.out" 2> "$output_directory$test_name.err"
 
 if [ $? -eq 0 ]; then
     echo

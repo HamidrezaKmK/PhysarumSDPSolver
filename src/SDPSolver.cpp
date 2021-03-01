@@ -66,7 +66,7 @@ auto SDPSolver::iterate() noexcept -> SDPResult
 		std::cerr << "Eigenvalues..." << std::endl;
 		VectorX q = s_bar.eigenvalues().real();
 		ElementType h = 0.5 / q.maxCoeff();
-		bTy /= 1 - std::max(0.0, q.minCoeff());
+		bTy /= 1 - std::min(0.0, q.minCoeff());
 
 		std::cerr << q << std::endl
 				  << "H: " << h << std::endl;

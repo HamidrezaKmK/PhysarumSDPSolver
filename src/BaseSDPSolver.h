@@ -22,11 +22,26 @@ public:
 	 * will be initialized
 	 */
 	void input() noexcept;
-	void input_simple() noexcept;
 	SDPResult calc();
 
 protected:
-	typedef std::vector<MatrixX> MatrixList;
+    std::string inputSummaryFileAddress;
+    std::string iterationSummaryFileAddress;
+    std::ofstream foutInputSummary;
+    std::ofstream foutIterationSummary;
+
+public:
+    const std::string &getInputSummaryFileAddress() const;
+
+    void setInputSummaryFileStream(const std::string &inputSummaryFileAddress);
+
+    const std::string &getIterationSummaryFileAddress() const;
+
+    void setIterationSummaryFileStream(const std::string &iterationSummaryFileAddress);
+
+protected:
+
+    typedef std::vector<MatrixX> MatrixList;
 	virtual SDPResult iterate() noexcept = 0;
 	/**
 	 * calculates the answer for a SDP problem with positive definite C
