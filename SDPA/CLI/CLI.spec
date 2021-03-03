@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['CLI.py'],
-             pathex=['C:\\Users\\Keivan\\Desktop\\Andres\\VertexCover\\SDPA'],
+             pathex=['G:\\Research\\SDP\\SDPSolver\\SDPA'],
              binaries=[],
              datas=[],
              hiddenimports=[],

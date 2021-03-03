@@ -6,7 +6,12 @@ using namespace std;
 /// The second argument suggests the implementation type
 int main(int argc, char *argv[]) {
     if (argc != 4 && argc != 2) {
-        std::cout << "The arguments for main function are not correct!\n1) For complete solver enter:\n\t[implementation method]\n\t[input summary file address]\n\t[iteration summary file address]" << std::endl;
+        std::cout << "The arguments for main function are not correct! found: " << argc << "arguments!\n";
+        std::cout << "The arguments are:\n----\n";
+        for (int i = 0; i < argc; i++)
+            cout << argv[i] << ' ';
+        cout << "\n----" << endl;
+        std::cout << "1) For complete solver enter:\n\t[implementation method]\n\t[input summary file address]\n\t[iteration summary file address]" << std::endl;
         std::cout << "2) For only evaluating the input enter:\n\t[input summary file address]\n";
         return EXIT_FAILURE;
     }

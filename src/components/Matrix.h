@@ -9,6 +9,16 @@
 
 namespace SDPComponents {
     class Matrix {
+// TODO: method to return list of eigenvalues
+// TODO: method to return minimum eigenvalue
+// TODO: static method for identity
+// TODO: static method for zero matrix
+// TODO: method to return eigenvectors as a matrix
+// TODO: method to calculate inverse
+// TODO: method to transpose matrix
+// TODO: method for multiplication
+
+
     private:
         enum class Type {
             BLOCK_SPARSE,

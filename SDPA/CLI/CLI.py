@@ -3,6 +3,7 @@ import shutil
 import sys
 
 from test_generator import generate_tests
+from tester import test
 import subprocess
 
 
@@ -50,6 +51,9 @@ class CLI:
         os.chdir(sv_dir)
 
     def main(self):
+        # TODO: support for linux
+        subprocess.call("color 0F", shell=True)
+
         CLI.fancy_print('Choose one of these options:',
                         'Selected Operating System: [' + self.user_os + ']',
                         'Linux is not supported yet!',
@@ -204,13 +208,29 @@ class CLI:
                         '[2] Derivative method')
         imp_type = input()
         test_folder = CLI.select_dirs(self.root_dir + "/SDPA/testSet", "Select one of the test directories below:")
-        CLI.list_dirs(self.root_dir + "/SDPA/testSet" + test_folder, "Enter test name you wish to run (Regex is also supported e.g. *.dat-s");
-        tests_loc = input()
+        CLI.list_dirs(self.root_dir + "/SDPA/testSet/" + test_folder, "Enter test name you wish to run (Regex is also supported e.g. \"*.dat-s\")");
+        tests_reg = input()
         try:
-            bash_command = 'tester.sh ' + exe_loc + ' ' + imp_type + ' ' + tests_loc
-            subprocess.call(bash_command, shell=True)
+            try:
+                os.mkdir(self.root_dir + "/out")
+            except:
+                pass
+            sv_dir = os.getcwd()
+            os.chdir(self.root_dir)
+            os.chdir('build')
+            executable_path = os.getcwd()
+            os.chdir(self.root_dir + '/SDPA/testSet')
+            os.chdir(test_folder)
+            tests_dir = os.getcwd()
+            os.chdir(self.root_dir + "/out")
+            output_path = os.getcwd()
+            os.chdir(sv_dir)
+            test(executable_path=executable_path, tests_dir=tests_dir,
+                 output_path=output_path, test_reg=tests_reg, implementation_type=imp_type)
+            #bash_command = self.root_dir + '/tester/' + 'tester.sh ' + exe_loc + ' ' + imp_type + ' ' + tests_loc
+            #subprocess.call(bash_command, shell=True)
         except:
-            print('problem in running tester.sh')
+            print('problem in running tester')
 
         self.back_to_main()
         return
