@@ -1,4 +1,5 @@
 import os
+import shutil
 
 from test_generator import generate_tests
 import subprocess
@@ -17,31 +18,80 @@ class CLI:
             print(border * 2 + " " + s + " " * (maxi - len(s) + 1) + border * 2)
         print(border * (maxi + 6))
 
+    def __init__(self):
+        self.root_dir = ''
+
     def init(self):
         CLI.fancy_print('SDP CLI')
+        self.find_root_dir()
         self.main()
+
+    def find_root_dir(self):
+        sv_dir = os.getcwd()
+        while not os.path.exists(os.getcwd() + '/.root_indicator'):
+            os.chdir('..')
+        self.root_dir = os.getcwd()
+        os.chdir(sv_dir)
 
     def main(self):
         CLI.fancy_print('Choose one of these options:',
-                        '[1] Add test',
-                        '[2] View test',
-                        '[3] Run tests',
-                        '[4] Exit')
+                        '[1] Build source code (Developer option)',
+                        '[2] Add test',
+                        '[3] View test',
+                        '[4] Run tests',
+                        '[5] Exit')
 
         query = int(input())
+
         if query == 1:
-            self.add_tests()
+            self.build_code()
             self.main()
         elif query == 2:
-            self.view_test()
+            self.add_tests()
             self.main()
         elif query == 3:
-            self.run_tests()
+            self.view_test()
             self.main()
         elif query == 4:
+            self.run_tests()
+            self.main()
+        elif query == 5:
             return
         else:
             self.main()
+
+    def build_code(self):
+        CLI.fancy_print(
+            'Please make sure that you have \"Cmake\" installed on your system',
+            'Building options:',
+            '[1] MinGW (for windows users)',
+            '[2] MinGW with optimizations (for windows users)',
+            '[3] Go back'
+        )
+
+        query = int(input())
+
+        if 1 <= query <= 2:
+            try:
+                try:
+                    shutil.rmtree(self.root_dir + '/build')
+                except:
+                    print('Creating build directory...')
+                os.mkdir(self.root_dir + '/build')
+                sv_dir = os.getcwd()
+                os.chdir(self.root_dir + '/build')
+                subprocess.call('cmake -G \"MinGW Makefiles\" ..', shell=True)
+                make_command = 'mingw32-make'
+                if query == 2:
+                    make_command += ' -j 8'
+                subprocess.call(make_command, shell=True)
+                os.chdir(sv_dir)
+                print('Build successfull\n\tExecutable created at build/SDPSolver.exe')
+            except:
+                print('[ERROR] build unsuccessful!')
+                print('\tMake sure that \"mingw32-make\" is installed correctly on your computer')
+        elif query == 3:
+            return
 
     def back_to_main(self):
         print("----------\nEnter anything to go back!")
