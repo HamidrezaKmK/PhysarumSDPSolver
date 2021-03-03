@@ -203,3 +203,4 @@ build
 # exe files which are needed
 !SDPA/windows/sdpa.exe
 !SDPA/testSet/generated/dist/*.exe
+!run.exe

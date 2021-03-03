@@ -3,9 +3,9 @@ import shutil
 import sys
 
 from test_generator import generate_tests
-from tester import test
+from tester import test, get_cached_tester_query
 import subprocess
-
+from termcolor import colored
 
 class CLI:
     @staticmethod
@@ -15,20 +15,20 @@ class CLI:
         for s in strings:
             maxi = max(maxi, len(s))
 
-        print(border * (maxi + 6))
+        print(colored(border * (maxi + 6), 'yellow'))
         for s in strings:
-            print(border * 2 + " " + s + " " * (maxi - len(s) + 1) + border * 2)
-        print(border * (maxi + 6))
+            print(colored(border * 2 + " ", 'yellow') + s + " " * (maxi - len(s) + 1) + colored(border * 2, 'yellow'))
+        print(colored(border * (maxi + 6), 'yellow'))
 
     @staticmethod
     def fancy_long_print(*strings):
         border = '~'
         for i in range(3):
-            print(border * 50)
+            print(colored(border * 50, 'yellow'))
         for s in strings:
             print(s)
         for i in range(3):
-            print(border * 50)
+            print(colored(border * 50, 'yellow'))
 
     def __init__(self):
         self.root_dir = ''
@@ -39,6 +39,8 @@ class CLI:
             self.user_os = "Linux"
 
     def init(self):
+        # TODO: support for linux
+        subprocess.call("color 0F", shell=True)
         CLI.fancy_print('SDP CLI')
         self.find_root_dir()
         self.main()
@@ -54,19 +56,32 @@ class CLI:
         # TODO: support for linux
         subprocess.call("color 0F", shell=True)
 
-        CLI.fancy_print('Choose one of these options:',
-                        'Selected Operating System: [' + self.user_os + ']',
-                        'Linux is not supported yet!',
-                        '[1] Build source code (Developer option)',
-                        '[2] Add test',
-                        '[3] View test',
-                        '[4] Run tests',
-                        '[5] Exit')
+        cached_test_query = get_cached_tester_query()
+
+        print_values = (
+            'Choose one of these options:',
+            'Selected Operating System: [' + self.user_os + ']',
+            'Linux is not supported yet!',
+            '[1] Build source code (Developer option)',
+            '[2] Add test',
+            '[3] View test',
+            '[4] Run tests')
+        if cached_test_query is not None:
+            print_values = print_values + ( '[5] Run cached query',
+                                            '        test directory = [' + str(cached_test_query['tests_dir']) + ']',
+                                            '        test regex = [' + str(cached_test_query['test_reg']) + ']',
+                                            '        implementation_type = [' + str(cached_test_query['implementation_type']) + ']',
+                                            '[6] Exit')
+        else:
+            print_values = print_values + ('[5] Exit', 'No cached queries are available')
+
+        CLI.fancy_print(*print_values)
 
         query = int(input())
 
         if query == 1:
             self.build_code()
+            self.press_enter_to_continue()
             self.main()
         elif query == 2:
             self.add_tests()
@@ -77,8 +92,19 @@ class CLI:
         elif query == 4:
             self.run_tests()
             self.main()
-        elif query == 5:
-            return
+        elif 5 <= query <= 6:
+            if cached_test_query is not None:
+                if query == 5:
+                    test(**cached_test_query)
+                    self.press_enter_to_continue()
+                    self.main()
+                else:
+                    return
+            else:
+                if query == 5:
+                    return
+                else:
+                    self.main()
         else:
             self.main()
 
@@ -227,8 +253,6 @@ class CLI:
             os.chdir(sv_dir)
             test(executable_path=executable_path, tests_dir=tests_dir,
                  output_path=output_path, test_reg=tests_reg, implementation_type=imp_type)
-            #bash_command = self.root_dir + '/tester/' + 'tester.sh ' + exe_loc + ' ' + imp_type + ' ' + tests_loc
-            #subprocess.call(bash_command, shell=True)
         except:
             print('problem in running tester')
 
