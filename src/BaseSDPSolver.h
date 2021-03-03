@@ -23,6 +23,7 @@ public:
 	 */
 	void input() noexcept;
 	SDPResult calc();
+    bool checkHasFeasibleAnswer();
 
 protected:
     std::string inputSummaryFileAddress;

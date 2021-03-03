@@ -9,7 +9,6 @@ void BaseSDPSolver::input() noexcept {
         C = 4,
         MATRICES = 5
     };
-    std::cerr << "CHIIIIIIZ: " << inputSummaryFileAddress << std::endl;
 
     foutInputSummary << "---Entering Standard input---\n";
     size_t block_count;
@@ -195,5 +194,14 @@ const std::string &BaseSDPSolver::getIterationSummaryFileAddress() const {
 void BaseSDPSolver::setIterationSummaryFileStream(const std::string &iterationSummaryFileAddress) {
     BaseSDPSolver::iterationSummaryFileAddress = iterationSummaryFileAddress;
     foutIterationSummary = std::ofstream(iterationSummaryFileAddress);
+}
+
+bool BaseSDPSolver::checkHasFeasibleAnswer() {
+    Eigen::MatrixXd M(matrices_count, matrices_dimension * matrices_dimension);
+    for (size_t i = 0; i < matrices_count; i++) {
+        // TODO: complete implementation
+        M.block(i,0,1,matrices_dimension * matrices_dimension) = matrices_list[i];
+    }
+    return true;
 }
 

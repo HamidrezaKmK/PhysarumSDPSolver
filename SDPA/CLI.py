@@ -44,7 +44,7 @@ class CLI:
             self.main()
 
     def back_to_main(self):
-        print("----------\nٍEnter anything to go back!")
+        print("----------\nEnter anything to go back!")
         tmp = input()
 
     def add_tests(self):
@@ -86,10 +86,15 @@ class CLI:
         test_name = input()
 
         try:
-            path = os.getcwd() + '\\testSet\\' + folder + '\\' + test_name
+            prev_path = os.getcwd()
+            os.chdir('../build')
+            execute_command = 'SDPSolver.exe tmp_input_summary.txt < ../SDPA/testSet/' + folder + '/' + test_name
+            subprocess.call(execute_command, shell=True)
+            path = os.getcwd() + '/tmp_input_summary.txt'
             with open(path, 'r') as test:
-                print(test.read())
+                CLI.fancy_print(test.read())
                 test.close()
+            os.chdir(prev_path)
         except:
             print('Problem in showing test')
 
