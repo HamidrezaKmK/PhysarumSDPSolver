@@ -24,6 +24,7 @@ public:
 	void input() noexcept;
 	SDPResult calc();
     bool checkHasFeasibleAnswer();
+    bool checkAnswerBounded();
 
 protected:
     std::string inputSummaryFileAddress;

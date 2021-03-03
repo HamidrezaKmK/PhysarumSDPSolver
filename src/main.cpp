@@ -15,11 +15,14 @@ int main(int argc, char *argv[]) {
         std::cout << "2) For only evaluating the input enter:\n\t[input summary file address]\n";
         return EXIT_FAILURE;
     }
+    std::cerr << "Started..." << std::endl;
+
     int implementation_type = 1;
     if (argc == 4)
         implementation_type = std::stoi(argv[1]);
 
     std::unique_ptr<BaseSDPSolver> a;
+
     switch (implementation_type) {
         case 1: {
             a = std::unique_ptr<SDPSolver>(new SDPSolver());
@@ -45,14 +48,20 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    if(!a->checkHasFeasibleAnswer()) {
-        std::cout << "The problem has no feasible solution!" << std::endl;
-        return 0;
-    }
-
     try {
         a->input();
-        std::cout << "input done!" << std::endl;
+
+        if(!a->checkHasFeasibleAnswer()) {
+            std::cout << "The problem has no feasible solution!" << std::endl;
+            return 0;
+        }
+
+        if(!a->checkAnswerBounded()) {
+            std::cout << "The problem is not bounded!" << std::endl;
+            return 0;
+        }
+
+        std::cerr << "input done!" << std::endl;
         auto ans = a->calc();
 
         cout << "X:\n";

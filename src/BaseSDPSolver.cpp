@@ -197,11 +197,26 @@ void BaseSDPSolver::setIterationSummaryFileStream(const std::string &iterationSu
 }
 
 bool BaseSDPSolver::checkHasFeasibleAnswer() {
+
     Eigen::MatrixXd M(matrices_count, matrices_dimension * matrices_dimension);
+
     for (size_t i = 0; i < matrices_count; i++) {
-        // TODO: complete implementation
-        M.block(i,0,1,matrices_dimension * matrices_dimension) = matrices_list[i];
+        Eigen::VectorXd B(Eigen::Map<Eigen::VectorXd>(matrices_list[i].data(), matrices_dimension * matrices_dimension));
+        M.block(i,0,1,matrices_dimension * matrices_dimension) = B.transpose();
+    }
+    Eigen::MatrixXd x = M.fullPivLu().solve(b);
+    double relative_error = (M * x - b).norm() / (b.norm());
+    if (relative_error > 1e-6) {
+        std::cout << "relative error: " << relative_error << " is large!\n";
+        return false;
     }
     return true;
 }
+
+bool BaseSDPSolver::checkAnswerBounded() {
+// TODO: implement dual unfeasible
+    return true;
+}
+
+
 
