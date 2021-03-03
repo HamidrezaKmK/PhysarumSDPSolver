@@ -6,37 +6,76 @@ from test_generator import generate_tests
 from tester import test, get_cached_tester_query
 import subprocess
 from termcolor import colored
+import enum
+import re
+
+class OperatingSystems(enum.Enum):
+    WINDOWS = 0
+    LINUX = 1
+    def __str__(self):
+        if self.value == 0:
+            return 'Windows'
+        elif self.value == 1:
+            return 'Linux'
+        else:
+            return 'Undefined_OS'
+
+class TestFormats(enum.Enum):
+    BLOCK_SPARSE = 0
+    SIMPLE = 1
+    @staticmethod
+    def regex_format():
+        return ".*\.(dat-s|simple-sdp)$"
+    def __str__(self):
+        if self.value == 0:
+            return 'dat-s'
+        elif self.value == 1:
+            return 'simple-sdp'
+        else:
+            return 'Undefined_test_format'
 
 class CLI:
     @staticmethod
-    def fancy_print(*strings):
+    def fancy_print(*strings, item_colors = None):
+        # TODO: support for linux
+        subprocess.call('CLS', shell=True)
+
+        border_color = 'yellow'
         border = '~'
         maxi = 0
         for s in strings:
             maxi = max(maxi, len(s))
 
-        print(colored(border * (maxi + 6), 'yellow'))
+        print(colored(border * (maxi + 6), border_color))
+        cnt = 0
         for s in strings:
-            print(colored(border * 2 + " ", 'yellow') + s + " " * (maxi - len(s) + 1) + colored(border * 2, 'yellow'))
-        print(colored(border * (maxi + 6), 'yellow'))
+            middle = s + " " * (maxi - len(s) + 1)
+            if item_colors is not None and cnt in item_colors.keys():
+                middle = colored(middle, item_colors[cnt])
+            if item_colors is not None and (-len(strings) + cnt) in item_colors.keys():
+                middle = colored(middle, item_colors[-len(strings) + cnt])
+            cnt += 1
+            print(colored(border * 2 + " ", border_color) + middle + colored(border * 2, border_color))
+        print(colored(border * (maxi + 6), border_color))
 
     @staticmethod
     def fancy_long_print(*strings):
         border = '~'
+        border_color = 'yellow'
         for i in range(3):
-            print(colored(border * 50, 'yellow'))
+            print(colored(border * 50, border_color))
         for s in strings:
             print(s)
         for i in range(3):
-            print(colored(border * 50, 'yellow'))
+            print(colored(border * 50, border_color))
 
     def __init__(self):
         self.root_dir = ''
         self.user_os = sys.platform
         if self.user_os.lower()[0:3] == 'win':
-            self.user_os = "Microsoft Windows"
+            self.user_os = OperatingSystems.WINDOWS
         else:
-            self.user_os = "Linux"
+            self.user_os = OperatingSystems.LINUX
 
     def init(self):
         # TODO: support for linux
@@ -53,14 +92,15 @@ class CLI:
         os.chdir(sv_dir)
 
     def main(self):
-        # TODO: support for linux
-        subprocess.call("color 0F", shell=True)
 
         cached_test_query = get_cached_tester_query()
 
         print_values = (
+            '==================================================== SDP Physarum Solver ====================================================',
+            '                                       Welcome to SDP Physarum command line interface!                                       ',
             'Choose one of these options:',
-            'Selected Operating System: [' + self.user_os + ']',
+            '- Please make sure to build (option [1]) before running the tests',
+            '- Selected Operating System: [' + str(self.user_os) + ']',
             'Linux is not supported yet!',
             '[1] Build source code (Developer option)',
             '[2] Add test',
@@ -75,13 +115,21 @@ class CLI:
         else:
             print_values = print_values + ('[5] Exit', 'No cached queries are available')
 
-        CLI.fancy_print(*print_values)
+        print_values = print_values + (
+                                       '                                                                                                       Created by:            ',
+                                       '                                                                                                             Hamidreza Kamkari',
+                                       '                                                                                                             Keivan Rezaei    ',
+                                       '                                                                                                       3-3-2021               ')
+        CLI.fancy_print(*print_values, item_colors={0:'yellow', 1:'yellow', -1:'yellow', -2:'yellow', -3:'yellow', -4:'yellow'})
+        print("Maximize command line window for better view!")
 
         query = int(input())
 
         if query == 1:
             self.build_code()
             self.press_enter_to_continue()
+            # TODO: support for linux
+            subprocess.call("color 0F", shell=True)
             self.main()
         elif query == 2:
             self.add_tests()
@@ -95,7 +143,10 @@ class CLI:
         elif 5 <= query <= 6:
             if cached_test_query is not None:
                 if query == 5:
-                    test(**cached_test_query)
+                    try:
+                        test(**cached_test_query)
+                    except:
+                        print(colored("ERROR: Test might have been removed!",'red'))
                     self.press_enter_to_continue()
                     self.main()
                 else:
@@ -122,9 +173,10 @@ class CLI:
         if 1 <= query <= 2:
             try:
                 try:
-                    shutil.rmtree(self.root_dir + '/build')
+                    shutil.rmtree(os.path.join(self.root_dir ,"build"))
                 except:
                     print('Creating build directory...')
+                print('Please make sure none of your working apps open files in \"build\" directory')
                 os.mkdir(self.root_dir + '/build')
                 sv_dir = os.getcwd()
                 os.chdir(self.root_dir + '/build')
@@ -172,11 +224,12 @@ class CLI:
             description = input()
 
             try:
-                generate_tests(folder=folder, prefix_test_name=prefix_test_name, description=description)
+                generate_tests(test_set_directory=os.path.join(self.root_dir,"SDPA", "testSet"),folder=folder, prefix_test_name=prefix_test_name, description=description)
                 self.back_to_main()
                 return
             except:
                 print("generating tests not successful")
+            self.press_enter_to_continue()
         elif opt == 3:
             return
         else:
@@ -210,7 +263,7 @@ class CLI:
                         'Enter folder name',
                         'Enter full test name')
         folder = CLI.select_dirs(self.root_dir + "/SDPA/testSet", "Choose one of the test packages below:")
-        test_name = CLI.select_dirs(self.root_dir + "/SDPA/testSet/" + folder, "Choose one of the tests below:")
+        test_name = CLI.select_dirs(self.root_dir + "/SDPA/testSet/" + folder, "Choose one of the tests below:", TestFormats.regex_format())
 
         try:
             prev_path = os.getcwd()
@@ -230,11 +283,11 @@ class CLI:
     def run_tests(self):
         exe_loc = self.root_dir + '/SDPSolver.exe'
         CLI.fancy_print('Enter Implementation type',
-                        '[1] Traditional implementation',
-                        '[2] Derivative method')
+                        '[1] Kiarash\'s implementation',
+                        '[2] Derivative method (Keivan & Hamidreza)')
         imp_type = input()
         test_folder = CLI.select_dirs(self.root_dir + "/SDPA/testSet", "Select one of the test directories below:")
-        CLI.list_dirs(self.root_dir + "/SDPA/testSet/" + test_folder, "Enter test name you wish to run (Regex is also supported e.g. \"*.dat-s\")");
+        CLI.list_dirs(self.root_dir + "/SDPA/testSet/" + test_folder, "Enter test name you wish to run (Regex is also supported e.g. \"*.dat-s\")", TestFormats.regex_format())
         tests_reg = input()
         try:
             try:
@@ -260,35 +313,51 @@ class CLI:
         return
 
     @staticmethod
-    def list_dirs(parent_dir, msg):
+    def list_dirs(parent_dir, msg, constraint_reg=None):
         choices = []
         list_of_dirs = os.listdir(parent_dir)
         choices.append(msg)
         for path in list_of_dirs:
-            choices.append(path)
+            if constraint_reg == None:
+                choices.append(path)
+            elif re.match(constraint_reg, path):
+                choices.append(path)
+        if len(choices) == 1:
+            print("No files exist matching the constraint!")
+            return
         CLI.fancy_print(*choices)
 
     @staticmethod
-    def select_dirs(parent_dir, msg):
+    def select_dirs(parent_dir, msg, constraint_reg = None):
         choices = []
         cnt = 0
-        list_of_dirs = os.listdir(parent_dir)
+        list_of_dirs = []
+        for dir in os.listdir(parent_dir):
+            if constraint_reg != None:
+                if re.match(re.compile(constraint_reg), dir):
+                    list_of_dirs.append(dir)
+            else:
+                list_of_dirs.append(dir)
+
         choices.append(msg)
         for path in list_of_dirs:
             choices.append('[' + str(cnt + 1) + '] ' + path)
             cnt += 1
+        if len(choices) == 1:
+            print("No files exist matching the constraint!")
+            return
         CLI.fancy_print(*choices)
         try:
             query = int(input())
         except:
             print("Choose a number!")
-            return CLI.select_dirs(parent_dir, msg)
+            return CLI.select_dirs(parent_dir, msg, constraint_reg)
 
         if 1 <= query <= len(list_of_dirs):
             return list_of_dirs[query - 1]
         else:
             print("Input index not correct!")
-            return CLI.select_dirs(parent_dir, msg)
+            return CLI.select_dirs(parent_dir, msg, constraint_reg)
 
 if __name__ == '__main__':
     cli = CLI()

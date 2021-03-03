@@ -4,8 +4,16 @@ import subprocess
 import pickle
 from termcolor import colored
 
+import shutil
+
 def test(executable_path, tests_dir, output_path, test_reg, implementation_type):
     sv_dir = os.getcwd()
+
+    try:
+        shutil.rmtree(output_path)
+        os.mkdir(output_path)
+    except:
+        pass
 
     try:
         os.mkdir(".cached_queries")
@@ -17,7 +25,6 @@ def test(executable_path, tests_dir, output_path, test_reg, implementation_type)
     query_dict['output_path'] = output_path
     query_dict['test_reg'] = test_reg
     query_dict['implementation_type'] = implementation_type
-    print(query_dict)
     with open(os.path.join(os.getcwd(), ".cached_queries", "last_query"), 'wb') as outfile:
         pickle.dump(query_dict, outfile)
         outfile.close()

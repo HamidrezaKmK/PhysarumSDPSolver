@@ -39,7 +39,7 @@ def get_vertex_cover_test(n: int, e: int, description:str):
                                 [1, 1, 1, 1, -1, -1]))
             b.append(2)
 
-    C = np.identity(n + 1)
+    C = -np.identity(n + 1)
 
     print_sdp_test(C, A, b, n + 1, len(A), description)
 
