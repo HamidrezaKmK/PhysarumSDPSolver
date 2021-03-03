@@ -18,9 +18,21 @@ void BaseSDPSolver::input() noexcept {
 
 
     InputStates state = InputStates::M;
+
+    short desc_start = 0;
+
     while (getline(cin, line)) {
-        if (line[0] == '"' || line[0] == '*')
+        if (line[0] == '"' || line[0] == '*') {
+            if (desc_start < 3) {
+                if (desc_start == 0) {
+                    foutInputSummary << "DESCRIPTIONS in the beginning of file:\n";
+                }
+                foutInputSummary << line << '\n';
+                desc_start = 1;
+            }
             continue;
+        }
+        desc_start = 3;
         switch (state) {
             // Get the number of matrices:
             case InputStates::M: {
