@@ -3,8 +3,7 @@
 
 using namespace std;
 
-auto SDPSolverDerivative::init_w_tilda(size_t matrices_dimension) noexcept -> MatrixX
-{
+auto SDPSolverDerivative::init_w_tilda(size_t matrices_dimension) noexcept -> MatrixX {
     MatrixX w_tilda(matrices_dimension, matrices_dimension);
     for (size_t i = 0; i < matrices_dimension; ++i)
         for (size_t j = 0; j < matrices_dimension; ++j)
@@ -13,10 +12,12 @@ auto SDPSolverDerivative::init_w_tilda(size_t matrices_dimension) noexcept -> Ma
     return w_tilda;
 }
 
-auto SDPSolverDerivative::iterate() noexcept -> MatrixX {
-    constexpr int ITERATION_LIMIT = 5000;
+auto SDPSolverDerivative::iterate() noexcept -> SDPResult {
+
+    constexpr int ITERATION_LIMIT = 1000;
 
     MatrixX w_tilda = init_w_tilda(matrices_dimension);
+    VectorX p_hat;
 
     Eigen::SelfAdjointEigenSolver<MatrixX> solver;
 
@@ -26,17 +27,17 @@ auto SDPSolverDerivative::iterate() noexcept -> MatrixX {
     int iteration_counter = 0;
     while (iteration_counter < ITERATION_LIMIT && (infeasibility > 1e-4 || gap > 1e-4)) {
         iteration_counter++;
-        std::cerr << "---------- Iteration #" << iteration_counter << std::endl;
+        foutIterationSummary << "---------- Iteration #" << iteration_counter << '\n';
         infeasibility = 0;
         MatrixList a_hat(matrices_count);
         for (size_t i = 0; i < matrices_count; ++i) {
             a_hat[i] = matrices_list[i] * w_tilda;
             const auto residual = b[i] - w_tilda.cwiseProduct(a_hat[i]).sum();
             infeasibility += abs(residual);
-            std::cerr << "b(" << i << ") - tr( A_" << i << " X) = " << residual << std::endl;
+            std::cerr << "b(" << i << ") - tr( A_" << i << " X) = " << residual << '\n';
         }
 
-        std::cerr << "Infeasibility of current X: " << infeasibility << std::endl;
+        foutIterationSummary << "Infeasibility of current X: " << infeasibility << std::endl;
 
         MatrixX M(matrices_count, matrices_count);
         for (size_t k = 0; k < matrices_count; ++k)
@@ -45,8 +46,13 @@ auto SDPSolverDerivative::iterate() noexcept -> MatrixX {
                 M(k, l) = M(l, k) = current_result;
             }
 
-        std::cerr << "Solving..." << std::endl;
-        VectorX p_hat = M.llt().solve(b);
+        std::cerr << "Solving..." << '\n';
+
+
+        p_hat = M.llt().solve(b);
+        std::cerr << "This is M:\n";
+        std::cerr << M << '\n';
+        std::cerr << "M * p_hat = \n" << M * p_hat << "\n b = \n" << b << '\n';
 
         MatrixX s_bar = MatrixX::Identity(matrices_dimension, matrices_dimension);
         ElementType bTy = 0;
@@ -56,20 +62,18 @@ auto SDPSolverDerivative::iterate() noexcept -> MatrixX {
             bTy += p_hat(l) * b(l);
         }
 
-        std::cerr << "Eigenvalues..." << std::endl;
+        std::cerr << "Eigenvalues..." << '\n';
         VectorX q = s_bar.eigenvalues().real();
         ElementType h = 0.5 / q.maxCoeff();
 
-        //TODO bTy /= 1 - std::max(0.0, q.minCoeff()); {is it necessary?/ is it correct?}
+        bTy /= 1 - std::min(0.0, q.minCoeff()); //{is it necessary?/ is it correct?}
 
-        std::cerr << q << std::endl
-                  << "H: " << h << std::endl;
+        std::cerr << q << std::endl << "H: " << h << '\n';
 
-        std::cerr << "Calculating X..." << std::endl;
-        std::cerr << "W_tilda:" << std::endl
-                  << w_tilda << std::endl;
-        std::cerr << "I - hsbar:" << std::endl
-                  << (MatrixX::Identity(matrices_dimension, matrices_dimension) - h * s_bar) << std::endl;
+        std::cerr << "Calculating X..." << '\n';
+        std::cerr << "W_tilda:" << '\n' << w_tilda << '\n';
+        std::cerr << "I - hsbar:" << '\n'
+                  << (MatrixX::Identity(matrices_dimension, matrices_dimension) - h * s_bar) << '\n';
 
         //we want to compute I xor W-1 + W-1 xor I in Z
         MatrixX w_tilda_inverse = w_tilda.inverse();
@@ -86,8 +90,7 @@ auto SDPSolverDerivative::iterate() noexcept -> MatrixX {
                     Z(i, j) += w_tilda_inverse(i1, j1);
             }
         }
-        std::cerr << "I xor W-1 + W-1 xor I" << std::endl
-                  << Z << std::endl;
+        std::cerr << "I xor W-1 + W-1 xor I" << '\n' << Z << '\n';
 
         VectorX vec_s = Eigen::VectorXd(matrices_dimension * matrices_dimension);
 
@@ -97,28 +100,37 @@ auto SDPSolverDerivative::iterate() noexcept -> MatrixX {
             }
         }
 
-        std::cerr << "vec(S)" << std::endl
-                  << vec_s << std::endl;
+        std::cerr << "vec(S)" << '\n' << vec_s << '\n';
 
         //Z . vec_w_dot = -vec_s
         VectorX vec_w_dot = Z.llt().solve(-vec_s);
-        std::cerr << "vec(w_dot)" << std::endl
-                  << vec_w_dot << std::endl;
+        std::cerr << "vec(w_dot)" << '\n' << vec_w_dot << '\n';
+
 
         //w = w + h * w_dot
+        MatrixX w_sv = w_tilda;
         for (size_t i = 0; i < matrices_dimension; i++)
             for (size_t j = 0; j < matrices_dimension; j++)
                 w_tilda(i, j) += h * vec_w_dot(i + j * matrices_dimension);
 
-        std::cerr << "new w_tilda" << std::endl
-                  << w_tilda << std::endl;
-
+        std::cerr << "new w_tilda" << '\n' << w_tilda << '\n';
         MatrixX X = w_tilda * w_tilda;
         gap = X.trace() - bTy;
-        std::cerr << "Gap between primal and dual solution: " << gap << std::endl;
-
+        if (gap < 0) {
+            std::cerr << "[ERROR] Gap less than zero: " << gap << '\n';
+            //w_tilda = w_sv;
+            //break;
+        }
+        foutIterationSummary << "Gap between primal and dual solution: " << gap << std::endl;
+        std::cerr << std::endl;
     }
-    cerr << "Answer has been found in " << iteration_counter << " iterations\n";
+    foutIterationSummary << "Answer has been found in " << iteration_counter << " iterations\n";
 
-    return w_tilda;
+    SDPResult res;
+    res.setW(w_tilda);
+    res.sety(p_hat);
+    res.setIterationCount(iteration_counter);
+    res.setGap(gap);
+
+    return res;
 }

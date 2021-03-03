@@ -11,7 +11,7 @@ set(SOURCES
     src/BaseSDPSolver.cpp
     src/SDPSolver.cpp
     src/SDPSolverDerivative.cpp
-    )
+        src/SDPResult.h src/SDPResult.cpp src/SDPResult.h src/components/Matrix.cpp src/components/Matrix.h src/components/Vector.cpp src/components/Vector.h)
 
 add_executable(SDPSolver ${SOURCES})
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)

@@ -2,20 +2,40 @@
 
 using namespace std;
 
-auto SDPSolver::iterate() noexcept -> MatrixX
+const int ITERATION_LIMIT = 1000;
+
+auto SDPSolver::init_w_tilda(size_t matrices_dimension) noexcept -> MatrixX {
+    MatrixX w_tilda(matrices_dimension, matrices_dimension);
+    for (size_t i = 0; i < matrices_dimension; ++i)
+        for (size_t j = 0; j < matrices_dimension; ++j)
+            w_tilda(i, j) = (i == j) * 100;
+
+    return w_tilda;
+}
+
+auto SDPSolver::iterate() noexcept -> SDPResult
 {
-	MatrixX w_tilda = w;
+	MatrixX w_tilda = init_w_tilda(matrices_dimension);
 
 	Eigen::SelfAdjointEigenSolver<MatrixX> solver;
 
 	ElementType infeasibility = 1;
 	ElementType gap = 1;
-	while (infeasibility > 1e-6 || gap > 1e-6)
+	cerr << "Start!!!" << endl;
+	int iteration_cnt = 0;
+
+	VectorX p_hat;
+    while (iteration_cnt < ITERATION_LIMIT && (infeasibility > 1e-6 || gap > 1e-6))
 	{
+		iteration_cnt++;
 		infeasibility = 0;
 		MatrixList a_hat(matrices_count);
 		for (size_t i = 0; i < matrices_count; ++i)
 		{
+		    cerr << matrices_list[i] << endl;
+		    cerr << "----\n" << w_tilda << endl;
+		    cerr << "----\n" << matrices_dimension << endl;
+
 			a_hat[i] = matrices_list[i] * w_tilda;
 			const auto residual = b[i] - w_tilda.cwiseProduct(a_hat[i]).sum();
 			infeasibility += abs(residual);
@@ -31,7 +51,8 @@ auto SDPSolver::iterate() noexcept -> MatrixX
 			}
 
 		std::cerr << "Solving..." << std::endl;
-		VectorX p_hat = M.llt().solve(b);
+		p_hat = M.llt().solve(b);
+        std::cerr << "M matrix:\n" << M << std::endl << "p_hat:\n" << p_hat << std::endl;
 
 		MatrixX s_bar = MatrixX::Identity(matrices_dimension, matrices_dimension);
 		ElementType bTy = 0;
@@ -45,7 +66,7 @@ auto SDPSolver::iterate() noexcept -> MatrixX
 		std::cerr << "Eigenvalues..." << std::endl;
 		VectorX q = s_bar.eigenvalues().real();
 		ElementType h = 0.5 / q.maxCoeff();
-		bTy /= 1 - std::max(0.0, q.minCoeff());
+		bTy /= 1 - std::min(0.0, q.minCoeff());
 
 		std::cerr << q << std::endl
 				  << "H: " << h << std::endl;
@@ -87,5 +108,10 @@ auto SDPSolver::iterate() noexcept -> MatrixX
 				  << "_______________" << std::endl;
 	}
 
-	return w_tilda;
+	SDPResult res;
+	res.setW(w_tilda);
+    res.sety(p_hat);
+    res.setIterationCount(iteration_cnt);
+    res.setGap(gap);
+	return res;
 }
