@@ -4,7 +4,9 @@ import numpy as np
 from random_test_gen import get_random_test
 from vertex_cover_test_gen import get_vertex_cover_test
 import os
-from termcolor import colored
+
+import colored
+from colored import stylize, fg, bg, attr
 
 read_me = '''
 # Enter an option (1 or 2) to generate tests
@@ -59,9 +61,9 @@ def generate_tests(test_set_directory: str, folder: str, prefix_test_name: str, 
         print("made dir")
         os.chdir(sv_dir)
     except OSError:
-        print(colored("Creation of the test directory %s failed" % folder, 'red'))
+        print(stylize("Creation of the test directory %s failed" % folder, colored.fg('red')))
     else:
-        print(colored("Test folder successfully created", 'green'))
+        print(stylize("Test folder successfully created", colored.fg('green')))
 
     path = os.path.join(test_set_directory, folder)
 
@@ -79,9 +81,9 @@ def generate_tests(test_set_directory: str, folder: str, prefix_test_name: str, 
                 else:
                     get_random_test(n, m, test_opt, description)
                 sys.stdout = original_stdout
-                print(colored("Test number " + str(i) + " generated successfully", 'green'))
+                print(stylize("Test number " + str(i) + " generated successfully", colored.fg('green')))
         except:
-            print(colored("Error happened in generating test number " + str(i), 'red'))
+            print(stylize("Error happened in generating test number " + str(i), colored.fg('red')))
         finally:
             f.close()
 

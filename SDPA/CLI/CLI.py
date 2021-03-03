@@ -5,9 +5,10 @@ import sys
 from test_generator import generate_tests
 from tester import test, get_cached_tester_query
 import subprocess
-from termcolor import colored
 import enum
 import re
+import colored
+from colored import stylize, fg, bg, attr
 
 class OperatingSystems(enum.Enum):
     WINDOWS = 0
@@ -40,34 +41,34 @@ class CLI:
         # TODO: support for linux
         subprocess.call('CLS', shell=True)
 
-        border_color = 'yellow'
+        border_color = 'magenta_2a'
         border = '~'
         maxi = 0
         for s in strings:
             maxi = max(maxi, len(s))
 
-        print(colored(border * (maxi + 6), border_color))
+        print(stylize(border * (maxi + 6), colored.fg(border_color)))
         cnt = 0
         for s in strings:
             middle = s + " " * (maxi - len(s) + 1)
             if item_colors is not None and cnt in item_colors.keys():
-                middle = colored(middle, item_colors[cnt])
+                middle = stylize(middle, colored.fg(item_colors[cnt]))
             if item_colors is not None and (-len(strings) + cnt) in item_colors.keys():
-                middle = colored(middle, item_colors[-len(strings) + cnt])
+                middle =stylize(middle, colored.fg(item_colors[-len(strings) + cnt]))
             cnt += 1
-            print(colored(border * 2 + " ", border_color) + middle + colored(border * 2, border_color))
-        print(colored(border * (maxi + 6), border_color))
+            print(stylize(border * 2 + " ", colored.fg(border_color)) + middle + stylize(border * 2, colored.fg(border_color)))
+        print(stylize(border * (maxi + 6), colored.fg(border_color)))
 
     @staticmethod
     def fancy_long_print(*strings):
         border = '~'
-        border_color = 'yellow'
+        border_color = 'magenta_2a'
         for i in range(3):
-            print(colored(border * 50, border_color))
+            print(stylize(border * 50, colored.fg(border_color)))
         for s in strings:
             print(s)
         for i in range(3):
-            print(colored(border * 50, border_color))
+            print(stylize(border * 50, colored.fg(border_color)))
 
     def __init__(self):
         self.root_dir = ''
@@ -80,6 +81,7 @@ class CLI:
     def init(self):
         # TODO: support for linux
         subprocess.call("color 0F", shell=True)
+
         CLI.fancy_print('SDP CLI')
         self.find_root_dir()
         self.main()
@@ -120,8 +122,13 @@ class CLI:
                                        '                                                                                                             Hamidreza Kamkari',
                                        '                                                                                                             Keivan Rezaei    ',
                                        '                                                                                                       3-3-2021               ')
-        CLI.fancy_print(*print_values, item_colors={0:'yellow', 1:'yellow', -1:'yellow', -2:'yellow', -3:'yellow', -4:'yellow'})
-        print("Maximize command line window for better view!")
+        color_important_items = 'yellow_1'
+        CLI.fancy_print(*print_values, item_colors={0:color_important_items,
+                                                    1:color_important_items,
+                                                    -1:color_important_items,
+                                                    -2:color_important_items,
+                                                    -3:color_important_items,
+                                                    -4:color_important_items})
 
         query = int(input())
 
@@ -146,7 +153,7 @@ class CLI:
                     try:
                         test(**cached_test_query)
                     except:
-                        print(colored("ERROR: Test might have been removed!",'red'))
+                        print(stylize("ERROR: Test might have been removed!",colored.fg('red')))
                     self.press_enter_to_continue()
                     self.main()
                 else:
@@ -304,6 +311,7 @@ class CLI:
             os.chdir(self.root_dir + "/out")
             output_path = os.getcwd()
             os.chdir(sv_dir)
+
             test(executable_path=executable_path, tests_dir=tests_dir,
                  output_path=output_path, test_reg=tests_reg, implementation_type=imp_type)
         except:

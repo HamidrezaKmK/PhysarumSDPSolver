@@ -2,8 +2,8 @@ import os
 from pathlib import Path
 import subprocess
 import pickle
-from termcolor import colored
-
+import colored
+from colored import stylize, fg, bg, attr
 import shutil
 
 def test(executable_path, tests_dir, output_path, test_reg, implementation_type):
@@ -36,7 +36,7 @@ def test(executable_path, tests_dir, output_path, test_reg, implementation_type)
     for path in pathlist:
         path_in_str = str(path)
         testname = os.path.basename(path_in_str)
-        print(colored("[Running...] [" + testname + "] with [implementation = " + implementation_type + "] ...", 'cyan'))
+        print(stylize("[Running...] [" + testname + "] with [implementation = " + implementation_type + "] ...", colored.fg('cyan')))
         # TODO: make compatible with linux
         iteration_summary_address = os.path.join(output_path, testname) + "-iteration-summary.txt"
         input_summary_address = os.path.join(output_path, testname) + "-summary-input.txt"
@@ -49,19 +49,19 @@ def test(executable_path, tests_dir, output_path, test_reg, implementation_type)
             subprocess.call(command, shell=True)
             print("Results:")
             with open(out_address, 'r') as results:
-                print(colored("========== OUTPUT FILE ==========", 'green'))
+                print(stylize("========== OUTPUT FILE ==========", colored.fg('green')))
                 print(results.read())
-                print(colored("---------------------------------", 'green'))
+                print(stylize("---------------------------------", colored.fg('green')))
                 print("for more information checkout:")
                 print("\t" + iteration_summary_address)
                 print("\t" + input_summary_address)
                 print("\t" + err_address)
-                print(colored("=================================", 'green'))
+                print(stylize("=================================", colored.fg('green')))
                 results.close()
 
         except subprocess.CalledProcessError:
-            print(colored("ERROR: On test " + testname + " did not execute successfully!", 'red'))
-            print(colored("\tFor more information check out: " + err_address, 'red'))
+            print(stylize("ERROR: On test " + testname + " did not execute successfully!", colored.fg('red')))
+            print(stylize("\tFor more information check out: " + err_address, colored.fg('red')))
     os.chdir(sv_dir)
 
 def get_cached_tester_query():
