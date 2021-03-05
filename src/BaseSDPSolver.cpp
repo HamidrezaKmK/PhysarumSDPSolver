@@ -166,6 +166,7 @@ auto BaseSDPSolver::calc() -> SDPResult
 auto BaseSDPSolver::calc_pos_def(Eigen::SelfAdjointEigenSolver<MatrixX>::EigenvectorsType eigenvectors,
                                  Eigen::SelfAdjointEigenSolver<MatrixX>::RealVectorType eigenvalues) -> SDPResult
 {
+    std::cerr << "The eigen values are: " << eigenvalues << std::endl;
     for (size_t i = 0; i < matrices_dimension; ++i)
     {
         auto &lambda = eigenvalues[i];

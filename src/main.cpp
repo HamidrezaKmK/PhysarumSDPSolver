@@ -64,12 +64,7 @@ int main(int argc, char *argv[]) {
         std::cerr << "input done!" << std::endl;
         auto ans = a->calc();
 
-        cout << "X:\n";
-        cout << ans.X << endl;
-        cout << "y:\n";
-        cout << ans.y << endl;
-        cout << "gap:\n";
-        cout << ans.gap << endl;
+        ans.print();
 
     } catch (const char * msg){
         cerr << msg << endl;
