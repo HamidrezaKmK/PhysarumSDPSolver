@@ -159,7 +159,8 @@ class CLI:
                     shutil.rmtree(os.path.join(self.root_dir ,"build"))
                 except:
                     print('Creating build directory...')
-                print('Please make sure none of your working apps open files in \"build\" directory')
+                print(stylize('Please make sure none of your working apps open files in \"build\" directory', colored.fg('yellow_1')))
+                print(stylize('[Warning] Do not break or pause the building process!', colored.fg('yellow_1')))
                 os.mkdir(self.root_dir + '/build')
                 sv_dir = os.getcwd()
                 os.chdir(self.root_dir + '/build')
