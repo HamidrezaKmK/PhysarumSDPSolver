@@ -4,12 +4,31 @@
 using namespace std;
 
 auto SDPSolverDerivative::init_w_tilda(size_t matrices_dimension) noexcept -> MatrixX {
-    MatrixX w_tilda(matrices_dimension, matrices_dimension);
-    for (size_t i = 0; i < matrices_dimension; ++i)
-        for (size_t j = 0; j < matrices_dimension; ++j)
-            w_tilda(i, j) = (i == j) * 100;
+    if (has_initial_X) {
+        // TODO: implement an SQRT function in Matrix
+        Eigen::SelfAdjointEigenSolver<MatrixX> solver;
+        solver.compute(this->initial_X);
+        Eigen::SelfAdjointEigenSolver<MatrixX>::EigenvectorsType eigenvectors = solver.eigenvectors();
+        Eigen::SelfAdjointEigenSolver<MatrixX>::RealVectorType eigenvalues = solver.eigenvalues();
+        for (size_t i = 0; i < matrices_dimension; ++i)
+        {
+            auto &lambda = eigenvalues[i];
+            if (lambda <= 0) {
+                std::cerr << "initial matrix X(0) is not positive definite!" << std::endl;
+                exit(EXIT_FAILURE);
+            }
+            else
+                lambda = sqrt(lambda);
+        }
+        return eigenvectors * eigenvalues.asDiagonal() * eigenvectors.transpose();
+    } else {
+        MatrixX w_tilda(matrices_dimension, matrices_dimension);
+        for (size_t i = 0; i < matrices_dimension; ++i)
+            for (size_t j = 0; j < matrices_dimension; ++j)
+                w_tilda(i, j) = (i == j) * 100;
 
-    return w_tilda;
+        return w_tilda;
+    }
 }
 
 auto SDPSolverDerivative::iterate() noexcept -> SDPResult {

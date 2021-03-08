@@ -67,7 +67,8 @@ protected:
 	size_t matrices_dimension;
 	size_t matrices_count;
 	MatrixList matrices_list;
-	MatrixX w, C;
+	MatrixX w, C, initial_X;
+	bool has_initial_X = false;
 	VectorX b;
 	MatrixX R_prime, R_double_prime;
 	bool is_C_pos_definite, is_C_neg_definite;

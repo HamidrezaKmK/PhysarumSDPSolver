@@ -70,6 +70,8 @@ void BaseSDPSolver::input() noexcept {
                 foutInputSummary << "Matrix dimensions are = " << matrices_dimension << endl;
                 C = MatrixX(matrices_dimension, matrices_dimension);
                 C.setZero(matrices_dimension, matrices_dimension);
+                initial_X = MatrixX(matrices_dimension, matrices_dimension);
+                initial_X.setZero(matrices_dimension, matrices_dimension);
                 state = InputStates::C;
                 break;
             }
@@ -91,7 +93,10 @@ void BaseSDPSolver::input() noexcept {
                 r--, c--;
                 r += blocks_partial_sum[blckno - 1];
                 c += blocks_partial_sum[blckno - 1];
-                if (matno == 0)
+                if (matno == -1) {
+                    initial_X(r, c) = initial_X(c, r) = entry;
+                    has_initial_X = true;
+                } else if (matno == 0)
                     C(r, c) = C(c, r) = entry;
                 else
                     matrices_list[matno - 1](r, c) = matrices_list[matno - 1](c, r) = entry;
@@ -104,6 +109,11 @@ void BaseSDPSolver::input() noexcept {
     for (int i = 0; i < (int) matrices_list.size(); i++) {
         foutInputSummary << "Matrix No." << i+1 << ":\n";
         foutInputSummary << matrices_list[i] << endl;
+    }
+    if (has_initial_X) {
+        foutInputSummary << "Initial starting point detected!\n";
+        foutInputSummary << "X(0):\n";
+        foutInputSummary << initial_X << std::endl;
     }
     foutInputSummary << "---End of input---\n";
 

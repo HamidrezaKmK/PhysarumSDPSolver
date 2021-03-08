@@ -60,6 +60,10 @@ location within the block, and <entry> gives the value of the entry in
 the matrix.  Note that since all matrices are assumed to be symmetric, 
 only entries in the upper triangle of a matrix are given.  
 
+7. You can give an initial starting matrix for the iterations to work
+for this you can enter the initial matrix as described in 6 but you should
+enter <matno> = -1 to set the values of X(0)
+
 Example:
 
          min 10x1+20x2
