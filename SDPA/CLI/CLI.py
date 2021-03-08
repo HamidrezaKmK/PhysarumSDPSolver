@@ -234,6 +234,7 @@ class CLI:
             with open(manual_path, 'r') as test_format:
                 CLI.fancy_long_print(test_format.read())
                 test_format.close()
+            self.press_enter_to_continue()
         elif query == 2:
             # TODO: implement code for simple format
             self.add_tests()
