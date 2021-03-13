@@ -269,7 +269,8 @@ class CLI:
         exe_loc = self.root_dir + '/SDPSolver.exe'
         CLI.fancy_print('Enter Implementation type',
                         '[1] Kiarash\'s implementation',
-                        '[2] Derivative method (Keivan & Hamidreza)')
+                        '[2] Derivative method (Keivan & Hamidreza)',
+                        '[3] Generalized eigenvalue method (Hamidreza)')
         imp_type = input()
         test_folder = CLI.select_dirs(self.root_dir + "/SDPA/testSet", "Select one of the test directories below:")
         CLI.list_dirs(self.root_dir + "/SDPA/testSet/" + test_folder, "Enter test name you wish to run (Regex is also supported e.g. \"*.dat-s\")", TestFormats.regex_format())
