@@ -1,5 +1,6 @@
 #include "SDPSolver.h"
 #include "SDPSolverDerivative.h"
+#include "GeneralizedEigenvalueSolver.h"
 
 using namespace std;
 
@@ -28,9 +29,17 @@ int main(int argc, char *argv[]) {
             a = std::unique_ptr<SDPSolver>(new SDPSolver());
             break;
         }
-        default: {
+        case 2: {
             a = std::unique_ptr<SDPSolverDerivative>(new SDPSolverDerivative());
             break;
+        }
+        case 3: {
+            a = std::unique_ptr<GeneralizedEigenvalueSolver>(new GeneralizedEigenvalueSolver());
+            break;
+        }
+        default: {
+            std::cerr << "The type of implementation should be an integer in range: [1,3]" << std::endl;
+            return EXIT_FAILURE;
         }
     }
 

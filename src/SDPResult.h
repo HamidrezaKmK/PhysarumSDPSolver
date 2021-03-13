@@ -17,7 +17,7 @@ public:
     MatrixX X, W;
     VectorX y;
     int iteration_count;
-    double gap;
+    double gap, infeasibility;
     bool hasException;
     std::string exceptionMessage = "";
 
@@ -26,6 +26,8 @@ public:
     SDPResult sety(VectorX y);
     SDPResult setW(MatrixX W);
     SDPResult setGap(double gap);
+    SDPResult setInfeasibility(double infeasibility);
+
     SDPResult setIterationCount(const int &count);
     void print();
     SDPResult addExceptionMsg(const std::string &msg);

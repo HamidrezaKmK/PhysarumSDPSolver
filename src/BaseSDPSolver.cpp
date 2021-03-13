@@ -1,4 +1,6 @@
+#include "GeneralizedEigenvalueSolver.h"
 #include "BaseSDPSolver.h"
+
 
 void BaseSDPSolver::input() noexcept {
 	using namespace std;
@@ -52,9 +54,9 @@ void BaseSDPSolver::input() noexcept {
             }
 
             case InputStates::BLOCK_DESC: {
-                for (int i = 0; i < (int) line.size(); i++)
-                    if (line[i] == ',' || line[i] == '(' || line[i] == ')' || line[i] == '{' || line[i] == '}')
-                        line[i] = ' ';
+                for (char &i : line)
+                    if (i == ',' || i == '(' || i == ')' || i == '{' || i == '}')
+                        i = ' ';
                 stringstream ss(line);
                 matrices_dimension = 0;
                 blocks_partial_sum[0] = 0;
@@ -104,6 +106,11 @@ void BaseSDPSolver::input() noexcept {
             }
         }
     }
+
+    // We should negate the objective matrix because the sdp standard format
+    // tries to maximize tr(CTX) but we are trying to minimize it
+    C = C * -1;
+
     foutInputSummary << "Matrix \"C\":\n";
     foutInputSummary << C << endl;
     for (int i = 0; i < (int) matrices_list.size(); i++) {
@@ -115,14 +122,67 @@ void BaseSDPSolver::input() noexcept {
         foutInputSummary << "X(0):\n";
         foutInputSummary << initial_X << std::endl;
     }
+    foutInputSummary << "Primal: min { tr(C^T X) : For all 1 <= l <= m : tr(A_l^T X) = b_l}\n";
     foutInputSummary << "---End of input---\n";
 
 }
 
+// TODO: extend calc new to all
+SDPResult BaseSDPSolver::calc_new() {
+    this->setIteration_limit(1000);
+
+    // Initializing phase
+    if (has_initial_X)
+        this->current_X = initial_X;
+    else {
+        this->current_X = MatrixX(matrices_dimension, matrices_dimension);
+        for (size_t i = 0; i < matrices_dimension; i++)
+            this->current_X(i, i) = 1000;
+    }
+
+    // Iterations
+    int iteration_counter = 0;
+    double primal_value, dual_value, gap, infeasibility;
+    do {
+        // TODO: change the iteration dual of i + 1 is being compared with X of i
+        std::cerr << "before iteration" << std::endl;
+        MatrixX sv_X = this->current_X;
+        this->iterate();
+        MatrixX nxt_X = this->current_X;
+        this->current_X = sv_X;
+
+        std::cerr << "after iteration" << std::endl;
+        iteration_counter++;
+        foutIterationSummary << "Iteration #" << iteration_counter << ":\n";
+        primal_value = this->calculate_current_primal();
+        dual_value = this->calculate_current_dual();
+        infeasibility = this->calculate_current_infeasibility();
+        foutIterationSummary << "Infeasibility: " << infeasibility << '\n';
+        foutIterationSummary << "primal value: " << primal_value << "\t\t\t" << "dual value: " << dual_value << '\n';
+        gap = primal_value - dual_value;
+        foutIterationSummary << "current gap: " << gap << '\n';
+        foutIterationSummary << "-----" << std::endl;
+
+        this->current_X = nxt_X;
+    } while (iteration_counter < this->getIteration_limit() &&
+             (abs(infeasibility) > 1e-5 ||  abs(gap) > 1e-5));
+
+    SDPResult res;
+    res.setX(this->current_X);
+    res.sety(this->current_y);
+    res.setIterationCount(iteration_counter);
+    res.setGap(this->calculate_current_gap());
+    res.setInfeasibility(this->calculate_current_infeasibility());
+
+    return res;
+}
+
 auto BaseSDPSolver::calc() -> SDPResult
 {
+    if (auto * solver = dynamic_cast<GeneralizedEigenvalueSolver*>(this)) {
+        return solver->calc_new();
+    }
     double DELTA;
-    this->C *= -1;
     Eigen::SelfAdjointEigenSolver<MatrixX> solver;
     solver.compute(this->C);
     double min_lambda = solver.eigenvalues().minCoeff();
@@ -237,8 +297,57 @@ bool BaseSDPSolver::checkHasFeasibleAnswer() {
 }
 
 bool BaseSDPSolver::checkAnswerBounded() {
-// TODO: implement dual unfeasible
+// TODO: use the correct implementation to determine if an answer exists or not
     return true;
+}
+
+double BaseSDPSolver::calculate_current_dual() {
+    return this->current_y.dot(this->b) / (1 - std::min(0.0, this->calculate_current_gap_maxcoeff()));
+}
+
+double BaseSDPSolver::calculate_current_primal() {
+    double primal = 0;
+    for (size_t i = 0; i < matrices_dimension; i++)
+        for (size_t j = 0; j < matrices_dimension; j++)
+            primal += this->C(j, i) * this->current_X(i, j);
+    return primal;
+}
+
+double BaseSDPSolver::calculate_current_gap() {
+    return calculate_current_primal() - calculate_current_dual();
+}
+
+double BaseSDPSolver::calculate_current_infeasibility() {
+    VectorX diffs(matrices_count);
+    for (size_t i = 0; i < matrices_list.size(); i++) {
+        double trAiTX = 0;
+        for (size_t r = 0; r < matrices_dimension; r++)
+            for (size_t c = 0; c < matrices_dimension; c++)
+                trAiTX += matrices_list[i](c, r) * current_X(r, c);
+        diffs(i) = b(i) - trAiTX;
+    }
+    return diffs.norm();
+}
+
+int BaseSDPSolver::getIteration_limit() const {
+    return iteration_limit;
+}
+
+void BaseSDPSolver::setIteration_limit(int iteration_limit) {
+    BaseSDPSolver::iteration_limit = iteration_limit;
+}
+
+double BaseSDPSolver::calculate_current_gap_maxcoeff() {
+    MatrixX S = this->C;
+    for (size_t i = 0; i < matrices_count; i++) {
+        S = S - this->current_y(i) * matrices_list[i];
+    }
+    VectorX q = S.eigenvalues().real();
+    return q.maxCoeff();
+}
+
+double BaseSDPSolver::calculate_current_h() {
+    return 0.5 / this->calculate_current_gap_maxcoeff();
 }
 
 

@@ -41,10 +41,17 @@ void SDPResult::print() {
     std::cout << this->y << std::endl;
     std::cout << "gap:\n";
     std::cout << this->gap << std::endl;
+    std::cout << "infeasibility:\n";
+    std::cout << this->infeasibility << std::endl;
 }
 
 SDPResult SDPResult::addExceptionMsg(const std::string &msg) {
     this->hasException = true;
     this->exceptionMessage += msg;
+    return SDPResult();
+}
+
+SDPResult SDPResult::setInfeasibility(double infeasibility) {
+    this->infeasibility = infeasibility;
     return SDPResult();
 }

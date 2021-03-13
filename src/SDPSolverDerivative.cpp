@@ -158,6 +158,7 @@ auto SDPSolverDerivative::iterate() noexcept -> SDPResult {
     SDPResult res;
     res.setW(w_tilda);
     res.sety(p_hat);
+    res.setInfeasibility(infeasibility);
     res.setIterationCount(iteration_counter);
     res.setGap(gap);
 

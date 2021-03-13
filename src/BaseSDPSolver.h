@@ -23,9 +23,11 @@ public:
 	 */
 	void input() noexcept;
 	SDPResult calc();
-    bool checkHasFeasibleAnswer();
+	bool checkHasFeasibleAnswer();
     bool checkAnswerBounded();
 
+private:
+	SDPResult calc_new();
 protected:
     std::string inputSummaryFileAddress;
     std::string iterationSummaryFileAddress;
@@ -40,6 +42,13 @@ public:
     const std::string &getIterationSummaryFileAddress() const;
 
     void setIterationSummaryFileStream(const std::string &iterationSummaryFileAddress);
+
+    double calculate_current_dual();
+    double calculate_current_primal();
+    double calculate_current_gap();
+	double calculate_current_gap_maxcoeff();
+    double calculate_current_infeasibility();
+	double calculate_current_h();
 
 protected:
 
@@ -68,10 +77,18 @@ protected:
 	size_t matrices_count;
 	MatrixList matrices_list;
 	MatrixX w, C, initial_X;
+	MatrixX current_X;
+	VectorX current_y;
 	bool has_initial_X = false;
 	VectorX b;
 	MatrixX R_prime, R_double_prime;
 	bool is_C_pos_definite, is_C_neg_definite;
+	int iteration_limit = 1000;
+
+public:
+	int getIteration_limit() const;
+
+	void setIteration_limit(int iteration_limit);
 };
 
 #endif
