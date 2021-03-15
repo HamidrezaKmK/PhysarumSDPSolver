@@ -13,10 +13,12 @@ private:
     MatrixList A_hats;
     MatrixX M;
     MatrixX Q, Q_tilde;
+    MatrixX V;
     VectorX p;
-    void calculate_A_hats_bars(Eigen::GeneralizedSelfAdjointEigenSolver<MatrixX>* solver);
-    void calculate_Q(Eigen::GeneralizedSelfAdjointEigenSolver<MatrixX>* solver);
-    void calculate_Q_tilde(Eigen::GeneralizedSelfAdjointEigenSolver<MatrixX>* solver);
+    Eigen::SelfAdjointEigenSolver<MatrixX>::RealVectorType eigenvalues;
+    void calculate_A_hats();
+    void calculate_Q();
+    void calculate_Q_tilde();
     void calculate_M();
 protected:
     double calculate_current_h() override;
