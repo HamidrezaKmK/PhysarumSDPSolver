@@ -6,7 +6,7 @@
 
 SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
 
-    auto sqrt_solver = new Eigen::SelfAdjointEigenSolver<MatrixX>(this->C);
+    /*auto sqrt_solver = new Eigen::SelfAdjointEigenSolver<MatrixX>(this->C);
 
     // TODO: implement a function to calculate sqrt
     Eigen::SelfAdjointEigenSolver<MatrixX>::EigenvectorsType eigenvectors = sqrt_solver->eigenvectors();
@@ -18,9 +18,9 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
 
     this->R_prime = this->R_double_prime = eigenvectors * eigenvalues.asDiagonal() * eigenvectors.transpose();
 
-
-    //this->R_prime = this->C;
-    //this->R_double_prime = this->current_X.inverse();
+*/
+    this->R_prime = this->C;
+    this->R_double_prime = this->current_X.inverse();
 
     auto solver = new Eigen::GeneralizedSelfAdjointEigenSolver<MatrixX>(this->R_prime, this->R_double_prime);
     this->calculate_A_hats_bars(solver);
@@ -80,5 +80,21 @@ GeneralizedEigenvalueSolver::calculate_Q_tilde(Eigen::GeneralizedSelfAdjointEige
 }
 
 double GeneralizedEigenvalueSolver::calculate_current_h() {
-    return std::max(0.0, 1.0 / (1 - this->Q_tilde.eigenvalues().real().minCoeff()));
+    double L_h = 0, R_h = 1;
+    for (int rp = 0; rp < 50; rp++) {
+        double mid = (L_h + R_h) / 2;
+        MatrixX tmp = mid * this->Q + (1 - mid) * this->current_X;
+
+        MatrixX G = this->C;
+        for (size_t i = 0; i < matrices_count; i++)
+            G = G - mid * p(i) * matrices_list[i];
+
+        double mnEigen = std::min(tmp.eigenvalues().real().minCoeff(), G.eigenvalues().real().minCoeff());
+
+        if (mnEigen < 0)
+            R_h = mid;
+        else
+            L_h = mid;
+    }
+    return L_h;
 }
