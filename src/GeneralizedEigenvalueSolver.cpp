@@ -17,8 +17,8 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
     }
 
     this->R_prime = this->R_double_prime = eigenvectors * eigenvalues.asDiagonal() * eigenvectors.transpose();
-
 */
+
     this->R_prime = this->C;
     this->R_double_prime = this->current_X.inverse();
 
@@ -42,7 +42,6 @@ void GeneralizedEigenvalueSolver::calculate_A_hats_bars(Eigen::GeneralizedSelfAd
         MatrixX A_hat = solver->eigenvectors().lu().solve(A);
         A_hat = solver->eigenvectors().lu().solve(A_hat.transpose()).transpose();
         A_hats.push_back(A_hat);
-        A_bars.push_back(solver->eigenvectors().transpose() * A * solver->eigenvectors());
     }
 }
 
@@ -59,7 +58,9 @@ void GeneralizedEigenvalueSolver::calculate_M() {
 
 void
 GeneralizedEigenvalueSolver::calculate_Q(Eigen::GeneralizedSelfAdjointEigenSolver<BaseSDPSolver::MatrixX> *solver) {
-    this->Q = solver->eigenvectors() * this->Q_tilde* solver->eigenvectors().transpose();
+    this->Q = solver->eigenvectors().lu().solve(this->Q_tilde).transpose();
+    this->Q = solver->eigenvectors().lu().solve(this->Q).transpose();
+    //this->Q = solver->eigenvectors() * this->Q_tilde* solver->eigenvectors().transpose();
 }
 
 void
@@ -69,7 +70,7 @@ GeneralizedEigenvalueSolver::calculate_Q_tilde(Eigen::GeneralizedSelfAdjointEige
         for (size_t j = 0; j < matrices_dimension; j++) {
             this->Q_tilde(i, j) = 0;
             for (size_t l = 0; l < matrices_count; l++) {
-                this->Q_tilde(i, j) += p(l) * A_bars[l](i, j);
+                this->Q_tilde(i, j) += p(l) * A_hats[l](i, j);
             }
             double t = solver->eigenvalues()[i] + solver->eigenvalues()[j];
             if (t < 1e-6)

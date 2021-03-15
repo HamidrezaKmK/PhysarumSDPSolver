@@ -11,7 +11,6 @@
 class GeneralizedEigenvalueSolver : public BaseSDPSolver {
 private:
     MatrixList A_hats;
-    MatrixList A_bars;
     MatrixX M;
     MatrixX Q, Q_tilde;
     VectorX p;

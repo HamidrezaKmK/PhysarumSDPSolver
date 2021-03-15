@@ -129,7 +129,7 @@ void BaseSDPSolver::input() noexcept {
 
 // TODO: extend calc new to all
 SDPResult BaseSDPSolver::calc_new() {
-    this->setIteration_limit(1000);
+    this->setIteration_limit(10000);
 
     // Initializing phase
     if (has_initial_X)
