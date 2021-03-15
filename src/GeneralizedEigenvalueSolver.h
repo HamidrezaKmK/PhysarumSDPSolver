@@ -13,12 +13,15 @@ private:
     MatrixList A_hats;
     MatrixList A_bars;
     MatrixX M;
-    MatrixX Q;
+    MatrixX Q, Q_tilde;
     VectorX p;
     void calculate_A_hats_bars(Eigen::GeneralizedSelfAdjointEigenSolver<MatrixX>* solver);
     void calculate_Q(Eigen::GeneralizedSelfAdjointEigenSolver<MatrixX>* solver);
+    void calculate_Q_tilde(Eigen::GeneralizedSelfAdjointEigenSolver<MatrixX>* solver);
     void calculate_M();
 protected:
+    double calculate_current_h() override;
+
     SDPResult iterate() noexcept override;
 
 };

@@ -48,7 +48,8 @@ public:
     double calculate_current_gap();
 	double calculate_current_gap_maxcoeff();
     double calculate_current_infeasibility();
-	double calculate_current_h();
+
+    virtual double calculate_current_h();
 
 protected:
 
