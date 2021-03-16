@@ -145,15 +145,13 @@ SDPResult BaseSDPSolver::calc_new() {
     double primal_value, dual_value, gap, infeasibility;
     do {
         // TODO: change the iteration dual of i + 1 is being compared with X of i
-        std::cerr << "before iteration" << std::endl;
+        foutIterationSummary << "Iteration #" << iteration_counter << ":\n";
         MatrixX sv_X = this->current_X;
         this->iterate();
         MatrixX nxt_X = this->current_X;
         this->current_X = sv_X;
 
-        std::cerr << "after iteration" << std::endl;
         iteration_counter++;
-        foutIterationSummary << "Iteration #" << iteration_counter << ":\n";
         primal_value = this->calculate_current_primal();
         dual_value = this->calculate_current_dual();
         infeasibility = this->calculate_current_infeasibility();
