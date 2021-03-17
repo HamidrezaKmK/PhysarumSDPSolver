@@ -28,6 +28,7 @@ public:
 
 private:
 	SDPResult calc_new();
+	SDPResult calc_new_pos_def();
 protected:
     std::string inputSummaryFileAddress;
     std::string iterationSummaryFileAddress;

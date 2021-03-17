@@ -127,17 +127,60 @@ void BaseSDPSolver::input() noexcept {
 
 }
 
-// TODO: extend calc new to all
 SDPResult BaseSDPSolver::calc_new() {
-    this->setIteration_limit(10000);
+    SDPResult ret;
+
+    double min_lambda = this->C.real().minCoeff();
+    if (min_lambda < 0) {
+        foutIterationSummary << "Negative eigenvalue found in C matrix!\n";
+        // save previous information for first iteration
+        MatrixX svC = this->C;
+        VectorX svB = this->b;
+        MatrixList svMatrices_list = this->matrices_list;
+        size_t svMatrices_count = this->matrices_count;
+        // calculate temporary C matrix for first iteration
+        double DELTA = 0.01;
+        this->C = this->C - (1 + DELTA) * min_lambda * MatrixX::Identity(matrices_dimension, matrices_dimension);
+        this->matrices_count++;
+        this->b = VectorX::Zero(matrices_count);
+        this->b(matrices_count - 1) = 1;
+        this->matrices_list.push_back(MatrixX::Identity(matrices_dimension, matrices_dimension));
+        SDPResult res = this->calc_new_pos_def();
+        // restore previous information before first iteration
+        this->C = svC;
+        this->b = svB;
+        this->matrices_list = svMatrices_list;
+        this->matrices_count = svMatrices_count;
+
+        // save information before running second iteration;
+        svC = this->C;
+        // second iteration with positive definite C
+        for (size_t i = 0; i < matrices_count; i++)
+            this->C -= matrices_list[i] * res.y(i);
+        ret = this->calc_new_pos_def();
+        // restore information after second iteration
+        this->C = svC;
+    } else {
+        ret = this->calc_new_pos_def();
+    }
+    return ret;
+}
+
+// TODO: extend calc new to all
+SDPResult BaseSDPSolver::calc_new_pos_def() {
+    this->setIteration_limit(5000);
 
     // Initializing phase
     if (has_initial_X)
         this->current_X = initial_X;
     else {
         this->current_X = MatrixX(matrices_dimension, matrices_dimension);
-        for (size_t i = 0; i < matrices_dimension; i++)
-            this->current_X(i, i) = 1000;
+        for (size_t i = 0; i < matrices_dimension; i++) {
+          for (size_t j = 0; j < matrices_dimension; j++) {
+            this->current_X(i,j) = 0;
+          }
+          this->current_X(i, i) = 1;
+        }
     }
 
     // Iterations
@@ -300,7 +343,7 @@ bool BaseSDPSolver::checkAnswerBounded() {
 }
 
 double BaseSDPSolver::calculate_current_dual() {
-    return this->current_y.dot(this->b) / (1 - std::min(0.0, this->calculate_current_gap_maxcoeff()));
+    return this->current_y.dot(this->b);// / (1 - std::min(0.0, this->calculate_current_gap_maxcoeff()));
 }
 
 double BaseSDPSolver::calculate_current_primal() {

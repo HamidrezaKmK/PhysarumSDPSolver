@@ -21,8 +21,9 @@ private:
     void calculate_Q_tilde();
     void calculate_M();
 protected:
-    double calculate_current_h() override;
-
+  double calculate_current_h() override;
+  double calculate_current_tau();
+  
     SDPResult iterate() noexcept override;
 
 };
