@@ -27,8 +27,6 @@ public:
 	bool checkHasFeasibleAnswer();
     bool checkAnswerBounded();
 
-private:
-	SDPResult calc_new_pos_def();
 protected:
     std::string inputSummaryFileAddress;
     std::string iterationSummaryFileAddress;
@@ -66,34 +64,40 @@ protected:
 	 * calculates the answer for a SDP problem with positive definite C
 	 */
 	SDPResult calc_pos_def();
-	/** calculates the sqrt of matrix A and gives exception
-	 * when it is not positive definite
-	 */
-	MatrixX calc_sqrt(MatrixX A);
-	/** Changes the SDP problem such that C becomes identity
-	 * Supported for problems with Positive/Negative definite C
-	 * Semi-definiteness is "not" handled!
-	 */
-	void standardize_input();
-	/// Revert the changes made in standardize_input function.
-	SDPResult revert_to_c(SDPResult res) noexcept;
 
 	size_t matrices_dimension;
 	size_t matrices_count;
 	MatrixList matrices_list;
-	MatrixX w, C, initial_X;
+	MatrixX w, C;
 	MatrixX current_X;
 	VectorX current_y;
-	bool has_initial_X = false;
 	VectorX b;
 	MatrixX R_prime, R_double_prime;
-	bool is_C_pos_definite, is_C_neg_definite;
-	int iteration_limit = 1000;
+
+	bool outputSummaryX = false;
 
 public:
-	int getIteration_limit() const;
+    /// The following fields and methods control initializations before calc_pos_def
+    bool has_initial_X = false;
+    MatrixX initial_X;
 
-	void setIteration_limit(int iteration_limit);
+	bool should_augment = false;
+    double gamma_augment;
+	double initial_X_augmented_lower_right_element = 1;
+
+    int iteration_limit = 1000;
+
+    int getIteration_limit() const;
+
+    void setIteration_limit(int iteration_limit);
+
+private:
+    /// The following function gets called before calc_pos_def's process
+    void changesBeforeIterations(MatrixX &current_X, MatrixList &matrices_list,
+                                 size_t &matrices_dimension, MatrixX &C);
+    /// The following function gets called after calc_pos_def's process
+    void changesAfterIterations(MatrixX &current_X, MatrixList &matrices_list,
+                                size_t &matrices_dimension, MatrixX &C);
 };
 
 #endif

@@ -6,17 +6,20 @@
 
 SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
 
-    // R_prime = C, R_double_prime = X.inverse()
-  
-    foutIterationSummary << "Current X: " << std::endl << current_X << std::endl;
-    
     Eigen::LLT<MatrixX> lltOfA(this->current_X);
     const MatrixX L = lltOfA.matrixL();
     
     foutIterationSummary << "Check ||L L^T - X||_1 = " << ( L * L.transpose() - current_X).lpNorm<1>() << std::endl;
-    
+
+    std::cerr << "MARK1" << std::endl;
+
+    std::cerr << L << std::endl;
+    std::cerr << "-----\n" << C << std::endl;
+
     auto solver_t = Eigen::SelfAdjointEigenSolver<MatrixX>( L.transpose() * C * L );
-    
+
+    std::cerr << "MARK2" << std::endl;
+
     this->V = L * solver_t.eigenvectors();
     this->eigenvalues = solver_t.eigenvalues();
     
@@ -25,9 +28,6 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
     foutIterationSummary << "Check ||V^{-T} Lambda V^{-1} - C||_1 = " << (V.transpose().inverse() * eigenvalues.asDiagonal() * V.inverse() - C).lpNorm<1>() << std::endl;
     foutIterationSummary << "Check ||V V^T - X||_1 = " << (V * V.transpose() - current_X).lpNorm<1>() << std::endl;
     
-    //this->R_prime = this->C;
-    //this->R_double_prime = this->current_X.inverse();
-    //auto solver = new Eigen::GeneralizedSelfAdjointEigenSolver<MatrixX>(this->R_prime, this->R_double_prime);
 
     this->calculate_A_hats();
     this->calculate_M();
@@ -38,21 +38,7 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
     foutIterationSummary << "Check ||M p - b||_1 = " << (M * p - b).lpNorm<1>() << std::endl;
     this->calculate_Q_tilde();
     this->calculate_Q();
-/*
-    check faesibility of Q:
 
-    foutIterationSummary << "This is Q:\n" << this->Q << std::endl;
-    double q_infeasibility = 0;
-    for (size_t i = 0; i < matrices_count; i++) {
-        double sm = 0;
-        for (size_t r = 0; r < matrices_dimension; r++)
-            for (size_t c = 0; c < matrices_dimension; c++)
-                sm += this->Q(c, r) * matrices_list[i](r, c);
-        q_infeasibility += b(i) - sm;
-    }
-    foutIterationSummary << "infeasibility of Q: " << q_infeasibility << '\n';
-
-*/
 
     // update values:
 

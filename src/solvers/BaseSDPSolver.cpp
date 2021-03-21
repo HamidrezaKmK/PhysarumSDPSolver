@@ -127,22 +127,19 @@ void BaseSDPSolver::input() noexcept {
 
 }
 
-// TODO: extend calc new to all
 SDPResult BaseSDPSolver::calc_pos_def() {
-    this->setIteration_limit(1000);
-
     // Initializing phase
-    if (has_initial_X)
-        this->current_X = initial_X;
-    else {
-        this->current_X = MatrixX(matrices_dimension, matrices_dimension);
-        for (size_t i = 0; i < matrices_dimension; i++) {
-          for (size_t j = 0; j < matrices_dimension; j++) {
-            this->current_X(i,j) = 0;
-          }
-          this->current_X(i, i) = 1;
-        }
+    this->changesBeforeIterations(this->current_X, this->matrices_list, this->matrices_dimension, this->C);
+
+    foutIterationSummary << "\n*******************\n";
+    foutIterationSummary << "Trying to minimize tr(C.transpose() * X) for C =\n";
+    foutIterationSummary << this->C << '\n';
+    for (size_t i = 0; i < this->matrices_count; i++) {
+        foutIterationSummary << "A_" << i << " =\n[";
+        foutIterationSummary << matrices_list[i] << "]\n";
+        foutIterationSummary << "b_" << i << " = " << b(i) << "\n";
     }
+    foutIterationSummary << "\n*******************\n\n";
 
     // Iterations
     int iteration_counter = 0;
@@ -151,6 +148,11 @@ SDPResult BaseSDPSolver::calc_pos_def() {
         // TODO: change the iteration dual of i + 1 is being compared with X of i
         foutIterationSummary << "Iteration #" << iteration_counter << ":\n";
         MatrixX sv_X = this->current_X;
+
+        if (this->outputSummaryX) {
+            foutIterationSummary << "Current value of X:\n" << this->current_X << "\n\n";
+        }
+
         this->iterate();
         MatrixX nxt_X = this->current_X;
         this->current_X = sv_X;
@@ -169,6 +171,8 @@ SDPResult BaseSDPSolver::calc_pos_def() {
         this->current_X = nxt_X;
     } while (iteration_counter < this->getIteration_limit() &&
              (abs(infeasibility) > 1e-5 ||  abs(gap) > 1e-5));
+
+    this->changesAfterIterations(this->current_X, this->matrices_list, this->matrices_dimension, this->C);
 
     SDPResult res;
     res.setX(this->current_X);
@@ -327,6 +331,7 @@ void BaseSDPSolver::setIterationInfo() {
         INITIAL_X,
         AUGMENTED_C,
         SET_ITERATION_LIMIT,
+        ITERATION_OPTIONS,
         NONE
     };
     InputStates currentState = InputStates::NONE;
@@ -339,10 +344,34 @@ void BaseSDPSolver::setIterationInfo() {
                     this->initial_X = MatrixX::Zero(this->matrices_dimension, this->matrices_dimension);
                     currentState = InputStates::INITIAL_X;
                 }
-                if (line == "<augmented-C>")
+                if (line == "<augmented-C>") {
+                    this->should_augment = true;
                     currentState = InputStates::AUGMENTED_C;
+                }
                 if (line == "<set-iteration-limit>")
                     currentState = InputStates::SET_ITERATION_LIMIT;
+                if (line == "<iteration-summary-options>")
+                    currentState = InputStates::ITERATION_OPTIONS;
+                break;
+            }
+            case InputStates::ITERATION_OPTIONS: {
+                if (line == "</iteration-summary-options>")
+                    currentState = InputStates::NONE;
+                else {
+                    std::stringstream ss(line);
+                    std::string tp, op_append, val;
+                    ss >> tp >> op_append >> val;
+                    if (tp == "output-X") {
+                        if (val == "true") {
+                            this->outputSummaryX = true;
+                        } else if (val == "false") {
+                            this->outputSummaryX = false;
+                        } else {
+                            std::cerr << "output-X value should be true or false\n";
+                            exit(EXIT_FAILURE);
+                        }
+                    }
+                }
                 break;
             }
             case InputStates::INITIAL_X: {
@@ -366,19 +395,95 @@ void BaseSDPSolver::setIterationInfo() {
             }
             case InputStates::SET_ITERATION_LIMIT: {
                 if (line == "</set-iteration-limit>") {
+                    foutIterationSummary << "--------------------------------\n";
+                    foutIterationSummary << "MAX iteration limit set to: " << this->getIteration_limit() << '\n';
+                    foutIterationSummary << "--------------------------------\n";
+
                     currentState = InputStates::NONE;
                 } else {
-
+                    this->setIteration_limit(std::stoi(line));
                 }
             }
             case InputStates::AUGMENTED_C: {
                 if (line == "</augmented-C>")
                     currentState = InputStates::NONE;
+                else {
+                    std::stringstream ss(line);
+                    std::string tp, appendOp, val;
+                    ss >> tp >> appendOp >> val;
+                    if (tp == "gamma") {
+                        this->gamma_augment = std::stod(val);
+                    } else if (tp == "initial-X-lower-right-element-augmented") {
+                        this->initial_X_augmented_lower_right_element = std::stod(val);
+                    }
+                }
                 break;
             }
             default:
                 break;
         }
+    }
+}
+
+void BaseSDPSolver::changesBeforeIterations(MatrixX &current_X, MatrixList &matrices_list,
+                                            size_t &matrices_dimension, MatrixX &C) {
+    // set initial X:
+    if (has_initial_X)
+        current_X = initial_X;
+    else {
+        current_X = MatrixX(matrices_dimension, matrices_dimension);
+        for (size_t i = 0; i < matrices_dimension; i++) {
+            for (size_t j = 0; j < matrices_dimension; j++) {
+                current_X(i,j) = 0;
+            }
+            current_X(i, i) = 1;
+        }
+    }
+
+    // augment if needed:
+    if (should_augment) {
+        matrices_dimension++;
+        MatrixX tmp(matrices_dimension, matrices_dimension);
+
+        // change A matrices:
+        for (size_t i = 0; i < matrices_count; i++) {
+            tmp = MatrixX::Zero(matrices_dimension, matrices_dimension);
+            tmp.block(0, 0, matrices_dimension - 1, matrices_dimension - 1) = matrices_list[i];
+            double alpha_i = b(i) - C.llt().solve(matrices_list[i]).trace() / gamma_augment;
+            tmp(matrices_dimension - 1, matrices_dimension - 1) = alpha_i;
+            matrices_list[i] = tmp;
+        }
+
+        // change C:
+        tmp = MatrixX::Zero(matrices_dimension, matrices_dimension);
+        tmp.block(0, 0, matrices_dimension - 1, matrices_dimension - 1) = C * gamma_augment;
+        tmp(matrices_dimension - 1, matrices_dimension - 1) = 1;
+        C = tmp;
+
+        // change initial X:
+        tmp = MatrixX::Zero(matrices_dimension, matrices_dimension);
+        tmp.block(0, 0, matrices_dimension - 1, matrices_dimension - 1) = current_X;
+        tmp(matrices_dimension - 1, matrices_dimension - 1) = initial_X_augmented_lower_right_element;
+        current_X = tmp;
+    }
+}
+
+void BaseSDPSolver::changesAfterIterations(MatrixX &current_X, MatrixList &matrices_list,
+                                           size_t &matrices_dimension, MatrixX &C) {
+    // revert augmentation if needed
+    if (should_augment) {
+        matrices_dimension--;
+
+        // revert A matrices
+        for (size_t i = 0; i < matrices_count; i++) {
+            matrices_list[i] = matrices_list[i].block(0, 0, matrices_dimension, matrices_dimension);
+        }
+
+        // revert C matrix
+        C = C.block(0, 0, matrices_dimension, matrices_dimension) / gamma_augment;
+
+        // revert current X
+        current_X = current_X.block(0, 0, matrices_dimension, matrices_dimension);
     }
 }
 

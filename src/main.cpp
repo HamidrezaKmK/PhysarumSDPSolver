@@ -1,6 +1,6 @@
-#include "SDPSolver.h"
-#include "SDPSolverDerivative.h"
-#include "GeneralizedEigenvalueSolver.h"
+#include "solvers/SDPSolver.h"
+#include "solvers/SDPSolverDerivative.h"
+#include "solvers/GeneralizedEigenvalueSolver.h"
 
 using namespace std;
 

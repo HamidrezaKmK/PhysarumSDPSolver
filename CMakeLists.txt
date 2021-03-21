@@ -8,10 +8,10 @@ include_directories(${PROJECT_SOURCE_DIR}/src)
 
 set(SOURCES
     src/main.cpp
-    src/BaseSDPSolver.cpp
-    src/SDPSolver.cpp
-    src/SDPSolverDerivative.cpp
-        src/SDPResult.h src/SDPResult.cpp src/SDPResult.h src/components/Matrix.cpp src/components/Matrix.h src/components/Vector.cpp src/components/Vector.h src/GeneralizedEigenvalueSolver.cpp src/GeneralizedEigenvalueSolver.h src/IdentityCSDPSolver.cpp src/IdentityCSDPSolver.h)
+        src/solvers/BaseSDPSolver.cpp
+        src/solvers/SDPSolver.cpp
+        src/solvers/SDPSolverDerivative.cpp
+        src/SDPResult.h src/SDPResult.cpp src/SDPResult.h src/components/Matrix.cpp src/components/Matrix.h src/components/Vector.cpp src/components/Vector.h src/solvers/GeneralizedEigenvalueSolver.cpp src/solvers/GeneralizedEigenvalueSolver.h src/solvers/IdentityCSDPSolver.cpp src/solvers/IdentityCSDPSolver.h)
 
 add_executable(SDPSolver ${SOURCES})
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
