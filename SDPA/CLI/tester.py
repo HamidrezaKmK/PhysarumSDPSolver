@@ -41,6 +41,10 @@ def test(executable_path, tests_dir, output_path, test_reg, implementation_type)
         testname = os.path.basename(path_in_str)
         if not re.match(TestFormats.regex_format(), testname):
             continue
+        test_info = path_in_str + ".info"
+        if not os.path.isfile(test_info):
+            f_tmp = open(test_info, 'w+')
+            f_tmp.close()
         print(stylize("[Running...] [" + testname + "] with [implementation = " + implementation_type + "] ...", colored.fg('cyan')))
         # TODO: make compatible with linux
         iteration_summary_address = os.path.join(output_path, testname) + "-iteration-summary.txt"
@@ -49,7 +53,7 @@ def test(executable_path, tests_dir, output_path, test_reg, implementation_type)
         out_address = os.path.join(output_path, testname) + ".out"
         try:
             command = ("SDPSolver.exe " + str(implementation_type) + " " + input_summary_address + " " +
-                        iteration_summary_address + " < " + path_in_str + " > " +
+                        iteration_summary_address + " " + test_info + " < " + path_in_str + " > " +
                         out_address + " 2> " + err_address)
             ret = subprocess.call(command, shell=True)
             if ret == 0:

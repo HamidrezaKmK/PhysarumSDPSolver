@@ -31,7 +31,8 @@ def gen_random_positive_definite(n, v1=10, v2=10):
 def print_matrix_sdp_format(X, n, m_id):
     for i in range(n):
         for j in range(i, n):
-            print(m_id, 1, i + 1, j + 1, X[i][j])
+            if abs(X[i][j]) > 10**-6:
+                print(m_id, 1, i + 1, j + 1, X[i][j])
 
 
 # C is n*n objective matrix

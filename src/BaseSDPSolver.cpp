@@ -127,48 +127,9 @@ void BaseSDPSolver::input() noexcept {
 
 }
 
-SDPResult BaseSDPSolver::calc_new() {
-    SDPResult ret;
-
-    double min_lambda = this->C.real().minCoeff();
-    if (min_lambda < 0) {
-        foutIterationSummary << "Negative eigenvalue found in C matrix!\n";
-        // save previous information for first iteration
-        MatrixX svC = this->C;
-        VectorX svB = this->b;
-        MatrixList svMatrices_list = this->matrices_list;
-        size_t svMatrices_count = this->matrices_count;
-        // calculate temporary C matrix for first iteration
-        double DELTA = 0.01;
-        this->C = this->C - (1 + DELTA) * min_lambda * MatrixX::Identity(matrices_dimension, matrices_dimension);
-        this->matrices_count++;
-        this->b = VectorX::Zero(matrices_count);
-        this->b(matrices_count - 1) = 1;
-        this->matrices_list.push_back(MatrixX::Identity(matrices_dimension, matrices_dimension));
-        SDPResult res = this->calc_new_pos_def();
-        // restore previous information before first iteration
-        this->C = svC;
-        this->b = svB;
-        this->matrices_list = svMatrices_list;
-        this->matrices_count = svMatrices_count;
-
-        // save information before running second iteration;
-        svC = this->C;
-        // second iteration with positive definite C
-        for (size_t i = 0; i < matrices_count; i++)
-            this->C -= matrices_list[i] * res.y(i);
-        ret = this->calc_new_pos_def();
-        // restore information after second iteration
-        this->C = svC;
-    } else {
-        ret = this->calc_new_pos_def();
-    }
-    return ret;
-}
-
 // TODO: extend calc new to all
 SDPResult BaseSDPSolver::calc_new_pos_def() {
-    this->setIteration_limit(5000);
+    this->setIteration_limit(1000);
 
     // Initializing phase
     if (has_initial_X)
@@ -193,6 +154,7 @@ SDPResult BaseSDPSolver::calc_new_pos_def() {
         this->iterate();
         MatrixX nxt_X = this->current_X;
         this->current_X = sv_X;
+
 
         iteration_counter++;
         primal_value = this->calculate_current_primal();
@@ -220,58 +182,63 @@ SDPResult BaseSDPSolver::calc_new_pos_def() {
 
 auto BaseSDPSolver::calc() -> SDPResult
 {
-    if (auto * solver = dynamic_cast<GeneralizedEigenvalueSolver*>(this)) {
-        return solver->calc_new();
-    }
-    double DELTA;
-    Eigen::SelfAdjointEigenSolver<MatrixX> solver;
-    solver.compute(this->C);
-    double min_lambda = solver.eigenvalues().minCoeff();
+    SDPResult ret;
+
+    double min_lambda = this->C.real().minCoeff();
     if (min_lambda < 0) {
-        foutIterationSummary << "Negative eigenvalue detected for matrix C!" << std::endl;
-        DELTA = 1;
-        MatrixX tmp_C = this->C - (1 + DELTA) * min_lambda * MatrixX::Identity(matrices_dimension, matrices_dimension);
-        foutIterationSummary << "Optimization for \"C\" equal to:\n" << tmp_C << std::endl;
-        solver.compute(tmp_C);
-        foutIterationSummary << "With eigenvalues:\n" << solver.eigenvalues() << std::endl;
-
-        // add the new constraint
-        VectorX sv_b = this->b;
-        matrices_list.push_back(MatrixX::Identity(matrices_dimension, matrices_dimension));
-        matrices_count++;
-        foutIterationSummary << "The \"A_i\"s and \"b\" should change!\nThese are A_i's before changing:" << std::endl;
+        foutIterationSummary << "Negative eigenvalue found in C matrix!\n";
+        // save previous information for first iteration
+        MatrixX svC = this->C;
+        VectorX svB = this->b;
+        MatrixList svMatrices_list = this->matrices_list;
+        size_t svMatrices_count = this->matrices_count;
+        // calculate temporary C matrix for first iteration
+        double DELTA = 1;
+        this->C = this->C - (1 + DELTA) * min_lambda * MatrixX::Identity(matrices_dimension, matrices_dimension);
+        this->matrices_count++;
         this->b = VectorX::Zero(matrices_count);
-        this->b(matrices_count-1) = 1;
-        for (size_t i = 0; i < matrices_count; i++)
-            foutIterationSummary << "A_" << i << "\n" << matrices_list[i] << std::endl;
-        std::cerr << "b:\n" << this->b << std::endl;
+        this->b(matrices_count - 1) = 1;
+        this->matrices_list.push_back(MatrixX::Identity(matrices_dimension, matrices_dimension));
+        // TODO: this should change:
+        SDPResult res;
+        if (auto * solver = dynamic_cast<GeneralizedEigenvalueSolver*>(this)) {
+            res = solver->calc_new_pos_def();
+        } else {
+            auto tmp = Eigen::SelfAdjointEigenSolver<MatrixX>(this->C);
+            res = this->calc_pos_def(tmp.eigenvectors(), tmp.eigenvalues());
+        }
+        // restore previous information before first iteration
+        this->C = svC;
+        this->b = svB;
+        this->matrices_list = svMatrices_list;
+        this->matrices_count = svMatrices_count;
 
-        foutIterationSummary << "========== Start optimization problem ===========" << std::endl;
-
-        SDPResult res = calc_pos_def(solver.eigenvectors(), solver.eigenvalues());
-        matrices_count--;
-        matrices_list.pop_back();
-        this->b = sv_b;
-        foutIterationSummary << "========== End optimization problem ===========\n";
-
-        foutIterationSummary << "These are A_i's after the optimization:" << std::endl;
+        // save information before running second iteration;
+        svC = this->C;
+        // second iteration with positive definite C
         for (size_t i = 0; i < matrices_count; i++)
-            foutIterationSummary << "A_" << i << "\n" << matrices_list[i] << std::endl;
-        tmp_C = this->C;
-        for (size_t i = 0; i < matrices_count; i++)
-            tmp_C = tmp_C - matrices_list[i] * res.y(i);
-        foutIterationSummary << "calculating C - A1*y1 - A2*y2 - ..." << std::endl;
-        foutIterationSummary << "this is the C:" << std::endl << tmp_C << std::endl;
-        solver.compute(tmp_C);
+            this->C -= matrices_list[i] * res.y(i);
+
+        // TODO: this should change:
+        if (auto * solver = dynamic_cast<GeneralizedEigenvalueSolver*>(this)) {
+            ret = solver->calc_new_pos_def();
+        } else {
+            auto tmp = Eigen::SelfAdjointEigenSolver<MatrixX>(this->C);
+            ret = this->calc_pos_def(tmp.eigenvectors(), tmp.eigenvalues());
+        }
+
+        // restore information after second iteration
+        this->C = svC;
     } else {
-        foutIterationSummary << "this is the C:" << std::endl << this->C << std::endl;
+        // TODO: this should change:
+        if (auto * solver = dynamic_cast<GeneralizedEigenvalueSolver*>(this)) {
+            ret = solver->calc_new_pos_def();
+        } else {
+            auto tmp = Eigen::SelfAdjointEigenSolver<MatrixX>(this->C);
+            ret = this->calc_pos_def(tmp.eigenvectors(), tmp.eigenvalues());
+        }
     }
-    foutIterationSummary << "eigenvalues: " << solver.eigenvalues() << std::endl;
-    foutIterationSummary << "========== Start optimization problem ===========" << std::endl;
-    SDPResult res = calc_pos_def(solver.eigenvectors(), solver.eigenvalues());
-    foutIterationSummary << "========== End optimization problem ===========" << std::endl;
-    res.y *= -1;
-    return res;
+    return ret;
 }
 
 auto BaseSDPSolver::calc_pos_def(Eigen::SelfAdjointEigenSolver<MatrixX>::EigenvectorsType eigenvectors,
@@ -318,6 +285,16 @@ const std::string &BaseSDPSolver::getIterationSummaryFileAddress() const {
 void BaseSDPSolver::setIterationSummaryFileStream(const std::string &iterationSummaryFileAddress) {
     BaseSDPSolver::iterationSummaryFileAddress = iterationSummaryFileAddress;
     foutIterationSummary = std::ofstream(iterationSummaryFileAddress);
+}
+
+
+const std::ifstream &BaseSDPSolver::getIterationInfoFileAddress() const {
+    return finIterationInfo;
+}
+
+void BaseSDPSolver::setIterationInfoFileAddress(const std::string &iterationInfoFileAddress) {
+    BaseSDPSolver::iterationInfoFileAddress = iterationInfoFileAddress;
+    finIterationInfo = std::ifstream(iterationInfoFileAddress);
 }
 
 bool BaseSDPSolver::checkHasFeasibleAnswer() {
@@ -390,6 +367,67 @@ double BaseSDPSolver::calculate_current_gap_maxcoeff() {
 double BaseSDPSolver::calculate_current_h() {
     return 0.5 / this->calculate_current_gap_maxcoeff();
 }
+
+void BaseSDPSolver::setIterationInfo() {
+    enum class InputStates {
+        INITIAL_X,
+        AUGMENTED_C,
+        SET_ITERATION_LIMIT,
+        NONE
+    };
+    InputStates currentState = InputStates::NONE;
+    std::string line;
+    while (getline(finIterationInfo, line)) {
+        switch (currentState) {
+            case InputStates::NONE: {
+                if (line == "<initial-X>") {
+                    this->has_initial_X = true;
+                    this->initial_X = MatrixX::Zero(this->matrices_dimension, this->matrices_dimension);
+                    currentState = InputStates::INITIAL_X;
+                }
+                if (line == "<augmented-C>")
+                    currentState = InputStates::AUGMENTED_C;
+                if (line == "<set-iteration-limit>")
+                    currentState = InputStates::SET_ITERATION_LIMIT;
+                break;
+            }
+            case InputStates::INITIAL_X: {
+                if (line == "</initial-X>") {
+                    foutInputSummary << "Initial X found:\n";
+                    foutInputSummary << this->initial_X << '\n';
+                    currentState = InputStates::NONE;
+                } else {
+                    std::stringstream ss(line);
+                    int blockno, row, col;
+                    double elem;
+                    ss >> blockno >> row >> col >> elem;
+                    std::cerr << blockno << ' ' << row << ' ' << col << ' ' << elem << std::endl;
+                    if (blockno != 1) {
+                        std::cerr << "more than 1 blockno not supported for initial X!" << std::endl;
+                        exit(EXIT_FAILURE);
+                    }
+                    this->initial_X(row - 1, col - 1) = elem;
+                }
+                break;
+            }
+            case InputStates::SET_ITERATION_LIMIT: {
+                if (line == "</set-iteration-limit>") {
+                    currentState = InputStates::NONE;
+                } else {
+
+                }
+            }
+            case InputStates::AUGMENTED_C: {
+                if (line == "</augmented-C>")
+                    currentState = InputStates::NONE;
+                break;
+            }
+            default:
+                break;
+        }
+    }
+}
+
 
 
 

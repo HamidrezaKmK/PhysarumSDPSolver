@@ -6,7 +6,7 @@ using namespace std;
 
 /// The second argument suggests the implementation type
 int main(int argc, char *argv[]) {
-    if (argc != 4 && argc != 2) {
+    if (argc != 5 && argc != 2) {
         std::cout << "The arguments for main function are not correct! found: " << argc << "arguments!\n";
         std::cout << "The arguments are:\n----\n";
         for (int i = 0; i < argc; i++)
@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
     std::cerr << "Started..." << std::endl;
 
     int implementation_type = 1;
-    if (argc == 4)
+    if (argc == 5)
         implementation_type = std::stoi(argv[1]);
 
     std::unique_ptr<BaseSDPSolver> a;
@@ -43,9 +43,10 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    if (argc == 4) {
+    if (argc == 5) {
         a->setInputSummaryFileStream(argv[2]);
         a->setIterationSummaryFileStream(argv[3]);
+        a->setIterationInfoFileAddress(argv[4]);
     } else {
         a->setInputSummaryFileStream(argv[1]);
         try {
@@ -59,6 +60,7 @@ int main(int argc, char *argv[]) {
 
     try {
         a->input();
+        a->setIterationInfo();
 
         if(!a->checkHasFeasibleAnswer()) {
             std::cout << "The problem has no feasible solution!" << std::endl;

@@ -60,10 +60,6 @@ location within the block, and <entry> gives the value of the entry in
 the matrix.  Note that since all matrices are assumed to be symmetric, 
 only entries in the upper triangle of a matrix are given.  
 
-7. You can give an initial starting matrix for the iterations to work
-for this you can enter the initial matrix as described in 6 but you should
-enter <matno> = -1 to set the values of X(0)
-
 Example:
 
          min 10x1+20x2
@@ -109,7 +105,44 @@ In SDPA sparse format, this problem can be written as:
 2 2 1 2 2.0
 2 2 2 2 6.0
 
- 
+----------------------------
+--- Customize iterations ---
+----------------------------
+
+You can also customize your iterations using an info file.
+Create a file named "testname.dat-s.info" next to the place
+where your test exists. Then by following the manual below
+you can customize some of the iteration options for the SDP
+solver.
+
+1. Add an initial starting point:
+    You can give an initial starting matrix for the iterations to work
+    for this you can enter the initial matrix as described before and
+    you should follow the block scheme that you have created for this test
+    by entering
+    <block-no.> <row-no.> <col-no.> <value>
+    you can enter the value at (row-no. , col-no.) in the "block-no."th block
+
+    All of these infos should be given in lines between
+    <initial-X>
+    and
+    </initial-X>
+
+    Example of info file for the given example:
+
+    <initial-X>
+    1 1 1 1.0
+    1 2 2 3.0
+    2 1 1 5.0
+    2 2 2 3.1
+    </initial-X>
+
+    This gives the following starting point:
+    1 0 0 0
+    0 3 0 0
+    0 0 5 0
+    0 0 0 3.1
+
 References:
  
 [1] K. Fujisawa, M. Kojima, and K. Nakata.  SDPA (Semidefinite Programming 

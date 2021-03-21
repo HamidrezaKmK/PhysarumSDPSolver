@@ -22,20 +22,25 @@ public:
 	 * will be initialized
 	 */
 	void input() noexcept;
+	void setIterationInfo();
 	SDPResult calc();
 	bool checkHasFeasibleAnswer();
     bool checkAnswerBounded();
 
 private:
-	SDPResult calc_new();
 	SDPResult calc_new_pos_def();
 protected:
     std::string inputSummaryFileAddress;
     std::string iterationSummaryFileAddress;
+    std::string iterationInfoFileAddress;
     std::ofstream foutInputSummary;
     std::ofstream foutIterationSummary;
-
+    std::ifstream finIterationInfo;
 public:
+	const std::ifstream &getIterationInfoFileAddress() const;
+
+	void setIterationInfoFileAddress(const std::string &iterationInfoFileAddress);
+
     const std::string &getInputSummaryFileAddress() const;
 
     void setInputSummaryFileStream(const std::string &inputSummaryFileAddress);
