@@ -154,6 +154,11 @@ solver.
         This option is set to false by default. However, by setting it to true you can
         access the current value of X in each iteration in "iteration summary" output file
 
+    * output-matrices = true/false: [ONLY supported for 3rd implementation (TODO: add to other implementations)]
+        This option is set to false by default. However, by setting it to true you will get
+        additional matrix outputs during iterations. This option should be set to "false" for
+        problems with large matrices
+
 3. Set max iteration limit:
     With this option you can set the maximum number of iterations the program
     should make the syntax is shown below:

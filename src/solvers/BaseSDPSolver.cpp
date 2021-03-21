@@ -131,15 +131,17 @@ SDPResult BaseSDPSolver::calc_pos_def() {
     // Initializing phase
     this->changesBeforeIterations(this->current_X, this->matrices_list, this->matrices_dimension, this->C);
 
-    foutIterationSummary << "\n*******************\n";
-    foutIterationSummary << "Trying to minimize tr(C.transpose() * X) for C =\n";
-    foutIterationSummary << this->C << '\n';
-    for (size_t i = 0; i < this->matrices_count; i++) {
-        foutIterationSummary << "A_" << i << " =\n[";
-        foutIterationSummary << matrices_list[i] << "]\n";
-        foutIterationSummary << "b_" << i << " = " << b(i) << "\n";
+    if (this->outputSummaryMatrices) {
+        foutIterationSummary << "\n*******************\n";
+        foutIterationSummary << "Trying to minimize tr(C.transpose() * X) for C =\n";
+        foutIterationSummary << this->C << '\n';
+        for (size_t i = 0; i < this->matrices_count; i++) {
+            foutIterationSummary << "A_" << i << " =\n[";
+            foutIterationSummary << matrices_list[i] << "]\n";
+            foutIterationSummary << "b_" << i << " = " << b(i) << "\n";
+        }
+        foutIterationSummary << "\n*******************\n\n";
     }
-    foutIterationSummary << "\n*******************\n\n";
 
     // Iterations
     int iteration_counter = 0;
@@ -149,7 +151,7 @@ SDPResult BaseSDPSolver::calc_pos_def() {
         foutIterationSummary << "Iteration #" << iteration_counter << ":\n";
         MatrixX sv_X = this->current_X;
 
-        if (this->outputSummaryX) {
+        if (this->outputSummaryMatrices && this->outputSummaryX) {
             foutIterationSummary << "Current value of X:\n" << this->current_X << "\n\n";
         }
 
@@ -368,6 +370,15 @@ void BaseSDPSolver::setIterationInfo() {
                             this->outputSummaryX = false;
                         } else {
                             std::cerr << "output-X value should be true or false\n";
+                            exit(EXIT_FAILURE);
+                        }
+                    } else if (tp == "output-matrices") {
+                        if (val == "true") {
+                            this->outputSummaryMatrices = true;
+                        } else if (val == "false") {
+                            this->outputSummaryMatrices = false;
+                        } else {
+                            std::cerr << "output-matrices value should be true or false\n";
                             exit(EXIT_FAILURE);
                         }
                     }

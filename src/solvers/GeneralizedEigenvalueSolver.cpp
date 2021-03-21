@@ -11,14 +11,7 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
     
     foutIterationSummary << "Check ||L L^T - X||_1 = " << ( L * L.transpose() - current_X).lpNorm<1>() << std::endl;
 
-    std::cerr << "MARK1" << std::endl;
-
-    std::cerr << L << std::endl;
-    std::cerr << "-----\n" << C << std::endl;
-
     auto solver_t = Eigen::SelfAdjointEigenSolver<MatrixX>( L.transpose() * C * L );
-
-    std::cerr << "MARK2" << std::endl;
 
     this->V = L * solver_t.eigenvectors();
     this->eigenvalues = solver_t.eigenvalues();
@@ -31,8 +24,9 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
 
     this->calculate_A_hats();
     this->calculate_M();
-    
-    foutIterationSummary << "M: " << std::endl << M << std::endl;
+
+    if (this->outputSummaryMatrices)
+        foutIterationSummary << "M: " << std::endl << M << std::endl;
     
     this->p = M.llt().solve(this->b);
     foutIterationSummary << "Check ||M p - b||_1 = " << (M * p - b).lpNorm<1>() << std::endl;

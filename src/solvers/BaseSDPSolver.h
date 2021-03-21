@@ -75,6 +75,7 @@ protected:
 	MatrixX R_prime, R_double_prime;
 
 	bool outputSummaryX = false;
+    bool outputSummaryMatrices = false;
 
 public:
     /// The following fields and methods control initializations before calc_pos_def
