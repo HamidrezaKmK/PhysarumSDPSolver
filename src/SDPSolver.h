@@ -1,10 +1,10 @@
 #ifndef SDP_SOLVER_
 #define SDP_SOLVER_
 
-#include "BaseSDPSolver.h"
 #include "SDPResult.h"
+#include "IdentityCSDPSolver.h"
 
-class SDPSolver : public BaseSDPSolver
+class SDPSolver : public IdentityCSDPSolver
 {
 private:
 	MatrixX init_w_tilda(size_t matrices_dimension) noexcept;

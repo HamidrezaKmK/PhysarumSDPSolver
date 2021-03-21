@@ -61,13 +61,11 @@ protected:
 
     typedef std::vector<MatrixX> MatrixList;
 	virtual SDPResult iterate() noexcept = 0;
-	/**
+
+    virtual /**
 	 * calculates the answer for a SDP problem with positive definite C
-	 * the input parameters are the normalized eigenvectors and eigenvalues
-	 * of C
 	 */
-	SDPResult calc_pos_def(Eigen::SelfAdjointEigenSolver<MatrixX>::EigenvectorsType eigenvectors,
-							Eigen::SelfAdjointEigenSolver<MatrixX>::RealVectorType eigenvalues);
+	SDPResult calc_pos_def();
 	/** calculates the sqrt of matrix A and gives exception
 	 * when it is not positive definite
 	 */

@@ -1,10 +1,10 @@
 #ifndef SDP_SOLVER_DERIVATIVE_
 #define SDP_SOLVER_DERIVATIVE_
 
-#include "BaseSDPSolver.h"
 #include "SDPResult.h"
+#include "IdentityCSDPSolver.h"
 
-class SDPSolverDerivative : public BaseSDPSolver
+class SDPSolverDerivative : public IdentityCSDPSolver
 {
 protected:
 	SDPResult iterate() noexcept override;

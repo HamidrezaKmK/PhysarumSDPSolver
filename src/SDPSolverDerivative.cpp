@@ -53,7 +53,6 @@ auto SDPSolverDerivative::iterate() noexcept -> SDPResult {
             a_hat[i] = matrices_list[i] * w_tilda;
             const auto residual = b[i] - w_tilda.cwiseProduct(a_hat[i]).sum();
             infeasibility += abs(residual);
-            //std::cerr << "b(" << i << ") - tr( A_" << i << " X) = " << residual << '\n';
         }
 
         foutIterationSummary << "Infeasibility of current X: " << infeasibility << std::endl;
@@ -65,13 +64,9 @@ auto SDPSolverDerivative::iterate() noexcept -> SDPResult {
                 M(k, l) = M(l, k) = current_result;
             }
 
-        //std::cerr << "Solving..." << '\n';
 
 
         p_hat = M.llt().solve(b);
-        //std::cerr << "This is M:\n";
-        //std::cerr << M << '\n';
-        //std::cerr << "M * p_hat = \n" << M * p_hat << "\n b = \n" << b << '\n';
 
         MatrixX s_bar = MatrixX::Identity(matrices_dimension, matrices_dimension);
         ElementType bTy = 0;
@@ -81,18 +76,10 @@ auto SDPSolverDerivative::iterate() noexcept -> SDPResult {
             bTy += p_hat(l) * b(l);
         }
 
-        //std::cerr << "Eigenvalues..." << '\n';
         VectorX q = s_bar.eigenvalues().real();
         ElementType h = 0.5 / q.maxCoeff();
 
-        bTy /= 1 - std::min(0.0, q.minCoeff()); //{is it necessary?/ is it correct?}
-
-        //std::cerr << q << std::endl << "H: " << h << '\n';
-
-        //std::cerr << "Calculating X..." << '\n';
-        //std::cerr << "W_tilda:" << '\n' << w_tilda << '\n';
-        //std::cerr << "I - hsbar:" << '\n'
-        //          << (MatrixX::Identity(matrices_dimension, matrices_dimension) - h * s_bar) << '\n';
+        bTy /= 1 - std::min(0.0, q.minCoeff());
 
         //we want to compute I xor W-1 + W-1 xor I in Z
         MatrixX w_tilda_inverse = w_tilda.inverse();

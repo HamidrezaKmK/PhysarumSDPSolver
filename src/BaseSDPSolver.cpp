@@ -128,7 +128,7 @@ void BaseSDPSolver::input() noexcept {
 }
 
 // TODO: extend calc new to all
-SDPResult BaseSDPSolver::calc_new_pos_def() {
+SDPResult BaseSDPSolver::calc_pos_def() {
     this->setIteration_limit(1000);
 
     // Initializing phase
@@ -199,14 +199,7 @@ auto BaseSDPSolver::calc() -> SDPResult
         this->b = VectorX::Zero(matrices_count);
         this->b(matrices_count - 1) = 1;
         this->matrices_list.push_back(MatrixX::Identity(matrices_dimension, matrices_dimension));
-        // TODO: this should change:
-        SDPResult res;
-        if (auto * solver = dynamic_cast<GeneralizedEigenvalueSolver*>(this)) {
-            res = solver->calc_new_pos_def();
-        } else {
-            auto tmp = Eigen::SelfAdjointEigenSolver<MatrixX>(this->C);
-            res = this->calc_pos_def(tmp.eigenvectors(), tmp.eigenvalues());
-        }
+        SDPResult res = this->calc_pos_def();
         // restore previous information before first iteration
         this->C = svC;
         this->b = svB;
@@ -219,55 +212,16 @@ auto BaseSDPSolver::calc() -> SDPResult
         for (size_t i = 0; i < matrices_count; i++)
             this->C -= matrices_list[i] * res.y(i);
 
-        // TODO: this should change:
-        if (auto * solver = dynamic_cast<GeneralizedEigenvalueSolver*>(this)) {
-            ret = solver->calc_new_pos_def();
-        } else {
-            auto tmp = Eigen::SelfAdjointEigenSolver<MatrixX>(this->C);
-            ret = this->calc_pos_def(tmp.eigenvectors(), tmp.eigenvalues());
-        }
+        ret = this->calc_pos_def();
 
         // restore information after second iteration
         this->C = svC;
     } else {
-        // TODO: this should change:
-        if (auto * solver = dynamic_cast<GeneralizedEigenvalueSolver*>(this)) {
-            ret = solver->calc_new_pos_def();
-        } else {
-            auto tmp = Eigen::SelfAdjointEigenSolver<MatrixX>(this->C);
-            ret = this->calc_pos_def(tmp.eigenvectors(), tmp.eigenvalues());
-        }
+        ret = this->calc_pos_def();
     }
     return ret;
 }
 
-auto BaseSDPSolver::calc_pos_def(Eigen::SelfAdjointEigenSolver<MatrixX>::EigenvectorsType eigenvectors,
-                                 Eigen::SelfAdjointEigenSolver<MatrixX>::RealVectorType eigenvalues) -> SDPResult
-{
-    std::cerr << "The eigen values are: " << eigenvalues << std::endl;
-    for (size_t i = 0; i < matrices_dimension; ++i)
-    {
-        auto &lambda = eigenvalues[i];
-        if (lambda <= 0)
-            throw "Matrix not positive definite in calc_pos_def!";
-        else
-            lambda = sqrt(lambda);
-    }
-    this->R_prime = this->R_double_prime
-            = eigenvectors * eigenvalues.asDiagonal() * eigenvectors.transpose();
-    for (size_t i = 0; i < matrices_count; i++) {
-        matrices_list[i] = R_prime.inverse() * matrices_list[i] * R_double_prime.inverse();
-    }
-
-    SDPResult res = iterate();
-
-    // revert changes:
-    res.setX(this->R_double_prime.inverse() * res.W * res.W * this->R_prime.inverse());
-    for (size_t i = 0; i < matrices_count; i++) {
-        matrices_list[i] = R_prime * matrices_list[i] * R_double_prime;
-    }
-    return res;
-}
 
 const std::string &BaseSDPSolver::getInputSummaryFileAddress() const {
     return inputSummaryFileAddress;
