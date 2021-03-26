@@ -65,6 +65,10 @@ protected:
 	 */
 	SDPResult calc_pos_def();
 
+	virtual void customInitialization() {
+
+	};
+
 	size_t matrices_dimension;
 	size_t matrices_count;
 	MatrixList matrices_list;
@@ -76,6 +80,7 @@ protected:
 
 	bool outputSummaryX = false;
     bool outputSummaryMatrices = false;
+
 
 public:
     /// The following fields and methods control initializations before calc_pos_def

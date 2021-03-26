@@ -15,17 +15,23 @@ private:
     MatrixX Q, Q_tilde;
     MatrixX V;
     VectorX p;
+    VectorX d;
+    MatrixX C_PseudoInverse;
     Eigen::SelfAdjointEigenSolver<MatrixX>::RealVectorType eigenvalues;
     void calculate_A_hats();
     void calculate_Q();
     void calculate_Q_tilde();
     void calculate_M();
+public:
+    double alpha = 0;
+    double beta = 1;
 protected:
   double calculate_current_h() override;
   double calculate_current_tau();
   
     SDPResult iterate() noexcept override;
 
+    void customInitialization() override;
 };
 
 

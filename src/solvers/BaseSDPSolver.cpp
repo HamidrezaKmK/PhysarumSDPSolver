@@ -143,6 +143,8 @@ SDPResult BaseSDPSolver::calc_pos_def() {
         foutIterationSummary << "\n*******************\n\n";
     }
 
+    this->customInitialization();
+
     // Iterations
     int iteration_counter = 0;
     double primal_value, dual_value, gap, infeasibility;
@@ -174,15 +176,16 @@ SDPResult BaseSDPSolver::calc_pos_def() {
     } while (iteration_counter < this->getIteration_limit() &&
              (abs(infeasibility) > 1e-5 ||  abs(gap) > 1e-5));
 
-    this->changesAfterIterations(this->current_X, this->matrices_list, this->matrices_dimension, this->C);
-
     SDPResult res;
-    res.setX(this->current_X);
-    res.sety(this->current_y);
+
     res.setIterationCount(iteration_counter);
-    res.setGap(this->calculate_current_gap());
+    res.setGap(this->calculate_current_gap() / this->gamma_augment);
     res.setInfeasibility(this->calculate_current_infeasibility());
 
+    this->changesAfterIterations(this->current_X, this->matrices_list, this->matrices_dimension, this->C);
+
+    res.setX(this->current_X);
+    res.sety(this->current_y);
     return res;
 }
 
@@ -334,6 +337,7 @@ void BaseSDPSolver::setIterationInfo() {
         AUGMENTED_C,
         SET_ITERATION_LIMIT,
         ITERATION_OPTIONS,
+        GENERALIZED_EIGENVALUE_OPTIONS,
         NONE
     };
     InputStates currentState = InputStates::NONE;
@@ -354,7 +358,25 @@ void BaseSDPSolver::setIterationInfo() {
                     currentState = InputStates::SET_ITERATION_LIMIT;
                 if (line == "<iteration-summary-options>")
                     currentState = InputStates::ITERATION_OPTIONS;
+                if (line == "<generalized-eigenvalue>")
+                    currentState = InputStates::GENERALIZED_EIGENVALUE_OPTIONS;
                 break;
+            }
+            case InputStates::GENERALIZED_EIGENVALUE_OPTIONS: {
+                if (line == "</generalized-eigenvalue>")
+                    currentState = InputStates::NONE;
+                else {
+                    if (GeneralizedEigenvalueSolver *solver = dynamic_cast<GeneralizedEigenvalueSolver *>(this)) {
+                        std::stringstream ss(line);
+                        std::string tp, op_append, val;
+                        ss >> tp >> op_append >> val;
+                        if (tp == "alpha") {
+                            solver->alpha = std::stod(val);
+                        } else if (tp == "beta") {
+                            solver->beta = std::stod(val);
+                        }
+                    }
+                }
             }
             case InputStates::ITERATION_OPTIONS: {
                 if (line == "</iteration-summary-options>")

@@ -1,21 +1,22 @@
 <initial-X>
-1 1 1 10000
-1 2 2 10000
-1 3 3 10000
-1 4 4 10000
-1 5 5 10000
-1 6 6 10000
+1 1 1 1000
+1 2 2 1000
+1 3 3 1000
+1 4 4 1000
+1 5 5 1000
+1 6 6 1000
 </initial-X>
-
-<augmented-C>
-gamma = 0.5
-initial-X-lower-right-element-augmented = 10000
-</augmented-C>
 
 <set-iteration-limit>
 10000
 </set-iteration-limit>
 
 <iteration-summary-options>
+output-matrices = true
 output-X = true
 </iteration-summary-options>
+
+<generalized-eigenvalue>
+alpha = 0.5
+beta = 1
+</generalized-eigenvalue>

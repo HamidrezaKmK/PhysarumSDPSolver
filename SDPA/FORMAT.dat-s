@@ -195,6 +195,19 @@ solver.
     * initial-X-lower-right-element-augmented = x
         This sets the added lower-right element of the initial matrix "X"
 
+5. Generalized eigenvalue method options:
+    You can customize some of the options for this method using arguments in
+    the following block:
+    <generalized-eigenvalue>
+    </generalized-eigenvalue>
+
+    * alpha = x
+    * beta = x
+        Add alpha and beta in the generalized eigenvalue method
+        In the generalized eigen value method two coefficients "alpha" and "beta"
+        can be used to customize iterations. Read more about this in the overleaf
+        document. With this option you can customized alpha and beta
+
 ------------------------------
 --- Example of .dat-s file ---
 ------------------------------
