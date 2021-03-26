@@ -179,7 +179,10 @@ SDPResult BaseSDPSolver::calc_pos_def() {
     SDPResult res;
 
     res.setIterationCount(iteration_counter);
-    res.setGap(this->calculate_current_gap() / this->gamma_augment);
+    if (this->should_augment)
+        res.setGap(this->calculate_current_gap() / this->gamma_augment);
+    else
+        res.setGap(this->calculate_current_gap());
     res.setInfeasibility(this->calculate_current_infeasibility());
 
     this->changesAfterIterations(this->current_X, this->matrices_list, this->matrices_dimension, this->C);

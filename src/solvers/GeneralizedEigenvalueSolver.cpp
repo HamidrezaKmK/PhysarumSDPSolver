@@ -35,6 +35,7 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
         else
             this->d[i] = (this->beta * this->eigenvalues[i]) / (this->eigenvalues[i] - this->alpha);
     }
+    foutIterationSummary << "This is d:\n" << this->d << '\n';
 
     this->calculate_M();
 
