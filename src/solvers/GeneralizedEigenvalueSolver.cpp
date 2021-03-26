@@ -9,7 +9,7 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
     Eigen::LLT<MatrixX> lltOfA(this->alpha * this->C_PseudoInverse + this->beta * this->current_X);
     const MatrixX L = lltOfA.matrixL();
     
-    foutIterationSummary << "Check ||L L^T - X||_1 = " << ( L * L.transpose() -
+    foutIterationSummary << "Check ||L L^T - alpha * (C+) + beta * X||_1 = " << ( L * L.transpose() -
         (this->alpha * this->C_PseudoInverse + this->beta * this->current_X)).lpNorm<1>() << std::endl;
 
     auto solver_t = Eigen::SelfAdjointEigenSolver<MatrixX>( L.transpose() * C * L );
@@ -20,7 +20,7 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
     foutIterationSummary << "Minimum generalized eigenvalue: " << eigenvalues.minCoeff() << std::endl;
     
     foutIterationSummary << "Check ||V^{-T} Lambda V^{-1} - C||_1 = " << (V.transpose().inverse() * eigenvalues.asDiagonal() * V.inverse() - C).lpNorm<1>() << std::endl;
-    foutIterationSummary << "Check ||V V^T - X||_1 = " << (V * V.transpose() -
+    foutIterationSummary << "Check ||V V^T - alpha * (C+) + beta * X||_1 = " << (V * V.transpose() -
             (this->alpha * this->C_PseudoInverse + this->beta * this->current_X)).lpNorm<1>() << std::endl;
     
 
