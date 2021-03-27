@@ -143,7 +143,7 @@ GeneralizedEigenvalueSolver::calculate_Q_tilde() {
 
 double GeneralizedEigenvalueSolver::calculate_current_h() {
 
-    double LH = 0, RH = 1;
+    /*double LH = 0, RH = 1;
     for (int rp = 0; rp < 100; rp++) {
         double mid = (LH + RH) / 2;
         MatrixX newX = mid * this->Q + (1 - mid) * this->current_X;
@@ -153,15 +153,14 @@ double GeneralizedEigenvalueSolver::calculate_current_h() {
             LH = mid;
         }
         MatrixX checkMat = LH * this->Q + (1 - LH) * this->current_X;
-        std::cerr << "LH: " << LH << " RH: " << RH << " min coeff: " << checkMat.eigenvalues().real().minCoeff() << '\n';
     }
     return LH * 3 / 4;
-
+*/
     auto H = MatrixX(matrices_dimension, matrices_dimension);
     for (size_t i = 0; i < matrices_dimension; i++)
         for (size_t j = 0; j < matrices_dimension; j++) {
             if (eigenvalues[i] > alpha + EPS && eigenvalues[j] > alpha + EPS) {
-                H(i, j) = Q_tilde(i, j) * beta / sqrt(1 - alpha / eigenvalues[i]) / sqrt(1 - alpha / eigenvalues[j]);
+                H(i, j) = this->d[i] * Q_tilde(i, j) * this->d[j];// * beta / sqrt(1 - alpha / eigenvalues[i]) / sqrt(1 - alpha / eigenvalues[j]);
             } else {
                 H(i, j) = 0;
             }
@@ -171,7 +170,8 @@ double GeneralizedEigenvalueSolver::calculate_current_h() {
         foutIterationSummary << "eigenvalues of H:\n" << H.eigenvalues() << '\n';
     }
     const auto lambda_min = H.eigenvalues().real().minCoeff();
-    return lambda_min < 1 ? 0.75 / (1 - lambda_min) : 1;
+    const auto ret = lambda_min < 1 ? 0.75 / (1 - lambda_min) : 1;
+    return abs(ret) < EPS ? 0 : ret;
 }
 
 double GeneralizedEigenvalueSolver::calculate_current_tau() {
