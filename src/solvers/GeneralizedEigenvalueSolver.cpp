@@ -6,12 +6,21 @@
 
 SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
 
-    Eigen::LLT<MatrixX> lltOfA(this->alpha * this->C_PseudoInverse + this->beta * this->current_X);
-    const MatrixX L = lltOfA.matrixL();
+    Eigen::SelfAdjointEigenSolver<MatrixX>solver1(this->alpha * this->C_PseudoInverse + this->beta * this->current_X);
+    MatrixX U = solver1.eigenvectors();
+
+    auto Psi = solver1.eigenvalues();
+    for (size_t i = 0; i < matrices_dimension; i++)
+        Psi[i] = sqrt(Psi[i]);
+
+    //Eigen::LLT<MatrixX> lltOfA(this->alpha * this->C_PseudoInverse + this->beta * this->current_X);
+    //const MatrixX L = lltOfA.matrixL();
     
-    foutIterationSummary << "Check ||L L^T - alpha * (C+) + beta * X||_1 = " << ( L * L.transpose() -
+    foutIterationSummary << "Check ||U Psi UT - alpha * (C+) + beta * X||_1 = " <<
+        ( U * Psi.asDiagonal() * Psi.asDiagonal() * U.transpose() -
         (this->alpha * this->C_PseudoInverse + this->beta * this->current_X)).lpNorm<1>() << std::endl;
 
+    MatrixX L = U * Psi.asDiagonal();
     auto solver_t = Eigen::SelfAdjointEigenSolver<MatrixX>( L.transpose() * C * L );
 
     this->V = L * solver_t.eigenvectors();
@@ -35,7 +44,8 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
         else
             this->d[i] = (this->beta * this->eigenvalues[i]) / (this->eigenvalues[i] - this->alpha);
     }
-    foutIterationSummary << "This is d:\n" << this->d << '\n';
+    if (this->outputSummaryMatrices)
+        foutIterationSummary << "This is d:\n" << this->d << '\n';
 
     this->calculate_M();
 
@@ -76,9 +86,9 @@ void GeneralizedEigenvalueSolver::calculate_M() {
                 for (size_t j = 0; j < matrices_dimension; j++) {
                     double t = this->eigenvalues[i] * this->d[j] + this->eigenvalues[j] * this->d[i];
                     M(l, k) += (2 / t) * A_hats[l](i, j) * A_hats[k](i, j);
-                    /*if (t >= 1e-9)
+                    /*if (abs(t) >= 1e-9)
                         M(l, k) += (2 / t) * A_hats[l](i, j) * A_hats[k](i, j);
-                    */
+*/
                 }
         }
 }
@@ -99,11 +109,10 @@ GeneralizedEigenvalueSolver::calculate_Q_tilde() {
             }
             double t = this->d[j] * this->eigenvalues[i] + this->d[i] * this->eigenvalues[j];
             this->Q_tilde(i, j) *= 2 / t;
-            /*if (t < 1e-9)
+            /*if (abs(t) < 1e-9)
                 this->Q_tilde(i, j) = 0;
             else
-                this->Q_tilde(i, j) *= 2 / t;
-            */
+                this->Q_tilde(i, j) *= 2 / t;*/
         }
     }
 }
