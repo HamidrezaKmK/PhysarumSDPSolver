@@ -72,7 +72,7 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
     double h = this->calculate_current_h();
 
     MatrixX newX = h * this->Q + (1 - h) * this->current_X;
-    if (newX.eigenvalues().real().minCoeff() < EPS) {
+    if (newX.eigenvalues().real().minCoeff() < 0) {
         std::cerr << "Negative eigenvalues detected in X!\n";
         std::cerr << "Value of h: " << h << std::endl;
         std::cerr << "Minimum eigenvalue of the new X: " << newX.eigenvalues().real().minCoeff() << '\n';
@@ -142,14 +142,16 @@ GeneralizedEigenvalueSolver::calculate_Q_tilde() {
 double GeneralizedEigenvalueSolver::calculate_current_h() {
 
     double LH = 0, RH = 1;
-    for (int rp = 0; rp < 60; rp++) {
+    for (int rp = 0; rp < 100; rp++) {
         double mid = (LH + RH) / 2;
         MatrixX newX = mid * this->Q + (1 - mid) * this->current_X;
-        if (newX.eigenvalues().real().minCoeff() < EPS) {
+        if (newX.eigenvalues().real().minCoeff() < 0) {
             RH = mid;
         } else {
             LH = mid;
         }
+        MatrixX checkMat = LH * this->Q + (1 - LH) * this->current_X;
+        std::cerr << "LH: " << LH << " RH: " << RH << " min coeff: " << checkMat.eigenvalues().real().minCoeff() << '\n';
     }
     return LH * 3 / 4;
 
