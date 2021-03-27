@@ -48,13 +48,15 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
     for (size_t i = 0; i < matrices_dimension; i++) {
         if (abs(this->eigenvalues[i]) < EPS)
             this->d[i] = this->beta;
-        else if (abs(this->eigenvalues[i] - this->alpha) < EPS)
-            this->d[i] = 0;
+        //else if (abs(this->eigenvalues[i] - this->alpha) < EPS)
+        //    this->d[i] = 0;
         else
             this->d[i] = (this->beta * this->eigenvalues[i]) / (this->eigenvalues[i] - this->alpha);
     }
     if (this->outputSummaryMatrices)
         foutIterationSummary << "This is d:\n" << this->d << '\n';
+    if (this->outputSummaryMatrices)
+        foutIterationSummary << "These are lambdas:\n" << this->eigenvalues << '\n';
 
     this->calculate_M();
 
@@ -145,7 +147,7 @@ double GeneralizedEigenvalueSolver::calculate_current_h() {
     for (int rp = 0; rp < 100; rp++) {
         double mid = (LH + RH) / 2;
         MatrixX newX = mid * this->Q + (1 - mid) * this->current_X;
-        if (newX.eigenvalues().real().minCoeff() < 0) {
+        if (newX.eigenvalues().real().minCoeff() < EPS) {
             RH = mid;
         } else {
             LH = mid;
