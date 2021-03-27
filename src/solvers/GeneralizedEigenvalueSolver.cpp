@@ -160,7 +160,7 @@ double GeneralizedEigenvalueSolver::calculate_current_h() {
     for (size_t i = 0; i < matrices_dimension; i++)
         for (size_t j = 0; j < matrices_dimension; j++) {
             if (eigenvalues[i] > alpha + EPS && eigenvalues[j] > alpha + EPS) {
-                H(i, j) = this->d[i] * Q_tilde(i, j) * this->d[j];// * beta / sqrt(1 - alpha / eigenvalues[i]) / sqrt(1 - alpha / eigenvalues[j]);
+                H(i, j) = sqrt(this->d[i]) * Q_tilde(i, j) * sqrt(this->d[j]);// * beta / sqrt(1 - alpha / eigenvalues[i]) / sqrt(1 - alpha / eigenvalues[j]);
             } else {
                 H(i, j) = 0;
             }
