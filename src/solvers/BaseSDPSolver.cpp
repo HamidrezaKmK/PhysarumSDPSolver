@@ -420,7 +420,7 @@ void BaseSDPSolver::setIterationInfo() {
                     int blockno, row, col;
                     double elem;
                     ss >> blockno >> row >> col >> elem;
-                    std::cerr << blockno << ' ' << row << ' ' << col << ' ' << elem << std::endl;
+                    std::cerr << "got element from input: " << blockno << ' ' << row << ' ' << col << ' ' << elem << std::endl;
                     if (blockno != 1) {
                         std::cerr << "more than 1 blockno not supported for initial X!" << std::endl;
                         exit(EXIT_FAILURE);

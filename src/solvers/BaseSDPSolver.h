@@ -7,6 +7,8 @@
 #include <unsupported/Eigen/MatrixFunctions>
 #include "SDPResult.h"
 
+#define EPS 1e-10
+
 class BaseSDPSolver
 {
 public:
