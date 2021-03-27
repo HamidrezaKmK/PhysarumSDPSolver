@@ -13,6 +13,7 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
                          ( U * Psi.asDiagonal() * U.transpose() -
                            (this->alpha * this->C_PseudoInverse + this->beta * this->current_X)).lpNorm<1>() << std::endl;
     foutIterationSummary << "Max eigenvalue in Psi: " << Psi.real().maxCoeff() << '\n';
+    foutIterationSummary << "Min eigenvalue in Psi: " << Psi.real().minCoeff() << '\n';
 
     for (size_t i = 0; i < matrices_dimension; i++)
         Psi[i] = sqrt(Psi[i]);
