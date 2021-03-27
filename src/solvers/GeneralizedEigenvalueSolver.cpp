@@ -8,17 +8,18 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
 
     Eigen::SelfAdjointEigenSolver<MatrixX>solver1(this->alpha * this->C_PseudoInverse + this->beta * this->current_X);
     MatrixX U = solver1.eigenvectors();
-
     auto Psi = solver1.eigenvalues();
+    foutIterationSummary << "Check ||U Psi UT - [alpha * (C+) + beta * X]||_1 = " <<
+                         ( U * Psi.asDiagonal() * U.transpose() -
+                           (this->alpha * this->C_PseudoInverse + this->beta * this->current_X)).lpNorm<1>() << std::endl;
+    foutIterationSummary << "Max eigenvalue in Psi: " << Psi.real().maxCoeff() << '\n';
+
     for (size_t i = 0; i < matrices_dimension; i++)
         Psi[i] = sqrt(Psi[i]);
 
     //Eigen::LLT<MatrixX> lltOfA(this->alpha * this->C_PseudoInverse + this->beta * this->current_X);
     //const MatrixX L = lltOfA.matrixL();
     
-    foutIterationSummary << "Check ||U Psi UT - alpha * (C+) + beta * X||_1 = " <<
-        ( U * Psi.asDiagonal() * Psi.asDiagonal() * U.transpose() -
-        (this->alpha * this->C_PseudoInverse + this->beta * this->current_X)).lpNorm<1>() << std::endl;
 
     MatrixX L = U * Psi.asDiagonal();
     auto solver_t = Eigen::SelfAdjointEigenSolver<MatrixX>( L.transpose() * C * L );
