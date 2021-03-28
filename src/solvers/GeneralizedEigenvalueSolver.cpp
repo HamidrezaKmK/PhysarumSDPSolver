@@ -6,9 +6,13 @@
 
 SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
 
+
+
     Eigen::SelfAdjointEigenSolver<MatrixX> solver1(this->alpha * this->C_PseudoInverse + this->beta * this->current_X);
     MatrixX U = solver1.eigenvectors();
     auto Psi = solver1.eigenvalues();
+
+
     foutIterationSummary << "Check ||U Psi UT - [alpha * (C+) + beta * X]||_1 = " <<
                          (U * Psi.asDiagonal() * U.transpose() -
                           (this->alpha * this->C_PseudoInverse + this->beta * this->current_X)).lpNorm<1>()
@@ -25,8 +29,8 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
 
 
     MatrixX L = U * Psi.asDiagonal();
-    auto solver_t = Eigen::SelfAdjointEigenSolver<MatrixX>(L.transpose() * C * L);
 
+    auto solver_t = Eigen::SelfAdjointEigenSolver<MatrixX>(L.transpose() * C * L);
     this->V = L * solver_t.eigenvectors();
     this->eigenvalues = solver_t.eigenvalues();
 
@@ -42,17 +46,19 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
                          << std::endl;
 
 
-    this->calculate_A_hats();
     // calculate 'd' s
     this->d = this->eigenvalues;
     for (size_t i = 0; i < matrices_dimension; i++) {
         if (abs(this->eigenvalues[i]) < EPS)
             this->d[i] = this->beta;
-        //else if (abs(this->eigenvalues[i] - this->alpha) < EPS)
-        //    this->d[i] = 0;
+        else if (abs(this->eigenvalues[i] - this->alpha) < EPS)
+            this->d[i] = 0;
         else
             this->d[i] = (this->beta * this->eigenvalues[i]) / (this->eigenvalues[i] - this->alpha);
     }
+
+    this->calculate_A_hats();
+
     if (this->outputSummaryMatrices)
         foutIterationSummary << "This is d:\n" << this->d << '\n';
     if (this->outputSummaryMatrices)
@@ -63,14 +69,21 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
     if (this->outputSummaryMatrices)
         foutIterationSummary << "M: " << std::endl << M << std::endl;
 
-    this->p = M.llt().solve(this->b);
-    foutIterationSummary << "Check ||M p - b||_1 = " << (M * p - b).lpNorm<1>() << std::endl;
+    VectorX b_(A_hats.size());
+    for (size_t i = 0; i < A_hats.size(); i++)
+        if (i < matrices_count)
+            b_(i) = this->b(i);
+        else
+            b_(i) = 0;
+
+    this->p = M.llt().solve(b_);
+
+    foutIterationSummary << "Check ||M p - b_||_1 = " << (M * p - b_).lpNorm<1>() << std::endl;
     this->calculate_Q_tilde();
     this->calculate_Q();
 
 
     // update values:
-
     double h = this->calculate_current_h();
 
     MatrixX newX = h * this->Q + (1 - h) * this->current_X;
@@ -87,8 +100,14 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
 
     foutIterationSummary << "calculated h = " << h << '\n';
     double tau = this->calculate_current_tau();
+
     foutIterationSummary << "calculated tau = " << tau << '\n';
-    this->current_y = this->p * tau;
+
+    this->current_y = VectorX(matrices_count);
+    for (size_t i = 0; i < matrices_count; i++)
+        this->current_y(i) = this->p(i) * tau;
+    //this->current_y = VectorX(this->p, this->matrices_count) * tau;
+
     foutIterationSummary << "minimum eigenvalue: " << this->current_X.eigenvalues().real().minCoeff() << std::endl;
     this->current_X = h * this->Q + (1 - h) * this->current_X;
     return SDPResult();
@@ -99,20 +118,30 @@ void GeneralizedEigenvalueSolver::calculate_A_hats() {
     for (const auto &A : matrices_list) {
         A_hats.push_back(V.transpose() * A * V);
     }
+    for (size_t i = 0; i < matrices_dimension; i++)
+        if (this->d[i] < EPS)
+            A_hats.push_back(V.transpose() * V.col(i) * V.col(i).transpose() * V.transpose());
 }
 
 void GeneralizedEigenvalueSolver::calculate_M() {
-    M = MatrixX(matrices_count, matrices_count);
-    for (size_t l = 0; l < matrices_count; l++)
-        for (size_t k = 0; k < matrices_count; k++) {
+    size_t A_hats_count = A_hats.size();
+    M = MatrixX(A_hats_count, A_hats_count);
+    if (this->outputSummaryMatrices) {
+        foutIterationSummary << "\n===========\nThese are additional A hats:\n";
+        for (size_t i = matrices_count; i < A_hats_count; i++)
+            foutIterationSummary << A_hats[i] << "\n-----\n";
+        foutIterationSummary << "==========\n";
+    }
+    for (size_t l = 0; l < A_hats_count; l++)
+        for (size_t k = 0; k < A_hats_count; k++) {
             M(l, k) = 0;
             for (size_t i = 0; i < matrices_dimension; i++)
                 for (size_t j = 0; j < matrices_dimension; j++) {
                     double t = this->eigenvalues[i] * this->d[j] + this->eigenvalues[j] * this->d[i];
-                    M(l, k) += (2 / t) * A_hats[l](i, j) * A_hats[k](i, j);
-                    /*if (abs(t) >= 1e-9)
+                    //M(l, k) += (2 / t) * A_hats[l](i, j) * A_hats[k](i, j);
+                    if (abs(t) >= EPS)
                         M(l, k) += (2 / t) * A_hats[l](i, j) * A_hats[k](i, j);
-*/
+
                 }
         }
 }
@@ -128,22 +157,22 @@ GeneralizedEigenvalueSolver::calculate_Q_tilde() {
     for (size_t i = 0; i < matrices_dimension; i++) {
         for (size_t j = 0; j < matrices_dimension; j++) {
             this->Q_tilde(i, j) = 0;
-            for (size_t l = 0; l < matrices_count; l++) {
+            for (size_t l = 0; l < A_hats.size(); l++) {
                 this->Q_tilde(i, j) += p(l) * A_hats[l](i, j);
             }
             double t = this->d[j] * this->eigenvalues[i] + this->d[i] * this->eigenvalues[j];
-            this->Q_tilde(i, j) *= 2 / t;
-            /*if (abs(t) < 1e-9)
+            //this->Q_tilde(i, j) *= 2 / t;
+            if (abs(t) < EPS)
                 this->Q_tilde(i, j) = 0;
             else
-                this->Q_tilde(i, j) *= 2 / t;*/
+                this->Q_tilde(i, j) *= 2 / t;
         }
     }
 }
 
 double GeneralizedEigenvalueSolver::calculate_current_h() {
 
-    /*double LH = 0, RH = 1;
+    double LH = 0, RH = 1;
     for (int rp = 0; rp < 100; rp++) {
         double mid = (LH + RH) / 2;
         MatrixX newX = mid * this->Q + (1 - mid) * this->current_X;
@@ -155,7 +184,7 @@ double GeneralizedEigenvalueSolver::calculate_current_h() {
         MatrixX checkMat = LH * this->Q + (1 - LH) * this->current_X;
     }
     return LH * 3 / 4;
-*/
+
     auto H = MatrixX(matrices_dimension, matrices_dimension);
     for (size_t i = 0; i < matrices_dimension; i++)
         for (size_t j = 0; j < matrices_dimension; j++) {
@@ -179,7 +208,7 @@ double GeneralizedEigenvalueSolver::calculate_current_tau() {
     for (size_t i = 0; i < matrices_dimension; i++)
         for (size_t j = 0; j < matrices_dimension; j++) {
             G(i, j) = 0;
-            for (size_t l = 0; l < matrices_count; l++) {
+            for (size_t l = 0; l < A_hats.size(); l++) {
                 G(i, j) += p(l) * A_hats[l](i, j);
             }
             double t = sqrt(this->eigenvalues[i] * this->eigenvalues[j]);
