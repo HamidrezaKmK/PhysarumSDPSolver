@@ -57,6 +57,13 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
             this->d[i] = (this->beta * this->eigenvalues[i]) / (this->eigenvalues[i] - this->alpha);
     }
 
+    this->d_pinv = this->d;
+    for (size_t i = 0; i < matrices_dimension; i++) {
+        if (abs(this->d(i)) > EPS)
+            this->d_pinv(i) = 1 / this->d(i);
+        else
+            this->d_pinv(i) = this->d(i);
+    }
     this->calculate_A_hats();
 
     if (this->outputSummaryMatrices)
@@ -171,8 +178,20 @@ GeneralizedEigenvalueSolver::calculate_Q_tilde() {
 }
 
 double GeneralizedEigenvalueSolver::calculate_current_h() {
-
     double LH = 0, RH = 1;
+    for (int rp = 0; rp < 100; rp++) {
+        double mid = (LH + RH) / 2;
+        MatrixX tmp = this->d_pinv.asDiagonal();
+        MatrixX newX = mid * this->Q + (1 - mid) * tmp;
+        if (newX.eigenvalues().real().minCoeff() < EPS) {
+            RH = mid;
+        } else {
+            LH = mid;
+        }
+    }
+    return LH * 3 / 4;
+
+    LH = 0, RH = 1;
     for (int rp = 0; rp < 100; rp++) {
         double mid = (LH + RH) / 2;
         MatrixX newX = mid * this->Q + (1 - mid) * this->current_X;
@@ -181,7 +200,6 @@ double GeneralizedEigenvalueSolver::calculate_current_h() {
         } else {
             LH = mid;
         }
-        MatrixX checkMat = LH * this->Q + (1 - LH) * this->current_X;
     }
     return LH * 3 / 4;
 

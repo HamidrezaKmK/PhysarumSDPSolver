@@ -15,7 +15,7 @@ private:
     MatrixX Q, Q_tilde;
     MatrixX V;
     VectorX p;
-    VectorX d;
+    VectorX d, d_pinv;
     MatrixX C_PseudoInverse;
     Eigen::SelfAdjointEigenSolver<MatrixX>::RealVectorType eigenvalues;
     void calculate_A_hats();
