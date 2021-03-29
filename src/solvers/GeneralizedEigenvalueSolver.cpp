@@ -62,7 +62,7 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
         if (abs(this->d(i)) > EPS)
             this->d_pinv(i) = 1 / this->d(i);
         else
-            this->d_pinv(i) = this->d(i);
+            this->d_pinv(i) = 0;
     }
     this->calculate_A_hats();
 
@@ -182,7 +182,7 @@ double GeneralizedEigenvalueSolver::calculate_current_h() {
     for (int rp = 0; rp < 100; rp++) {
         double mid = (LH + RH) / 2;
         MatrixX tmp = this->d_pinv.asDiagonal();
-        MatrixX newX = mid * this->Q + (1 - mid) * tmp;
+        MatrixX newX = mid * this->Q_tilde + (1 - mid) * tmp;
         if (newX.eigenvalues().real().minCoeff() < EPS) {
             RH = mid;
         } else {
