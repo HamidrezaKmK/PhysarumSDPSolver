@@ -120,7 +120,7 @@ void GeneralizedEigenvalueSolver::calculate_A_hats() {
     }
     for (size_t i = 0; i < matrices_dimension; i++)
         if (this->d[i] < EPS)
-            A_hats.push_back(V.transpose() * V.col(i) * V.col(i).transpose() * V.transpose());
+            A_hats.push_back(V.transpose() * V.col(i) * V.col(i).transpose() * V);
 }
 
 void GeneralizedEigenvalueSolver::calculate_M() {
