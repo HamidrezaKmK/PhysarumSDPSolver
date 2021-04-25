@@ -1,9 +1,10 @@
 import os
 import shutil
 import sys
-
+import test_changer
 from test_generator import generate_tests
 from tester import test, get_cached_tester_query
+from pathlib import Path
 import subprocess
 import enum
 import re
@@ -81,7 +82,7 @@ class CLI:
             '- Selected Operating System: [' + str(self.user_os) + ']',
             'Linux is not supported yet!',
             '[1] Build source code (Developer option)',
-            '[2] Add test',
+            '[2] Manage tests (Augment problems - Add tests)',
             '[3] View test',
             '[4] Run tests')
         if cached_test_query is not None:
@@ -115,7 +116,7 @@ class CLI:
             subprocess.call("color 0F", shell=True)
             self.main()
         elif query == 2:
-            self.add_tests()
+            self.manage_tests()
             self.main()
         elif query == 3:
             self.view_test()
@@ -188,15 +189,16 @@ class CLI:
         except SyntaxError:
             pass
 
-    def add_tests(self):
+    def manage_tests(self):
         CLI.fancy_print('Enter one of these options',
                         '[1] Add test manually',
                         '[2] Add test with generators',
-                        '[3] Go back')
+                        '[3] Augment existing tests',
+                        '[4] Go back')
         opt = int(input())
         if opt == 1:
             self.add_manual_tests()
-            self.add_tests()
+            self.manage_tests()
             return
         elif opt == 2:
             CLI.fancy_print('Enter following information in separate lines',
@@ -215,10 +217,44 @@ class CLI:
                 print("generating tests not successful")
             self.press_enter_to_continue()
         elif opt == 3:
+            self.augment_tests()
+        elif opt == 4:
             return
         else:
-            self.add_tests()
+            self.manage_tests()
         return
+
+    def augment_tests(self):
+        CLI.fancy_print(
+            'You can augment tests such that C^{-1} will become feasible',
+            'For more information of the augmentation please check out the SDP physarum document:',
+            '[1] Select \".dat-s\" files to augment',
+            '[2] Go back'
+        )
+        opt = int(input())
+        if opt == 1:
+            test_folder = CLI.select_dirs(self.root_dir + "/SDPA/testSet", "Select one of the test directories below:", is_dir=True)
+            # TODO : complete this
+            CLI.list_dirs(self.root_dir + "/SDPA/testSet/" + test_folder,
+                          "Enter test name you wish to run (Regex is also supported e.g. \"*.dat-s\")",
+                          TestFormats.regex_format())
+            tests_reg = input()
+            choices, list = CLI.filter_dirs(parent_dir=self.root_dir + "/SDPA/testSet/" + test_folder,
+                                            msg = "The following tests will be augmented! Do you confirm? (y/n)",
+                                            constraint_os_reg=tests_reg,
+                                            constraint_py_reg=".*\.dat-s$")
+            CLI.fancy_print(*choices)
+            y_n = input()
+            if y_n[0] == 'n' or y_n[0] == 'N':
+                self.augment_tests()
+                return
+            gamma = float(input("Enter the required gamma for augmentation: "))
+            test_changer.augment(os.path.join(self.root_dir , "SDPA", "testSet",  test_folder), list, gamma)
+            self.press_enter_to_continue()
+        elif opt == 2:
+            self.manage_tests()
+        else:
+            self.augment_tests()
 
     def add_manual_tests(self):
         CLI.fancy_print(
@@ -237,17 +273,17 @@ class CLI:
             self.press_enter_to_continue()
         elif query == 2:
             # TODO: implement code for simple format
-            self.add_tests()
+            self.manage_tests()
         elif query == 3:
             return
         else:
-            self.add_tests()
+            self.manage_tests()
 
     def view_test(self):
         CLI.fancy_print('We can show tests in SDPA/testSet',
                         'Enter folder name',
                         'Enter full test name')
-        folder = CLI.select_dirs(self.root_dir + "/SDPA/testSet", "Choose one of the test packages below:")
+        folder = CLI.select_dirs(self.root_dir + "/SDPA/testSet", "Choose one of the test packages below:", is_dir=True)
         test_name = CLI.select_dirs(self.root_dir + "/SDPA/testSet/" + folder, "Choose one of the tests below:", TestFormats.regex_format())
 
         try:
@@ -272,8 +308,9 @@ class CLI:
                         '[2] Derivative method (Keivan & Hamidreza)',
                         '[3] Generalized eigenvalue method (Hamidreza)')
         imp_type = input()
-        test_folder = CLI.select_dirs(self.root_dir + "/SDPA/testSet", "Select one of the test directories below:")
-        CLI.list_dirs(self.root_dir + "/SDPA/testSet/" + test_folder, "Enter test name you wish to run (Regex is also supported e.g. \"*.dat-s\")", TestFormats.regex_format())
+        test_folder = CLI.select_dirs(self.root_dir + "/SDPA/testSet", "Select one of the test directories below:", is_dir = True)
+        CLI.list_dirs(self.root_dir + "/SDPA/testSet/" + test_folder, "Enter test name you wish to run (Regex is also supported e.g. \"*.dat-s\")",
+                      TestFormats.regex_format())
         tests_reg = input()
         try:
             try:
@@ -283,16 +320,21 @@ class CLI:
             sv_dir = os.getcwd()
             os.chdir(self.root_dir)
             os.chdir('build')
+
             executable_path = os.getcwd()
             os.chdir(self.root_dir + '/SDPA/testSet')
             os.chdir(test_folder)
+
             tests_dir = os.getcwd()
             os.chdir(self.root_dir + "/out")
+
             output_path = os.getcwd()
+
             os.chdir(sv_dir)
 
             test(executable_path=executable_path, tests_dir=tests_dir,
                  output_path=output_path, test_reg=tests_reg, implementation_type=imp_type)
+
         except:
             print('problem in running tester')
 
@@ -300,51 +342,60 @@ class CLI:
         return
 
     @staticmethod
-    def list_dirs(parent_dir, msg, constraint_reg=None):
+    def list_dirs(parent_dir, msg, constraint_os_reg="*", constraint_py_reg=r'.*', is_dir = False):
         choices = []
         list_of_dirs = os.listdir(parent_dir)
         choices.append(msg)
-        for path in list_of_dirs:
-            if constraint_reg == None:
-                choices.append(path)
-            elif re.match(constraint_reg, path):
-                choices.append(path)
+        for path in Path(parent_dir).rglob(constraint_os_reg):
+            if re.match(re.compile(constraint_py_reg), path.name) and (not is_dir or path.is_dir()):
+                choices.append(str(path.name))
         if len(choices) == 1:
             print("No files exist matching the constraint!")
             return
         CLI.fancy_print(*choices)
 
     @staticmethod
-    def select_dirs(parent_dir, msg, constraint_reg = None):
-        choices = []
-        cnt = 0
-        list_of_dirs = []
-        for dir in os.listdir(parent_dir):
-            if constraint_reg != None:
-                if re.match(re.compile(constraint_reg), dir):
-                    list_of_dirs.append(dir)
-            else:
-                list_of_dirs.append(dir)
-
-        choices.append(msg)
-        for path in list_of_dirs:
-            choices.append('[' + str(cnt + 1) + '] ' + path)
-            cnt += 1
-        if len(choices) == 1:
+    def select_dirs(parent_dir, msg,  constraint_os_reg="*", constraint_py_reg=r'.*', is_dir = False):
+        ui_outputs, list_of_dirs = CLI.filter_dirs(parent_dir, msg, constraint_os_reg, constraint_py_reg, is_dir)
+        if len(ui_outputs) == 1:
             print("No files exist matching the constraint!")
             return
-        CLI.fancy_print(*choices)
+        CLI.fancy_print(*ui_outputs)
         try:
             query = int(input())
         except:
             print("Choose a number!")
-            return CLI.select_dirs(parent_dir, msg, constraint_reg)
+            return CLI.select_dirs(parent_dir, msg, constraint_os_reg, constraint_py_reg)
 
         if 1 <= query <= len(list_of_dirs):
             return list_of_dirs[query - 1]
         else:
             print("Input index not correct!")
-            return CLI.select_dirs(parent_dir, msg, constraint_reg)
+            return CLI.select_dirs(parent_dir, msg, constraint_os_reg, constraint_py_reg)
+
+    @staticmethod
+    def filter_dirs(parent_dir, msg, constraint_os_reg="*", constraint_py_reg=r'.*', is_dir = False):
+        choices = []
+        cnt = 0
+        list_of_dirs = []
+        if constraint_os_reg is not None:
+            list_of_dirs = [str(x.name) for x in Path(parent_dir).rglob(constraint_os_reg)
+                            if re.match(re.compile(constraint_py_reg), x.name) and (not is_dir or x.is_dir())]
+        else:
+            list_of_dirs = [str(x.name) for x in Path(parent_dir).iterdir() if x.is_dir()]
+        """
+        for dir in os.listdir(parent_dir):
+            if constraint_os_reg != None:
+                if re.match(re.compile(constraint_os_reg), dir):
+                    list_of_dirs.append(dir)
+            else:
+                list_of_dirs.append(dir)
+        """
+        choices.append(msg)
+        for path in list_of_dirs:
+            choices.append('[' + str(cnt + 1) + '] ' + path)
+            cnt += 1
+        return choices, list_of_dirs
 
 if __name__ == '__main__':
     cli = CLI()

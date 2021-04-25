@@ -9,6 +9,7 @@ import re
 from enums import TestFormats
 
 def test(executable_path, tests_dir, output_path, test_reg, implementation_type):
+
     sv_dir = os.getcwd()
 
     try:
@@ -35,11 +36,11 @@ def test(executable_path, tests_dir, output_path, test_reg, implementation_type)
     tests_dir = os.getcwd()
     pathlist = Path(tests_dir).rglob(test_reg)
     os.chdir(executable_path)
-    for path in pathlist:
 
+    for path in pathlist:
         path_in_str = str(path)
         testname = os.path.basename(path_in_str)
-        if not re.match(TestFormats.regex_format(), testname):
+        if not re.match(".*\.dat-s$", testname):
             continue
         test_info = path_in_str + ".info"
         if not os.path.isfile(test_info):

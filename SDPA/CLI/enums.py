@@ -17,7 +17,7 @@ class TestFormats(enum.Enum):
     SIMPLE = 1
     @staticmethod
     def regex_format():
-        return ".*\.(dat-s|simple-sdp)$"
+        return "*.dat-s"
     def __str__(self):
         if self.value == 0:
             return 'dat-s'
