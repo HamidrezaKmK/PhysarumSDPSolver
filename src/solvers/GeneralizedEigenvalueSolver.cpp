@@ -82,7 +82,7 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
         else
             b_(i) = 0;
 
-    this->p = M.llt().solve(b_);
+    this->p = M.ldlt().solve(b_);
 
     foutIterationSummary << "Check ||M p - b_||_1 = " << (M * p - b_).lpNorm<1>() << std::endl;
     this->calculate_Q_tilde();
@@ -92,17 +92,23 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
 
     // update values:
     double h = this->calculate_current_h();
+    MatrixX tmp = this->d_pinv.asDiagonal();
+    MatrixX newX = V * (h * this->Q_tilde + (1 - h) * tmp) * V.transpose();
 
-    MatrixX newX = h * this->Q + (1 - h) * this->current_X;
+    if (this->outputSummaryMatrices)
+        foutIterationSummary << "min V eigenvalue:\n" << V.eigenvalues().real() << std::endl;
+
     Eigen::SelfAdjointEigenSolver<MatrixX>solver_newX(newX);
     if (solver_newX.eigenvalues().real().minCoeff() < 0) {
-        std::cerr << "Negative eigenvalues detected in X!\n";
-        std::cerr << "Value of h: " << h << std::endl;
-        std::cerr << "Minimum eigenvalue of the new X: " << solver_newX.eigenvalues().real().minCoeff() << '\n';
-        if (this->outputSummaryMatrices) {
-            std::cerr << "This is the new X's eigen values:\n" << solver_newX.eigenvalues() << std::endl;
+        if (solver_newX.eigenvalues().real().minCoeff() < -1e-5) {
+            std::cerr << "Negative eigenvalues detected in X!\n";
+            std::cerr << "Value of h: " << h << std::endl;
+            std::cerr << "Minimum eigenvalue of the new X: " << solver_newX.eigenvalues().real().minCoeff() << '\n';
+            if (this->outputSummaryMatrices) {
+                std::cerr << "This is the new X's eigen values:\n" << solver_newX.eigenvalues() << std::endl;
+            }
+            exit(EXIT_FAILURE);
         }
-        //exit(EXIT_FAILURE);
         newX -= solver_newX.eigenvalues().real().minCoeff()*MatrixX::Identity(newX.rows(),newX.cols());
     }
 

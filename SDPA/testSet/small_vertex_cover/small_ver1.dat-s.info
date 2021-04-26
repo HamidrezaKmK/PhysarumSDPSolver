@@ -1,18 +1,13 @@
 <set-iteration-limit>
-1000
+50000
 </set-iteration-limit>
 
 <iteration-summary-options>
-output-matrices = false
-output-X = true
+output-matrices = true
+output-X = false
 </iteration-summary-options>
 
 <generalized-eigenvalue>
 alpha = 1
 beta = 1
 </generalized-eigenvalue>
-
-<augmented-C>
-gamma = 0.01
-initial-X-lower-right-element-augmented = 1
-</augmented-C>

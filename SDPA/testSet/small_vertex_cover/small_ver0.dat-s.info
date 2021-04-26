@@ -1,5 +1,5 @@
 <set-iteration-limit>
-1000
+10000
 </set-iteration-limit>
 
 <iteration-summary-options>
