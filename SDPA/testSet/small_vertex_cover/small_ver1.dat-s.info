@@ -11,3 +11,12 @@ output-X = false
 alpha = 1
 beta = 1
 </generalized-eigenvalue>
+
+<augmented-C>
+gamma = 0.01
+initial-X-lower-right-element-augmented = 1
+</augmented-C>
+
+<update-problem-options>
+R' = slack_of_last_iteration
+</update-problem-options>

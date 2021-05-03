@@ -17,6 +17,8 @@ private:
     VectorX p;
     VectorX d, d_pinv;
     MatrixX C_PseudoInverse;
+    MatrixX last_slack_matrix;
+    int iteration_counter = 0;
     Eigen::SelfAdjointEigenSolver<MatrixX>::RealVectorType eigenvalues;
     void calculate_A_hats();
     void calculate_Q();
@@ -28,7 +30,7 @@ public:
 protected:
   double calculate_current_h() override;
   double calculate_current_tau();
-  
+  MatrixX calculate_slack_matrix(VectorX t, double tau);
     SDPResult iterate() noexcept override;
 
     void customInitialization() override;

@@ -54,7 +54,9 @@ public:
     double calculate_current_gap();
 	double calculate_current_gap_maxcoeff();
     double calculate_current_infeasibility();
-
+	double calculate_primal(MatrixX T);
+	double calculate_dual(VectorX t);
+	double calculate_gap(MatrixX T, VectorX t);
     virtual double calculate_current_h();
 
 protected:
@@ -79,10 +81,18 @@ protected:
 	VectorX current_y;
 	VectorX b;
 	MatrixX R_prime, R_double_prime;
+    MatrixX R_prime_pinv, R_double_prime_pinv;
 
 	bool outputSummaryX = false;
     bool outputSummaryMatrices = false;
 
+    enum class UpdateProblemOptions {
+        C,
+        SLACK_OF_LAST_ITERATION,
+        INVERSE_SLACK_OF_LAST_ITERATION
+    };
+
+    UpdateProblemOptions update_problem_option = UpdateProblemOptions::C;
 
 public:
     /// The following fields and methods control initializations before calc_pos_def

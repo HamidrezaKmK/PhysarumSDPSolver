@@ -6,16 +6,50 @@
 
 SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
 
+    this->iteration_counter++;
 
-
-    Eigen::SelfAdjointEigenSolver<MatrixX> solver1(this->alpha * this->C_PseudoInverse + this->beta * this->current_X);
+    switch(this->update_problem_option) {
+        case(BaseSDPSolver::UpdateProblemOptions::C) : {
+            this->R_prime_pinv = this->C_PseudoInverse;
+            this->R_double_prime_pinv = this->current_X;
+            break;
+        };
+        case(BaseSDPSolver::UpdateProblemOptions::SLACK_OF_LAST_ITERATION) : {
+            if (this->iteration_counter == 1) {
+                this->R_prime_pinv = this->C_PseudoInverse;
+                this->R_double_prime_pinv = this->current_X;
+            } else {
+                Eigen::SelfAdjointEigenSolver<MatrixX> tmp_solver(this->last_slack_matrix);
+                auto lambdas = tmp_solver.eigenvalues();
+                for (size_t i = 0; i < (size_t) lambdas.size(); i++) {
+                    if (lambdas[i] > 0)
+                        lambdas[i] = 1 / lambdas[i];
+                }
+                this->R_prime_pinv =
+                        tmp_solver.eigenvectors() * lambdas.asDiagonal() * tmp_solver.eigenvectors().transpose();
+                this->R_double_prime_pinv = this->current_X;
+            }
+            break;
+        };
+        case (BaseSDPSolver::UpdateProblemOptions::INVERSE_SLACK_OF_LAST_ITERATION) : {
+            if (this->iteration_counter == 1) {
+                this->R_prime_pinv = this->C_PseudoInverse;
+                this->R_double_prime_pinv = this->current_X;
+            } else {
+                this->R_prime_pinv = this->last_slack_matrix;
+                this->R_double_prime_pinv = this->current_X;
+            }
+            break;
+        }
+    }
+    Eigen::SelfAdjointEigenSolver<MatrixX>solver1(this->alpha * this->R_prime_pinv + this->beta * this->R_double_prime_pinv);
     MatrixX U = solver1.eigenvectors();
     auto Psi = solver1.eigenvalues();
 
 
-    foutIterationSummary << "Check ||U Psi UT - [alpha * (C+) + beta * X]||_1 = " <<
+    foutIterationSummary << "Check ||U Psi UT - [alpha * (R'+) + beta * (R''+)]||_1 = " <<
                          (U * Psi.asDiagonal() * U.transpose() -
-                          (this->alpha * this->C_PseudoInverse + this->beta * this->current_X)).lpNorm<1>()
+                          (this->alpha * this->R_prime_pinv + this->beta * this->R_double_prime_pinv)).lpNorm<1>()
                          << std::endl;
     foutIterationSummary << "Max eigenvalue in Psi: " << Psi.real().maxCoeff() << '\n';
     foutIterationSummary << "Min eigenvalue in Psi: " << Psi.real().minCoeff() << '\n';
@@ -23,8 +57,7 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
     for (size_t i = 0; i < matrices_dimension; i++)
         Psi[i] = sqrt(Psi[i]);
 
-    //Eigen::LLT<MatrixX> lltOfA(this->alpha * this->C_PseudoInverse + this->beta * this->current_X);
-    //const MatrixX L = lltOfA.matrixL();
+
 
 
     MatrixX L = U * Psi.asDiagonal();
@@ -38,10 +71,10 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
     foutIterationSummary << "Check ||V^{-T} Lambda V^{-1} - C||_1 = "
                          << (V.transpose().inverse() * eigenvalues.asDiagonal() * V.inverse() - C).lpNorm<1>()
                          << std::endl;
-    foutIterationSummary << "Check ||V V^T - alpha * (C+) + beta * X||_1 = " << (V * V.transpose() -
-                                                                                 (this->alpha * this->C_PseudoInverse +
+    foutIterationSummary << "Check ||V V^T - alpha * (R'+) + beta * (R''+)||_1 = " << (V * V.transpose() -
+                                                                                 (this->alpha * this->R_prime_pinv +
                                                                                   this->beta *
-                                                                                  this->current_X)).lpNorm<1>()
+                                                                                  this->R_double_prime_pinv)).lpNorm<1>()
                          << std::endl;
 
 
@@ -115,6 +148,7 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
 
     foutIterationSummary << "calculated h = " << h << '\n';
     double tau = this->calculate_current_tau();
+    this->last_slack_matrix = this->calculate_slack_matrix(this->b, tau);
 
     foutIterationSummary << "calculated tau = " << tau << '\n';
 
@@ -222,14 +256,18 @@ double GeneralizedEigenvalueSolver::calculate_current_h() {
 //     return abs(ret) < EPS ? 0 : ret;
 }
 
+BaseSDPSolver::MatrixX GeneralizedEigenvalueSolver::calculate_slack_matrix(VectorX t, double tau) {
+    MatrixX T = this->C;
+    for (size_t i = 0; i < matrices_count; i++)
+        T -= tau * t(i) * matrices_list[i];
+    return T;
+}
+
 double GeneralizedEigenvalueSolver::calculate_current_tau() {
     double LTau = 0, RTau = 1;
     for (int rp = 0; rp < 100; rp++) {
         double mid = (LTau + RTau) / 2;
-        MatrixX T = C;
-        for (size_t i = 0; i < matrices_count; i++) {
-            T -= mid * this->p(i) * matrices_list[i];
-        }
+        MatrixX T = this->calculate_slack_matrix(this->p, mid);
         Eigen::SelfAdjointEigenSolver<MatrixX>solver_T(T);
         if (solver_T.eigenvalues().real().minCoeff() < 0) {
             RTau = mid;

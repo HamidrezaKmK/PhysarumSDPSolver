@@ -286,15 +286,27 @@ bool BaseSDPSolver::checkAnswerBounded() {
 }
 
 double BaseSDPSolver::calculate_current_dual() {
-    return this->current_y.dot(this->b);// / (1 - std::min(0.0, this->calculate_current_gap_maxcoeff()));
+    return this->current_y.dot(this->b);
 }
 
 double BaseSDPSolver::calculate_current_primal() {
+    return this->calculate_primal(this->current_X);
+}
+
+double BaseSDPSolver::calculate_primal(MatrixX T) {
     double primal = 0;
     for (size_t i = 0; i < matrices_dimension; i++)
         for (size_t j = 0; j < matrices_dimension; j++)
-            primal += this->C(j, i) * this->current_X(i, j);
+            primal += this->C(j, i) * T(i, j);
     return primal;
+}
+
+double BaseSDPSolver::calculate_dual(VectorX t) {
+    return this->current_y.dot(t);
+}
+
+double BaseSDPSolver::calculate_gap(MatrixX T, VectorX t) {
+    return calculate_primal(T) - calculate_dual(t);
 }
 
 double BaseSDPSolver::calculate_current_gap() {
@@ -341,6 +353,7 @@ void BaseSDPSolver::setIterationInfo() {
         SET_ITERATION_LIMIT,
         ITERATION_OPTIONS,
         GENERALIZED_EIGENVALUE_OPTIONS,
+        UPDATE_PROBLEM_OPTIONS,
         NONE
     };
     InputStates currentState = InputStates::NONE;
@@ -363,6 +376,8 @@ void BaseSDPSolver::setIterationInfo() {
                     currentState = InputStates::ITERATION_OPTIONS;
                 if (line == "<generalized-eigenvalue>")
                     currentState = InputStates::GENERALIZED_EIGENVALUE_OPTIONS;
+                if (line == "<update-problem-options>")
+                    currentState = InputStates::UPDATE_PROBLEM_OPTIONS;
                 break;
             }
             case InputStates::GENERALIZED_EIGENVALUE_OPTIONS: {
@@ -451,6 +466,25 @@ void BaseSDPSolver::setIterationInfo() {
                         this->gamma_augment = std::stod(val);
                     } else if (tp == "initial-X-lower-right-element-augmented") {
                         this->initial_X_augmented_lower_right_element = std::stod(val);
+                    }
+                }
+                break;
+            }
+            case InputStates::UPDATE_PROBLEM_OPTIONS: {
+                if (line == "</update-problem-options>")
+                    currentState = InputStates::NONE;
+                else {
+                    std::stringstream ss(line);
+                    std::string tp, appendOp, val;
+                    ss >> tp >> appendOp >> val;
+                    if (tp == "R'") {
+                        if (val == "C") {
+                            this->update_problem_option = BaseSDPSolver::UpdateProblemOptions::C;
+                        } else if (val == "slack_of_last_iteration") {
+                            this->update_problem_option = BaseSDPSolver::UpdateProblemOptions::SLACK_OF_LAST_ITERATION;
+                        } else if (val == "inverse_slack_of_last_iteration") {
+                            this->update_problem_option = BaseSDPSolver::UpdateProblemOptions::INVERSE_SLACK_OF_LAST_ITERATION;
+                        }
                     }
                 }
                 break;

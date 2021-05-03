@@ -208,6 +208,26 @@ solver.
         can be used to customize iterations. Read more about this in the overleaf
         document. With this option you can customized alpha and beta
 
+6. Choosing R' and R'' and other update problem options
+    Tou can customize the update problem with these options.
+    As it is being shown in the SDP document, the SDP update problem is as follows:
+
+    {min(tr(R' Q R'' Q) | Q is feasible in linear constraints}
+
+    you can start the block with:
+    <update-problem-options>
+
+    And close it with:
+    </update-problem-options>
+
+    You can set the value of R' by one of the following:
+    * R' = C
+    * R' = slack_of_last_iteration
+    * R' = inverse_slack_of_last_iteration
+
+    The dafault values of R' and R'' are C and X^{-1} consequently
+
+
 ------------------------------
 --- Example of .dat-s file ---
 ------------------------------
