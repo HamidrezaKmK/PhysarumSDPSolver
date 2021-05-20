@@ -3,7 +3,7 @@
 </set-iteration-limit>
 
 <iteration-summary-options>
-output-matrices = false
+output-matrices = true
 output-X = true
 </iteration-summary-options>
 
@@ -13,7 +13,7 @@ beta = 1
 </generalized-eigenvalue>
 
 <augmented-C>
-gamma = 0.01
+gamma = 0.00001
 initial-X-lower-right-element-augmented = 1
 </augmented-C>
 

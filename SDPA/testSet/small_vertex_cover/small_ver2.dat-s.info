@@ -18,5 +18,5 @@ initial-X-lower-right-element-augmented = 1
 </augmented-C>
 
 <update-problem-options>
-R' = inverse_slack_of_last_iteration
+R' = C
 </update-problem-options>

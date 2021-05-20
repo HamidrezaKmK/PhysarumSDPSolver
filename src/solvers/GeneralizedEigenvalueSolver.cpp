@@ -116,12 +116,24 @@ SDPResult GeneralizedEigenvalueSolver::iterate() noexcept {
             b_(i) = 0;
 
     this->p = M.ldlt().solve(b_);
+    foutIterationSummary << "This is p\n" << this->p << std::endl;
 
     foutIterationSummary << "Check ||M p - b_||_1 = " << (M * p - b_).lpNorm<1>() << std::endl;
     this->calculate_Q_tilde();
     this->calculate_Q();
     foutIterationSummary << "Q:" << std::endl << this->Q << std::endl;
     
+
+    // Adding pT\alpha to check augmented problem
+    double pTalpha = 0;
+    for (size_t i = 0; i < this->matrices_count; i++) {
+        pTalpha += this->p[i] * this->matrices_list[i](this->matrices_dimension - 1, this->matrices_dimension - 1);
+    }
+    foutIterationSummary << "This is pT*alpha = " << pTalpha << std::endl;
+
+    // Show the upper left corner of X for the augmented problem
+    foutIterationSummary << "Norm of the upper left corner: (Valid if augmented)\n";
+    foutIterationSummary << this->current_X.block(0, 0, this->matrices_dimension - 1, this->matrices_dimension - 1).lpNorm<1>();
 
     // update values:
     double h = this->calculate_current_h();

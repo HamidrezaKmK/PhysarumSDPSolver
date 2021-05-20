@@ -187,6 +187,15 @@ SDPResult BaseSDPSolver::calc_pos_def() {
 
     this->changesAfterIterations(this->current_X, this->matrices_list, this->matrices_dimension, this->C);
 
+    for (size_t i = 0; i < this->matrices_count; i++) {
+        std::cout << "A_" << i << ":\n" << this->matrices_list[i] << '\n';
+        double tr = 0;
+        for (size_t r = 0; r < this->matrices_dimension; r++)
+            for (size_t c = 0; c < this->matrices_dimension; c++) {
+                tr += this->matrices_list[i](c, r) * this->current_X(r, c);
+            }
+        std::cout << "Trace is : " << tr << " b is : " << this->b(i) << '\n';
+    }
     res.setX(this->current_X);
     res.sety(this->current_y);
     return res;
