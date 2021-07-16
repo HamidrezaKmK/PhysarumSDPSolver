@@ -662,10 +662,10 @@
 
 > [Test] tests\vertexcover2-2\vertexcover200.dat-s
 -Ground truth: 15.999999380510062
--Physarum solver output: 16.000020215904353
--Error: 2.083539429165171e-05
--Gap: 0.0003157148451933267
--Number of iterations: 10000
+-Physarum solver output: 19.606066671413345
+-Error: 3.606067290903283
+-Gap: 10.87222753985646
+-Number of iterations: 1000
 
 > [Test] tests\vertexcover2-2\vertexcover2010.dat-s
 -Ground truth: 11.999999972111771
@@ -772,8 +772,8 @@
 -Gap: 12.994753228935357
 -Number of iterations: 2242
 
->Mean error: 0.002835997893746889
->Mean relative error: 0.00023547812308386985
->Mean iteration counts: 5582.4375
+>Mean error: 0.22821390136305886
+>Mean relative error: 0.014321597635303952
+>Mean iteration counts: 5019.9375
 ============
 
