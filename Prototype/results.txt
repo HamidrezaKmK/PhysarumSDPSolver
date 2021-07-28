@@ -14,8 +14,8 @@
 -Gap: 6.661338147750939e-15
 -Number of iterations: 152
 
->Mean error: 3.003797255374252e-08
->Mean relative error: 1.482063283843723e-08
+>Mean optimality gap: 3.003797255374252e-08
+>Maximum optimality gap: 4.354388849492352e-08
 >Mean iteration counts: 576.0
 ============
 
@@ -161,8 +161,8 @@
 -Gap: 9.992007221626409e-15
 -Number of iterations: 280
 
->Mean error: 1.5530686989370656e-05
->Mean relative error: 3.7879177978299104e-06
+>Mean optimality gap: 1.5530686989370656e-05
+>Maximum optimality gap: 0.00018660835368944362
 >Mean iteration counts: 697.9
 ============
 
@@ -266,8 +266,8 @@
 -Gap: 8.659739592076221e-15
 -Number of iterations: 169
 
->Mean error: 2.892081817888153e-05
->Mean relative error: 9.502962979983623e-06
+>Mean optimality gap: 2.892081817888153e-05
+>Maximum optimality gap: 0.00026135538337745956
 >Mean iteration counts: 478.0
 ============
 
@@ -315,8 +315,8 @@
 -Gap: 0.0011492098925240946
 -Number of iterations: 1000
 
->Mean error: 0.0024350467135848173
->Mean relative error: 0.0005050030773421824
+>Mean optimality gap: 0.0024350467135848173
+>Maximum optimality gap: 0.00793752372320533
 >Mean iteration counts: 1000.0
 ============
 
@@ -436,8 +436,8 @@
 -Gap: 8.881784197001252e-15
 -Number of iterations: 983
 
->Mean error: 1.2436387117832544e-08
->Mean relative error: 3.9345971361206455e-09
+>Mean optimality gap: 1.2436387117832544e-08
+>Maximum optimality gap: 6.198014101954641e-08
 >Mean iteration counts: 2049.0588235294117
 ============
 
@@ -464,8 +464,8 @@
 -Gap: 0.0038043049329274936
 -Number of iterations: 10000
 
->Mean error: 0.0008078120193317773
->Mean relative error: 0.00010031610478789133
+>Mean optimality gap: 0.0008078120193317773
+>Maximum optimality gap: 0.0014879443828359484
 >Mean iteration counts: 10000.0
 ============
 
@@ -576,8 +576,8 @@
 -Gap: 3.004336075593044
 -Number of iterations: 1000
 
->Mean error: 0.0002980577959783274
->Mean relative error: 9.913893572698458e-05
+>Mean optimality gap: 0.0002980577959783274
+>Maximum optimality gap: 0.004378612522101477
 >Mean iteration counts: 646.7333333333333
 ============
 
@@ -594,7 +594,7 @@
 -Ground truth: 2.9999999709045375
 -Physarum solver output: 2.999888837928147
 -Error: 0.00011113297639031572
--Gap: 2.9106140620215517
+-Gap: 1.099771122867164
 -Number of iterations: 1000
 
 > [Test] tests\vertexcover1-2\vertex-cover514.dat-s
@@ -618,8 +618,8 @@
 -Gap: 1.1172267798059106
 -Number of iterations: 1000
 
->Mean error: 7.544242135404389e-05
->Mean relative error: 2.4823605925063765e-05
+>Mean optimality gap: 7.544242135404389e-05
+>Maximum optimality gap: 0.00024009771238153732
 >Mean iteration counts: 1000.0
 ============
 
@@ -653,8 +653,8 @@
 -Gap: 0.003327930670445234
 -Number of iterations: 929
 
->Mean error: 0.0007539540166414671
->Mean relative error: 9.258827785667041e-05
+>Mean optimality gap: 0.0007539540166414671
+>Maximum optimality gap: 0.002823954236624182
 >Mean iteration counts: 2329.0
 ============
 
@@ -662,9 +662,9 @@
 
 > [Test] tests\vertexcover2-2\vertexcover200.dat-s
 -Ground truth: 15.999999380510062
--Physarum solver output: 19.606066671413345
--Error: 3.606067290903283
--Gap: 10.87222753985646
+-Physarum solver output: 16.000160542772303
+-Error: 0.00016116226224127672
+-Gap: 15.996909935596209
 -Number of iterations: 1000
 
 > [Test] tests\vertexcover2-2\vertexcover2010.dat-s
@@ -772,8 +772,8 @@
 -Gap: 12.994753228935357
 -Number of iterations: 2242
 
->Mean error: 0.22821390136305886
->Mean relative error: 0.014321597635303952
+>Mean optimality gap: 0.0028447683229937404
+>Maximum optimality gap: 0.0443877052936088
 >Mean iteration counts: 5019.9375
 ============
 

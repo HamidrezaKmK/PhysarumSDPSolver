@@ -140,7 +140,7 @@ def run_physarum_improved(X, m, n, A, b, iter_count, output_summary=False, outpu
             min_trace_seen = min(min_trace_seen, X.trace())
             dual_objective = p.T.dot(b)
 
-            tau = find_best_coefficient(np.eye(n), sum(p[i] * A[i] for i in range(m)), 0, 1, 50)
+            tau = find_best_coefficient(U_k.T.dot(U_k), U_k.T.dot(sum(p[i] * A[i] for i in range(m))).dot(U_k), 0, 1, 50)
             gap = X.trace() - dual_objective * tau
 
             if 0 < gap < gap_goal:
@@ -177,6 +177,12 @@ def run_physarum_improved(X, m, n, A, b, iter_count, output_summary=False, outpu
         for i in range(m):
             output_file.write("tr(A_{} * X_eq) = {}, b_{} = {}\n".format(i, feasibility_values[i], i, b[i]))
         output_file.write("Feasibility check of dual: tau = {}\n".format(tau))
+        output_file.write("Dual sum of p_l A_l:\n")
+        Dual = sum(p[i] * A[i] for i in range(m))
+        output_file.write(str(Dual))
+        w, u = np.linalg.eigh(Dual)
+        output_file.write("\nThe eigenvalues of this sum:\n{}\n".format(w))
+        output_file.write("The eigenvectors of this sum\n{}\n".format(u))
 
         output_file.write("-----------------------\n")
         output_file.write("----- Optimality ------\n")

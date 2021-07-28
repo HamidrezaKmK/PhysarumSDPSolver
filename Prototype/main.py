@@ -234,5 +234,5 @@ def solve_test_list(test_names_list, max_iter, method_number):
             output_file.write("Number of iterations: {}\n".format(count - 1))
 
 
-test_list = ['tests/vertexcover2-2/vertexcover200.dat-s']
+test_list = ['tests/vertexcover1-2/vertex-cover512.dat-s']
 solve_test_list(test_list, 1000, 1)

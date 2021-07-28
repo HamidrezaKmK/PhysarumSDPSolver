@@ -66,8 +66,8 @@ with open('results.txt', 'w') as output_file:
         errors = np.array(errors, dtype=Decimal)
         relative_errors = np.array(relative_errors, dtype=Decimal)
         iteration_counts = np.array(iteration_counts, dtype=float)
-        output_file.write("\n>Mean error: {}\n".format(np.mean(errors)))
-        output_file.write(">Mean relative error: {}\n".format(np.mean(relative_errors)))
+        output_file.write("\n>Mean optimality gap: {}\n".format(np.mean(errors)))
+        output_file.write(">Maximum optimality gap: {}\n".format(np.max(errors)))
         output_file.write(">Mean iteration counts: {}\n".format(np.mean(iteration_counts)))
         output_file.write("============\n\n")
         cnt += 1
