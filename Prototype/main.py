@@ -8,14 +8,30 @@ from enum import Enum
 import re
 from scipy.sparse import coo_matrix
 from pathlib import Path
-from physarum_solver import run_physarum, run_physarum_improved
+from physarum_solver import run_physarum, run_physarum_improved, vectorize
 
 physarum_solver_methods = [
     run_physarum,
     run_physarum_improved
 ]
 
-def solve_SDP_pos_definite_C(C, m, n, As, b, iter_count, method_number, dominating_factor=1000, output_summary=False, out_file=None):
+
+def augment(matrix, num):
+    s = np.append(matrix, [[0] * matrix.shape[1]], axis=0)
+    s = np.append(s, np.array([[0] * matrix.shape[0] + [num]]).T, axis=1)
+    return s
+
+
+def augment_problem(C_inv, m, n, A, b, gamma_inv):
+    C_inv_bar = augment(C_inv * gamma_inv, 1)
+    n_bar = n + 1
+    A_bar = []
+    for i in range(m):
+        A_bar.append(augment(A[i], b[i] - np.sum(A[i] * C_inv) * gamma_inv))
+    return C_inv_bar, m, n_bar, A_bar, b
+
+
+def solve_SDP_pos_definite_C(C_inv, m, n, A, b, gamma_inv, iter_count, method_number, output_summary=False, out_file=None):
     """
     This code solves the SDP for a positive definite cost matrix C
 
@@ -45,19 +61,10 @@ def solve_SDP_pos_definite_C(C, m, n, As, b, iter_count, method_number, dominati
 
     :return:
     """
-    wc, uc = np.linalg.eigh(C)
-    C_sqrt = np.zeros((n, n))
-    for i in range(len(wc)):
-        u_i = uc[:, i].reshape((n, 1))
-        #wc[i] += 10**-5
-        C_sqrt += math.sqrt(abs(wc[i])) * u_i.dot(u_i.T)
-    C_sqrt_pinv = np.linalg.inv(C_sqrt)
-    A = []
-    for i in range(m):
-        A.append(C_sqrt_pinv.dot(As[i]).dot(C_sqrt_pinv))
+    C_inv, m, n, A, b = augment_problem(C_inv, m, n, A, b, gamma_inv)
 
-    X_opt, y, gap, count = physarum_solver_methods[method_number](dominating_factor * np.eye(n), m, n, A, b, iter_count, output_summary, out_file)
-    return C_sqrt_pinv.dot(X_opt).dot(C_sqrt_pinv), y, gap, count
+    X_opt, y, gap, count, max_error = physarum_solver_methods[method_number](C_inv, m, n, A, b, iter_count, output_summary, out_file)
+    return X_opt, y, gap, count, max_error
 
 
 def simple_input():
@@ -190,7 +197,7 @@ def convert_block_sparse_to_dense(block_sizes, A):
 
 
 
-def solve_test_list(test_names_list, max_iter, method_number):
+def solve_test_list(test_names_list, gamma_inv, max_iter, method_number):
     """
     This function solves a list of .dat-s files
     It then creates .physarum_out outputs next to each test
@@ -228,11 +235,12 @@ def solve_test_list(test_names_list, max_iter, method_number):
         # max_iter = int(input("Enter maximum iteration count: "))
         with open(os.path.join('.', test_name + ".physarum_out"), 'w') as output_file:
             output_file.write("Answer of test {}\n".format(test_name))
-            X_opt, y, gap, count = solve_SDP_pos_definite_C(C, m, n, A, b, max_iter, method_number=method_number, output_summary=True, out_file=output_file)
+            X_opt, y, gap, count, max_error = solve_SDP_pos_definite_C(C, m, n, A, b, gamma_inv, max_iter, method_number=method_number, output_summary=True, out_file=output_file)
             output_file.write("Primal solution:\n{}\nDual solution:\n{}\nTr(CX) = {}\n".format(X_opt, y, C.dot(X_opt).trace()))
             output_file.write("Primal and dual gap: {}\n".format(gap))
             output_file.write("Number of iterations: {}\n".format(count - 1))
+            output_file.write("Max error in symmetry of Q: {}".format(max_error))
 
 
-test_list = ['tests/vertexcover1-2/vertex-cover512.dat-s']
-solve_test_list(test_list, 1000, 1)
+test_list = ['tests/testset0/Iden0.dat-s']
+solve_test_list(test_list, 75, 3000, 0)
