@@ -11,6 +11,7 @@ eps = 10 ** -8
 # the following is the value of gap we aim to achieve
 gap_goal = 10 ** -20
 
+
 def print_summary(*content):
     if PRINT_SUMMARY:
         print(*content)
@@ -57,7 +58,6 @@ def regularize(inp):
 
 
 def run_physarum_improved(X, m, n, A, b, iter_count, output_summary=False, output_file=None):
-
     Omega = []
     for i in range(len(A)):
         Omega.append(vectorize(A[i]))
@@ -192,14 +192,20 @@ def run_physarum_improved(X, m, n, A, b, iter_count, output_summary=False, outpu
     return X, tau * p, gap, count, max_symmetry_error
 
 
-def run_physarum(C_inv, m, n, A, b, iter_count, output_summary=False, output_file=None):
-    eig_vals, U = np.linalg.eigh(C_inv)
+def run_physarum(C, m, n, A, b, iter_count, X0, output_summary=False, output_file=None):
+    C_pinv = np.linalg.pinv(C)
+    eig_vals, U = np.linalg.eigh(C_pinv)
 
     Omega = []
     for i in range(len(A)):
         Omega.append(vectorize(A[i]))
     Omega = np.array(Omega)
 
+    # print("HOWDY!")
+    # print("Omega .cdot C+")
+    # print(Omega.dot(vectorize(C_pinv)))
+    # print("b")
+    # print(b)
 
     # Computes zero eigenvalues
     zeroes = []
@@ -217,16 +223,16 @@ def run_physarum(C_inv, m, n, A, b, iter_count, output_summary=False, output_fil
     for i in range(n):
         if not zeroes[i]:
             Lambda_0.append(1.0)
-            U_0.append(U[i] / np.sqrt(eig_vals[i]))
+            U_0.append(U[:, i] * np.sqrt(eig_vals[i]))
     for i in range(n):
         if zeroes[i]:
             Lambda_0.append(0.0)
             U_0.append(U[i])
-    U_0 = np.array(U_0)
+    U_0 = np.array(U_0).transpose()
 
     U_k = U_0[:, :k]
     X_k = U_k.dot(np.diag(Lambda_0[:k])).dot(U_k.T)
-    C_inv_k = U_k.dot(U_k.T)
+    C_pinv_k = U_k.dot(U_k.T)
 
     iterations = 0
 
@@ -236,17 +242,17 @@ def run_physarum(C_inv, m, n, A, b, iter_count, output_summary=False, output_fil
         M_pre.append([])
         for j in range(m):
             if i <= j:
-                M_pre[i].append(A[j].dot(C_inv_k).dot(A[i]))
+                M_pre[i].append(A[j].dot(C_pinv_k).dot(A[i]))
             else:
                 M_pre[i].append(M_pre[j][i])
 
     # Preprocess to compute Q efficiently
     Q_pre = [[], []]
     for i in range(m):
-        Q_pre[0].append(0.5 * C_inv.dot(A[i]))
-        Q_pre[1].append(0.5 * A[i].dot(C_inv))
+        Q_pre[0].append(0.5 * C_pinv.dot(A[i]))
+        Q_pre[1].append(0.5 * A[i].dot(C_pinv))
 
-    while iterations < iter_count:
+    for _ in tqdm(range(iter_count)):
         M = []
         for i in range(m):
             M.append([])
@@ -282,7 +288,6 @@ def run_physarum(C_inv, m, n, A, b, iter_count, output_summary=False, output_fil
 
         iterations += 1
 
-
     if output_summary:
         output_file.write("------------------------------\n")
         output_file.write("----- Last Matrix Values -----\n")
@@ -301,7 +306,5 @@ def run_physarum(C_inv, m, n, A, b, iter_count, output_summary=False, output_fil
         for i in range(m):
             output_file.write("tr(A_{} * X_eq) = {}, b_{} = {}\n".format(i, feasibility_values[i], i, b[i]))
 
-
     print(h)
-    return X_k[:n-1, :n-1], 0, 0, iterations, 0
-
+    return X_k, 0, 0, iterations, 0

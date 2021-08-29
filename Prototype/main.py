@@ -22,16 +22,17 @@ def augment(matrix, num):
     return s
 
 
-def augment_problem(C_inv, m, n, A, b, gamma_inv):
-    C_inv_bar = augment(C_inv * gamma_inv, 1)
+def augment_problem(C, m, n, A, b, gamma):
+    C_bar = augment(C * gamma, 1)
     n_bar = n + 1
     A_bar = []
+    C_pinv = np.linalg.pinv(C)
     for i in range(m):
-        A_bar.append(augment(A[i], b[i] - np.sum(A[i] * C_inv) * gamma_inv))
-    return C_inv_bar, m, n_bar, A_bar, b
+        A_bar.append(augment(A[i], b[i] - np.sum(A[i] * C_pinv) / gamma))
+    return C_bar, m, n_bar, A_bar, b
 
 
-def solve_SDP_pos_definite_C(C_inv, m, n, A, b, gamma_inv, iter_count, method_number, output_summary=False, out_file=None):
+def solve_SDP_pos_definite_C(C_inv, m, n, A, b, iter_count, X0, method_number, output_summary=False, out_file=None):
     """
     This code solves the SDP for a positive definite cost matrix C
 
@@ -61,9 +62,8 @@ def solve_SDP_pos_definite_C(C_inv, m, n, A, b, gamma_inv, iter_count, method_nu
 
     :return:
     """
-    C_inv, m, n, A, b = augment_problem(C_inv, m, n, A, b, gamma_inv)
-
-    X_opt, y, gap, count, max_error = physarum_solver_methods[method_number](C_inv, m, n, A, b, iter_count, output_summary, out_file)
+    X_opt, y, gap, count, max_error = physarum_solver_methods[method_number](C_inv, m, n, A, b, iter_count, X0,
+                                                                             output_summary, out_file)
     return X_opt, y, gap, count, max_error
 
 
@@ -196,8 +196,7 @@ def convert_block_sparse_to_dense(block_sizes, A):
     return ret
 
 
-
-def solve_test_list(test_names_list, gamma_inv, max_iter, method_number):
+def solve_test_list(test_names_list, max_iter, method_number, gamma=None):
     """
     This function solves a list of .dat-s files
     It then creates .physarum_out outputs next to each test
@@ -235,12 +234,44 @@ def solve_test_list(test_names_list, gamma_inv, max_iter, method_number):
         # max_iter = int(input("Enter maximum iteration count: "))
         with open(os.path.join('.', test_name + ".physarum_out"), 'w') as output_file:
             output_file.write("Answer of test {}\n".format(test_name))
-            X_opt, y, gap, count, max_error = solve_SDP_pos_definite_C(C, m, n, A, b, gamma_inv, max_iter, method_number=method_number, output_summary=True, out_file=output_file)
-            output_file.write("Primal solution:\n{}\nDual solution:\n{}\nTr(CX) = {}\n".format(X_opt, y, C.dot(X_opt).trace()))
-            output_file.write("Primal and dual gap: {}\n".format(gap))
-            output_file.write("Number of iterations: {}\n".format(count - 1))
-            output_file.write("Max error in symmetry of Q: {}".format(max_error))
+
+            if gamma is not None:
+                C, m, n, A, b = augment_problem(C, m, n, A, b, gamma)
+            # print("Augmented:")
+            # print(C)
+            C_pinv = np.linalg.pinv(C)
+            # print("==")
+            # for i, A_i in enumerate(A):
+            #     print(A_i)
+            #     print(np.sum(A_i * C_pinv), "===", b[i])
+            #     print("--")
+            # print("This is n: {}".format(n))
+
+            X_opt, y, gap, count, max_error = solve_SDP_pos_definite_C(C, m, n, A, b, max_iter, X0=C_pinv,
+                                                                       method_number=method_number, output_summary=True,
+                                                                       out_file=output_file)
+
+            if gamma is not None:
+                output_file.write("This is beta: {}\n".format(X_opt[n-1][n-1]))
+                X_opt = X_opt[:n - 1, :n - 1]
+                C = C[:n - 1, :n - 1] / gamma
+                output_file.write(
+                    "Primal solution:\n{}\nDual solution:\n{}\nTr(CX) = {}\n".format(X_opt, y, np.sum(C * X_opt)))
+                output_file.write("Primal and dual gap: {}\n".format(gap))
+                output_file.write("Number of iterations: {}\n".format(count - 1))
+                output_file.write("Max error in symmetry of Q: {}".format(max_error))
+            else:
+                output_file.write(
+                    "Primal solution:\n{}\nDual solution:\n{}\nTr(CX) = {}\n".format(X_opt, y, C.dot(X_opt).trace()))
+                output_file.write("Primal and dual gap: {}\n".format(gap))
+                output_file.write("Number of iterations: {}\n".format(count - 1))
+                output_file.write("Max error in symmetry of Q: {}".format(max_error))
 
 
-test_list = ['tests/testset0/Iden0.dat-s']
-solve_test_list(test_list, 75, 3000, 0)
+def main():
+    test_list = ['tests/testset0/Iden0.dat-s']
+    solve_test_list(test_list, gamma=1 / 1000, max_iter=3000, method_number=0)
+
+
+if __name__ == "__main__":
+    main()
