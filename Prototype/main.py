@@ -8,11 +8,13 @@ from enum import Enum
 import re
 from scipy.sparse import coo_matrix
 from pathlib import Path
-from physarum_solver import run_physarum, run_physarum_improved, vectorize
+from physarum_solver import physarum_C_iden_modified, physarum_C_iden_vanilla, physarum_SDC_vanilla
+from mat_utils import vectorize
 
 physarum_solver_methods = [
-    run_physarum,
-    run_physarum_improved
+    physarum_SDC_vanilla,
+    physarum_C_iden_vanilla,
+    physarum_C_iden_modified
 ]
 
 
@@ -32,7 +34,7 @@ def augment_problem(C, m, n, A, b, gamma):
     return C_bar, m, n_bar, A_bar, b
 
 
-def solve_SDP_pos_definite_C(C_inv, m, n, A, b, iter_count, X0, method_number, output_summary=False, out_file=None):
+def solve_SDP_pos_definite_C(C, X0, m, n, A, b, iter_count, method_number, output_summary=False, out_file=None):
     """
     This code solves the SDP for a positive definite cost matrix C
 
@@ -62,7 +64,7 @@ def solve_SDP_pos_definite_C(C_inv, m, n, A, b, iter_count, X0, method_number, o
 
     :return:
     """
-    X_opt, y, gap, count, max_error = physarum_solver_methods[method_number](C_inv, m, n, A, b, iter_count, X0,
+    X_opt, y, gap, count, max_error = physarum_solver_methods[method_number](C, X0, m, n, A, b, iter_count,
                                                                              output_summary, out_file)
     return X_opt, y, gap, count, max_error
 
@@ -235,19 +237,14 @@ def solve_test_list(test_names_list, max_iter, method_number, gamma=None):
         with open(os.path.join('.', test_name + ".physarum_out"), 'w') as output_file:
             output_file.write("Answer of test {}\n".format(test_name))
 
+
             if gamma is not None:
                 C, m, n, A, b = augment_problem(C, m, n, A, b, gamma)
-            # print("Augmented:")
-            # print(C)
-            C_pinv = np.linalg.pinv(C)
-            # print("==")
-            # for i, A_i in enumerate(A):
-            #     print(A_i)
-            #     print(np.sum(A_i * C_pinv), "===", b[i])
-            #     print("--")
-            # print("This is n: {}".format(n))
+                X0 = np.linalg.pinv(C)
+            else:
+                X0 = 1000 * np.eye(n)
 
-            X_opt, y, gap, count, max_error = solve_SDP_pos_definite_C(C, m, n, A, b, max_iter, X0=C_pinv,
+            X_opt, y, gap, count, max_error = solve_SDP_pos_definite_C(C, X0, m, n, A, b, max_iter,
                                                                        method_number=method_number, output_summary=True,
                                                                        out_file=output_file)
 
@@ -270,7 +267,7 @@ def solve_test_list(test_names_list, max_iter, method_number, gamma=None):
 
 def main():
     test_list = ['tests/testset0/Iden0.dat-s']
-    solve_test_list(test_list, gamma=1 / 1000, max_iter=3000, method_number=0)
+    solve_test_list(test_list, gamma=1 / 100, max_iter=3000, method_number=1)
 
 
 if __name__ == "__main__":
