@@ -29,6 +29,26 @@ def _make_dense(C, X, A):
         #print("***")
     return C, X, A_t
 
+
+def tranforamtion_calculator(C_pinv, X):
+    eigvals, U = np.linalg.eigh(C_pinv)
+    U_k = []
+    k = 0
+    for i in range(C_pinv.shape[0]):
+        if eigvals[i] > eps:
+            U_k.append(U[:, i])
+            k += 1
+    U_k = np.array(U_k).T
+    C_pinv_transformed = U_k.T.dot(C_pinv).dot(U_k)
+    X_transformed = U_k.T.dot(X).dot(U_k)
+
+    Sai, W = np.linalg.eigh(C_pinv_transformed)
+    P = np.diag(1 / np.sqrt(Sai)).dot(W.T)
+    Lambda_inv, V = np.linalg.eigh(P.dot(np.linalg.pinv(X)).dot(P.T))
+    F = P.T.dot(V)
+    return F, Lambda_inv, k
+
+
 def physarum_C_iden_modified(C, X, m, n, A, b, iter_count, output_summary=False, output_file=None):
     C, X, A = _make_dense(C, X, A)
 
@@ -326,7 +346,7 @@ def physarum_SDC_vanilla(C, X, m, n, A, b, iter_count, output_summary=False, out
     for i in range(n):
         if zeroes[i]:
             Lambda_0.append(0.0)
-            U_0.append(U[i])
+            U_0.append(U[:, i])
     U_0 = np.array(U_0).transpose()
 
     U_k = U_0[:, :k]
@@ -407,3 +427,110 @@ def physarum_SDC_vanilla(C, X, m, n, A, b, iter_count, output_summary=False, out
 
     print("H in last iteration:", h)
     return BDMatrix([X_k]), 0, 0, iterations, 0
+
+
+def physarum_SDC_vanilla_modified(C, X, m, n, A, b, iter_count, output_summary=False, output_file=None):
+
+    Omega = []
+    for i in range(len(A)):
+        Omega.append(vectorize(A[i]))
+    Omega = np.array(Omega)
+
+    C_pinv = np.linalg.pinv(C)
+    X = C_pinv
+    k = C.shape[0] + 1
+
+    # Preprocess to compute Q efficiently
+    Q_pre = [[], []]
+    for i in range(m):
+        Q_pre[0].append(0.5 * C_pinv.dot(A[i]))
+        Q_pre[1].append(0.5 * A[i].dot(C_pinv))
+
+    iterations = 0
+
+    while iterations < iter_count:
+        prev_k = k
+        F, Lambda_inv, k = tranforamtion_calculator(C_pinv, X)
+        Lambda = []
+        for j in Lambda_inv:
+            if j < eps:
+                Lambda.append(0)
+            else:
+                Lambda.append(1 / j)
+
+        C_k_pinv = F.dot(F.T)
+        X_k = F.dot(np.diag(Lambda)).dot(F.T)
+
+        # Preprocess to compute M efficiently
+        M_pre = []
+        for i in range(m):
+            M_pre.append([])
+            for j in range(m):
+                if i <= j:
+                    M_pre[i].append(A[j].dot(C_k_pinv).dot(A[i]))
+                else:
+                    M_pre[i].append(M_pre[j][i])
+
+        while True:
+            M = []
+            for i in range(m):
+                M.append([])
+                for j in range(m):
+                    if i <= j:
+                        M[i].append(np.sum(M_pre[i][j] * X_k))
+                    else:
+                        M[i].append(M[j][i])
+            M = np.array(M)
+            p = np.linalg.pinv(M).dot(b)
+
+            Q = np.sum(p[i] * (Q_pre[0][i].dot(X_k) + X_k.dot(Q_pre[1][i])) for i in range(m))
+
+            # print(p)
+            # feasibility_values = Omega.dot(vectorize(Q))
+            # for i in range(m):
+            #     print("tr(A_{} * Q) = {}, b_{} = {}\n".format(i, feasibility_values[i], i, b[i]))
+            # print()
+
+            Q = 0.5 * (Q + Q.T)
+
+            # calculate the small 'h' using a binary search
+            h = 0.5 * find_best_coefficient(X_k, X_k - Q, 0, 1, 50)
+
+            # update X
+            X_k = h * Q + (1 - h) * X_k
+            X_k = 0.5 * (X_k + X_k.T)
+
+            eig_vals_X = np.linalg.eigvalsh(X_k)
+            k_ = 0
+            for j in eig_vals_X:
+                if j > eps:
+                    k_ += 1
+
+            iterations += 1
+
+            if k_ != k or np.max(np.abs(Q - X_k)) < gap_goal:
+                break
+
+        if prev_k == k:
+            break
+
+    if output_summary:
+        output_file.write("------------------------------\n")
+        output_file.write("----- Last Matrix Values -----\n")
+        output_file.write("------------------------------\n")
+        output_file.write("X_eq =\n{}\n".format(X_k))
+        u, v = np.linalg.eigh(X_k)
+        output_file.write("Eigenvalues of X\n{}\n".format(u))
+        output_file.write("tr(X_eq) = {}\n".format(X_k.trace()))
+        output_file.write("\"h\" in the last iteration = {}\n".format(h))
+
+        output_file.write("------------------------\n")
+        output_file.write("----- Feasibility ------\n")
+        output_file.write("------------------------\n")
+        output_file.write("Feasibility check:\n")
+        feasibility_values = Omega.dot(vectorize(X_k))
+        for i in range(m):
+            output_file.write("tr(A_{} * X_eq) = {}, b_{} = {}\n".format(i, feasibility_values[i], i, b[i]))
+
+    print("H in last iteration:", h)
+    return X_k, 0, 0, iterations, 0
