@@ -1,7 +1,7 @@
 import numpy as np
 from tqdm import tqdm
 from math import inf
-from mat_utils import eps, vectorize, is_pos_def, find_best_coefficient, regularize
+from mat_utils import eps, vectorize, is_pos_def, find_best_coefficient, regularize, BDMatrix
 
 # The following can be used for outputing iteration data
 # set the boolean to True
@@ -14,7 +14,24 @@ def print_summary(*content):
     if PRINT_SUMMARY:
         print(*content)
 
+def _make_dense(C, X, A):
+    #print(C)
+    C = C.toarray()
+    #print(C)
+    #print("---")
+    X = X.toarray()
+    A_t = []
+    for A_i in A:
+        #print(A_i)
+        A_t.append(A_i.toarray())
+        #print("THEN")
+        #print(A_t[-1])
+        #print("***")
+    return C, X, A_t
+
 def physarum_C_iden_modified(C, X, m, n, A, b, iter_count, output_summary=False, output_file=None):
+    C, X, A = _make_dense(C, X, A)
+
     Omega = []
     for i in range(len(A)):
         Omega.append(vectorize(A[i]))
@@ -146,7 +163,7 @@ def physarum_C_iden_modified(C, X, m, n, A, b, iter_count, output_summary=False,
         output_file.write("gap with tau (to make dual feasible) = {}\n".format(gap))
         output_file.write("gap without tau (p may be infeasible) = {}\n".format(np.trace(X) - p.transpose().dot(b)))
         output_file.write("minimum gap seen in iterations = {}\n".format(gap))
-    return X, tau * p, gap, count, max_symmetry_error
+    return BDMatrix([X]), tau * p, gap, count, max_symmetry_error
 
 
 def physarum_C_iden_vanilla(C, X, m, n, A, b, iter_count, output_summary=False, output_file=None):
@@ -179,6 +196,8 @@ def physarum_C_iden_vanilla(C, X, m, n, A, b, iter_count, output_summary=False, 
     :return:
     (X, y) the primal and dual solution of the SDP
     """
+    C, X, A = _make_dense(C, X, A)
+
     Omega = []
     for i in range(len(A)):
         Omega.append(vectorize(A[i]))
@@ -273,9 +292,12 @@ def physarum_C_iden_vanilla(C, X, m, n, A, b, iter_count, output_summary=False, 
         output_file.write("gap with tau (to make dual feasible) = {}\n".format(gap))
         output_file.write("gap without tau (p may be infeasible) = {}\n".format(np.trace(X) - p.transpose().dot(b)))
         output_file.write("minimum gap seen in iterations = {}\n".format(gap))
-    return X, tau * p, gap, count, _
+    return BDMatrix([X]), tau * p, gap, count, _
 
 def physarum_SDC_vanilla(C, X, m, n, A, b, iter_count, output_summary=False, output_file=None):
+    C, X, A = _make_dense(C, X, A)
+
+
     C_pinv = np.linalg.pinv(C)
     eig_vals, U = np.linalg.eigh(C_pinv)
 
@@ -283,7 +305,6 @@ def physarum_SDC_vanilla(C, X, m, n, A, b, iter_count, output_summary=False, out
     for i in range(len(A)):
         Omega.append(vectorize(A[i]))
     Omega = np.array(Omega)
-
 
     # Computes zero eigenvalues
     zeroes = []
@@ -384,5 +405,5 @@ def physarum_SDC_vanilla(C, X, m, n, A, b, iter_count, output_summary=False, out
         for i in range(m):
             output_file.write("tr(A_{} * X_eq) = {}, b_{} = {}\n".format(i, feasibility_values[i], i, b[i]))
 
-    print(h)
-    return X_k, 0, 0, iterations, 0
+    print("H in last iteration:", h)
+    return BDMatrix([X_k]), 0, 0, iterations, 0

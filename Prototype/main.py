@@ -9,7 +9,7 @@ import re
 from scipy.sparse import coo_matrix
 from pathlib import Path
 from physarum_solver import physarum_C_iden_modified, physarum_C_iden_vanilla, physarum_SDC_vanilla
-from mat_utils import vectorize
+from mat_utils import vectorize, BDMatrix
 
 physarum_solver_methods = [
     physarum_SDC_vanilla,
@@ -19,18 +19,18 @@ physarum_solver_methods = [
 
 
 def augment(matrix, num):
-    s = np.append(matrix, [[0] * matrix.shape[1]], axis=0)
-    s = np.append(s, np.array([[0] * matrix.shape[0] + [num]]).T, axis=1)
-    return s
+    return matrix.__copy__().append_block(np.array([[num]]))
 
 
 def augment_problem(C, m, n, A, b, gamma):
     C_bar = augment(C * gamma, 1)
     n_bar = n + 1
     A_bar = []
-    C_pinv = np.linalg.pinv(C)
+    C_pinv = C.pinv()
     for i in range(m):
-        A_bar.append(augment(A[i], b[i] - np.sum(A[i] * C_pinv) / gamma))
+        A_bar.append(augment(A[i], b[i] - (A[i] * C_pinv).sum() / gamma))
+        # print("Doing the augmentation")
+        # print((A_bar[i] * C_bar.pinv()).sum(), "---", b[i])
     return C_bar, m, n_bar, A_bar, b
 
 
@@ -171,6 +171,10 @@ def dat_s_input(input_file):
             rows[id][block_no].append(r)
             cols[id][block_no].append(c)
             vals[id][block_no].append(val)
+            if r != c:
+                rows[id][block_no].append(c)
+                cols[id][block_no].append(r)
+                vals[id][block_no].append(val)
 
     for id in range(m + 1):
         block_matrices = []
@@ -178,11 +182,13 @@ def dat_s_input(input_file):
             block_matrices.append(coo_matrix((vals[id][block_no], (rows[id][block_no], cols[id][block_no])),
                                              shape=(block_sz, block_sz)))
         if id == 0:
-            C = block_matrices
+            C = BDMatrix(block_matrices)
+            #C = (C + C.T) / 2
         else:
-            A.append(block_matrices)
+            A.append(BDMatrix(block_matrices))
+            #A[-1] = (A[-1] + A[-1].T) / 2
 
-    return A, b, C, block_sizes, m
+    return A, b, C, m
 
 
 def convert_block_sparse_to_dense(block_sizes, A):
@@ -222,11 +228,9 @@ def solve_test_list(test_names_list, max_iter, method_number, gamma=None):
 
         A = []
         with open(os.path.join('.', test_name)) as input_file:
-            A_list, b, C, block_sizes, m = dat_s_input(input_file)
-            for i, As in enumerate(A_list):
-                A.append(convert_block_sparse_to_dense(block_sizes, As))
-            C = -convert_block_sparse_to_dense(block_sizes, C)
-            n = sum(block_sizes)
+            A, b, C, m = dat_s_input(input_file)
+            C = -C
+            n = C.shape[0]
 
         for i in range(len(A)):
             print("mat no. {}\n{}".format(i, A[i]))
@@ -237,37 +241,37 @@ def solve_test_list(test_names_list, max_iter, method_number, gamma=None):
         with open(os.path.join('.', test_name + ".physarum_out"), 'w') as output_file:
             output_file.write("Answer of test {}\n".format(test_name))
 
-
             if gamma is not None:
                 C, m, n, A, b = augment_problem(C, m, n, A, b, gamma)
-                X0 = np.linalg.pinv(C)
+                X0 = C.pinv()
             else:
-                X0 = 1000 * np.eye(n)
+                X0 = 100 * BDMatrix.eye(n)
 
             X_opt, y, gap, count, max_error = solve_SDP_pos_definite_C(C, X0, m, n, A, b, max_iter,
                                                                        method_number=method_number, output_summary=True,
                                                                        out_file=output_file)
 
             if gamma is not None:
-                output_file.write("This is beta: {}\n".format(X_opt[n-1][n-1]))
-                X_opt = X_opt[:n - 1, :n - 1]
-                C = C[:n - 1, :n - 1] / gamma
+                output_file.write("This is beta: {}\n".format(X_opt.get_submatrix(n-1, 1)))
+                X_opt = X_opt.get_submatrix(0, n-1)
+                C = C.get_submatrix(0, n-1)
+                C = C / gamma
                 output_file.write(
-                    "Primal solution:\n{}\nDual solution:\n{}\nTr(CX) = {}\n".format(X_opt, y, np.sum(C * X_opt)))
+                    "Primal solution:\n{}\nDual solution:\n{}\nTr(CX) = {}\n".format(X_opt, y, (C * X_opt).sum()))
                 output_file.write("Primal and dual gap: {}\n".format(gap))
                 output_file.write("Number of iterations: {}\n".format(count - 1))
                 output_file.write("Max error in symmetry of Q: {}".format(max_error))
             else:
                 output_file.write(
-                    "Primal solution:\n{}\nDual solution:\n{}\nTr(CX) = {}\n".format(X_opt, y, C.dot(X_opt).trace()))
+                    "Primal solution:\n{}\nDual solution:\n{}\nTr(CX) = {}\n".format(X_opt, y, (C * X_opt).sum()))
                 output_file.write("Primal and dual gap: {}\n".format(gap))
                 output_file.write("Number of iterations: {}\n".format(count - 1))
                 output_file.write("Max error in symmetry of Q: {}".format(max_error))
 
 
 def main():
-    test_list = ['tests/testset0/Iden0.dat-s']
-    solve_test_list(test_list, gamma=1 / 100, max_iter=3000, method_number=1)
+    test_list = ['tests/testset0/sample_0.dat-s']
+    solve_test_list(test_list, gamma=1 / 100, max_iter=3000, method_number=0)
 
 
 if __name__ == "__main__":
