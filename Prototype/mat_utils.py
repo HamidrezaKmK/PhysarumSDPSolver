@@ -22,6 +22,7 @@ def is_pos_def(A):
 
 
 def find_best_coefficient(X, Y, left, right, iteration):
+
     if iteration == 0:
         return left
     mid = (left + right) / 2
@@ -49,7 +50,15 @@ def regularize(inp):
 
 
 class BDMatrix:
+    """
+    A Wrapper class to optimize operations on block diagonal matrices
+
+    Construct:
+    -   BDMatrix(list of square matrices in numpy or scipy standard)
+    """
+
     def __init__(self, diagonal_blocks, creator=None):
+
         self.block_count = len(diagonal_blocks)
         self.blocks = diagonal_blocks
         for i in range(len(self.blocks)):
@@ -68,9 +77,15 @@ class BDMatrix:
             self.T = BDMatrix(blocks_transpose, creator=self)
 
     def transpose(self):
+        """
+        Return the transpose of the matrix
+        """
         return self.T
 
     def append_block(self, block):
+        """
+        Add a new block to the end of matrix and return the matrix
+        """
         self.blocks.append(sparse.csr_matrix(block))
         self.T.blocks.append(block.T)
         self.shape[0] += block.shape[0]
@@ -82,6 +97,9 @@ class BDMatrix:
         return self
 
     def pop_last_block(self):
+        """
+        Pop the last block and return the block
+        """
         block = self.blocks.pop()
         self.T.blocks.pop()
         self.shape[0] -= block.shape[0]
@@ -90,12 +108,15 @@ class BDMatrix:
         self.T.shape[1] -= block.shape[1]
         self.block_count -= 1
         self.T.block_count -= 1
-        return self
+        return block
 
     def __str__(self):
         return self.toarray().__str__()
 
     def __add__(self, other):
+        """
+        Add a block diagonal matrix to the one currently
+        """
         if self.block_count != other.block_count:
             raise Exception("BD matrices do not match in addition!")
 
@@ -135,6 +156,9 @@ class BDMatrix:
         return BDMatrix(ret_blocks)
 
     def get_submatrix(self, d, length):
+        """
+        Get the submatrix from (d,d) to (d + length - 1, d + length - 1)
+        """
         curr = 0
         ret = []
         for block in self.blocks:
@@ -151,6 +175,9 @@ class BDMatrix:
         return BDMatrix(ret)
 
     def sum(self):
+        """
+        Return the sum of elements in matrix
+        """
         ret = 0
         for block in self.blocks:
             ret += block.sum()
@@ -178,6 +205,9 @@ class BDMatrix:
         return BDMatrix(ret_blocks)
 
     def dot(self, other):
+        """
+        The matrix product of current matrix with another matrix
+        """
         if self.block_count != other.block_count:
             raise Exception("BD matrices do not match in dot product!")
         ret_blocks = []
@@ -186,6 +216,9 @@ class BDMatrix:
         return BDMatrix(ret_blocks)
 
     def toarray(self):
+        """
+        Return dense numpy array type of the matrix
+        """
         size_of_all = sum([x.shape[0] for x in self.blocks])
         ret = np.zeros((size_of_all, size_of_all))
         curr = 0
@@ -195,6 +228,11 @@ class BDMatrix:
         return ret
 
     def eigh(self):
+        """
+        Return two lists
+        First contains a list of numpy arrays of each block
+        Second is a BDMatrix whose columns are the eigenvectors of the current matrix
+        """
         ret_eigenvalues = []
         ret_eigenvectors = []
         for i in range(self.block_count):
@@ -204,6 +242,9 @@ class BDMatrix:
         return ret_eigenvalues, BDMatrix(ret_eigenvectors)
 
     def pinv(self):
+        """
+        Return the pseudo inverse of the current matrix
+        """
         ret_blocks = []
         for block in self.blocks:
             ret_blocks.append(np.linalg.pinv(block.toarray()))
@@ -217,6 +258,9 @@ class BDMatrix:
 
     @staticmethod
     def diag(list_of_vectors):
+        """
+        A list of numpy arrays as input and a diagonal matrix as an output
+        """
         ret = []
         for vec in list_of_vectors:
             ret.append(sparse.coo_matrix(np.diag(vec)))
