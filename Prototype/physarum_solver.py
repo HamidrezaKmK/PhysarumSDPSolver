@@ -32,21 +32,36 @@ def _make_dense(C, X, A):
 
 def tranforamtion_calculator(C_pinv, X):
     eigvals, U = np.linalg.eigh(C_pinv)
-    U_k = []
-    k = 0
+    U_rc = []
+    rc = 0
     for i in range(C_pinv.shape[0]):
         if eigvals[i] > eps:
-            U_k.append(U[:, i])
+            U_rc.append(U[:, i])
+            rc += 1
+    U_rc = np.array(U_rc).T
+
+
+    C_pinv_transformed = U_rc.T.dot(C_pinv).dot(U_rc)
+    X_transformed = U_rc.T.dot(X).dot(U_rc)
+    Sai, W = np.linalg.eigh(np.linalg.pinv(C_pinv_transformed))
+    P = np.diag(np.sqrt(Sai)).dot(W.T)
+    Lambda, V = np.linalg.eigh(P.dot(X_transformed).dot(P.T))
+
+    F = W.dot(np.diag(1 / np.sqrt(Sai))).dot(V)
+
+    F = U_rc.dot(F)
+
+    U_k = []
+    Lambda_k = []
+    k = 0
+    for ind in range(rc):
+        if Lambda[ind] > eps:
+            U_k.append(F[:, ind])
+            Lambda_k.append(Lambda[ind])
             k += 1
     U_k = np.array(U_k).T
-    C_pinv_transformed = U_k.T.dot(C_pinv).dot(U_k)
-    X_transformed = U_k.T.dot(X).dot(U_k)
 
-    Sai, W = np.linalg.eigh(C_pinv_transformed)
-    P = np.diag(1 / np.sqrt(Sai)).dot(W.T)
-    Lambda_inv, V = np.linalg.eigh(P.dot(np.linalg.pinv(X)).dot(P.T))
-    F = P.T.dot(V)
-    return F, Lambda_inv, k
+    return U_k.dot(U_k.T), U_k.dot(np.diag(Lambda_k)).dot(U_k.T), k
 
 
 def physarum_C_iden_modified(C, X, m, n, A, b, iter_count, output_summary=False, output_file=None):
@@ -437,7 +452,7 @@ def physarum_SDC_vanilla_modified(C, X, m, n, A, b, iter_count, output_summary=F
     Omega = np.array(Omega)
 
     C_pinv = np.linalg.pinv(C)
-    X = C_pinv
+    X_k = C_pinv
     k = C.shape[0] + 1
 
     # Preprocess to compute Q efficiently
@@ -450,16 +465,8 @@ def physarum_SDC_vanilla_modified(C, X, m, n, A, b, iter_count, output_summary=F
 
     while iterations < iter_count:
         prev_k = k
-        F, Lambda_inv, k = tranforamtion_calculator(C_pinv, X)
-        Lambda = []
-        for j in Lambda_inv:
-            if j < eps:
-                Lambda.append(0)
-            else:
-                Lambda.append(1 / j)
 
-        C_k_pinv = F.dot(F.T)
-        X_k = F.dot(np.diag(Lambda)).dot(F.T)
+        C_k_pinv, X_k, k = tranforamtion_calculator(C_pinv, X_k)
 
         # Preprocess to compute M efficiently
         M_pre = []
@@ -471,7 +478,9 @@ def physarum_SDC_vanilla_modified(C, X, m, n, A, b, iter_count, output_summary=F
                 else:
                     M_pre[i].append(M_pre[j][i])
 
-        while True:
+        while iterations < iter_count:
+            if iterations % 10 == 0:
+                print(iterations)
             M = []
             for i in range(m):
                 M.append([])
