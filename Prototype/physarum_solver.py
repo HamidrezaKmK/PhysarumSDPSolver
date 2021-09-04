@@ -7,61 +7,73 @@ from mat_utils import eps, vectorize, is_pos_def, find_best_coefficient, regular
 # set the boolean to True
 PRINT_SUMMARY = False
 # the following is the value of gap we aim to achieve
-gap_goal = 10 ** -20
+gap_goal = 10 ** -14
 
 
 def print_summary(*content):
     if PRINT_SUMMARY:
         print(*content)
 
+
 def _make_dense(C, X, A):
-    #print(C)
+    # print(C)
     C = C.toarray()
-    #print(C)
-    #print("---")
+    # print(C)
+    # print("---")
     X = X.toarray()
     A_t = []
     for A_i in A:
-        #print(A_i)
+        # print(A_i)
         A_t.append(A_i.toarray())
-        #print("THEN")
-        #print(A_t[-1])
-        #print("***")
+        # print("THEN")
+        # print(A_t[-1])
+        # print("***")
     return C, X, A_t
 
 
-def tranforamtion_calculator(C_pinv, X):
-    eigvals, U = np.linalg.eigh(C_pinv)
-    U_rc = []
+def transformation_calculator(C, X):
+    Sai, W = np.linalg.eigh(C)
+    W_rc = []
     rc = 0
-    for i in range(C_pinv.shape[0]):
-        if eigvals[i] > eps:
-            U_rc.append(U[:, i])
+    for i in range(C.shape[0]):
+        if Sai[i] > eps:
+            W_rc.append(W[:, i])
             rc += 1
-    U_rc = np.array(U_rc).T
+    W_rc = np.array(W_rc).T
 
+    D = np.linalg.inv(W_rc.T.dot(C).dot(W_rc))
+    D = np.diag(D)
 
-    C_pinv_transformed = U_rc.T.dot(C_pinv).dot(U_rc)
-    X_transformed = U_rc.T.dot(X).dot(U_rc)
-    Sai, W = np.linalg.eigh(np.linalg.pinv(C_pinv_transformed))
-    P = np.diag(np.sqrt(Sai)).dot(W.T)
-    Lambda, V = np.linalg.eigh(P.dot(X_transformed).dot(P.T))
+    pre = W_rc.dot(np.diag(1 / np.sqrt(D)))
+    Sai_pr, W_pr = np.linalg.eigh(pre.T.dot(X).dot(pre))
 
-    F = W.dot(np.diag(1 / np.sqrt(Sai))).dot(V)
+    V = np.diag(np.sqrt(D)).dot(W_pr)
+    U = W.dot(V)
 
-    F = U_rc.dot(F)
-
-    U_k = []
-    Lambda_k = []
     k = 0
-    for ind in range(rc):
-        if Lambda[ind] > eps:
-            U_k.append(F[:, ind])
-            Lambda_k.append(Lambda[ind])
+    Lambda_k = []
+    U_k = []
+
+    for i in range(rc):
+        if Sai_pr[i] > eps:
             k += 1
+            Lambda_k.append(Sai_pr[i])
+            U_k.append(U[:, i])
     U_k = np.array(U_k).T
 
-    return U_k.dot(U_k.T), U_k.dot(np.diag(Lambda_k)).dot(U_k.T), k
+    C_k_pinv = U_k.dot(U_k.T)
+    X_k = U_k.dot(np.diag(Lambda_k)).dot(U_k.T)
+
+    return C_k_pinv, X_k, U_k, k
+
+
+def null_calculator(X):
+    eig, U = np.linalg.eigh(X)
+    U_k = []
+    for i in range(X.shape[0]):
+        if eig[i] > eps:
+            U_k.append(U[:, i])
+    return np.array(U_k).T
 
 
 def physarum_C_iden_modified(C, X, m, n, A, b, iter_count, output_summary=False, output_file=None):
@@ -329,44 +341,18 @@ def physarum_C_iden_vanilla(C, X, m, n, A, b, iter_count, output_summary=False, 
         output_file.write("minimum gap seen in iterations = {}\n".format(gap))
     return BDMatrix([X]), tau * p, gap, count, _
 
+
 def physarum_SDC_vanilla(C, X, m, n, A, b, iter_count, output_summary=False, output_file=None):
-    C, X, A = _make_dense(C, X, A)
+    # C, X, A = _make_dense(C, X, A)
 
-
-    C_pinv = np.linalg.pinv(C)
-    eig_vals, U = np.linalg.eigh(C_pinv)
 
     Omega = []
     for i in range(len(A)):
         Omega.append(vectorize(A[i]))
     Omega = np.array(Omega)
 
-    # Computes zero eigenvalues
-    zeroes = []
-    k = 0
-    for i in range(n):
-        if eig_vals[i] < eps:
-            zeroes.append(True)
-        else:
-            k += 1
-            zeroes.append(False)
 
-    # makes the proper eigen decomposition of C_inv and X
-    U_0 = []
-    Lambda_0 = []
-    for i in range(n):
-        if not zeroes[i]:
-            Lambda_0.append(1.0)
-            U_0.append(U[:, i] * np.sqrt(eig_vals[i]))
-    for i in range(n):
-        if zeroes[i]:
-            Lambda_0.append(0.0)
-            U_0.append(U[:, i])
-    U_0 = np.array(U_0).transpose()
-
-    U_k = U_0[:, :k]
-    X_k = U_k.dot(np.diag(Lambda_0[:k])).dot(U_k.T)
-    C_pinv_k = U_k.dot(U_k.T)
+    C_k_pinv, X_k, _, _ = transformation_calculator(C, X)
 
     iterations = 0
 
@@ -376,15 +362,15 @@ def physarum_SDC_vanilla(C, X, m, n, A, b, iter_count, output_summary=False, out
         M_pre.append([])
         for j in range(m):
             if i <= j:
-                M_pre[i].append(A[j].dot(C_pinv_k).dot(A[i]))
+                M_pre[i].append(A[j].dot(C_k_pinv).dot(A[i]))
             else:
                 M_pre[i].append(M_pre[j][i])
 
     # Preprocess to compute Q efficiently
     Q_pre = [[], []]
     for i in range(m):
-        Q_pre[0].append(0.5 * C_pinv.dot(A[i]))
-        Q_pre[1].append(0.5 * A[i].dot(C_pinv))
+        Q_pre[0].append(0.5 * C_k_pinv.dot(A[i]))
+        Q_pre[1].append(0.5 * A[i].dot(C_k_pinv))
 
     for _ in tqdm(range(iter_count)):
         M = []
@@ -399,26 +385,18 @@ def physarum_SDC_vanilla(C, X, m, n, A, b, iter_count, output_summary=False, out
         p = np.linalg.pinv(M).dot(b)
 
         Q = np.sum(p[i] * (Q_pre[0][i].dot(X_k) + X_k.dot(Q_pre[1][i])) for i in range(m))
-
-        # print(p)
-        # feasibility_values = Omega.dot(vectorize(Q))
-        # for i in range(m):
-        #     print("tr(A_{} * Q) = {}, b_{} = {}\n".format(i, feasibility_values[i], i, b[i]))
-        # print()
-
         Q = 0.5 * (Q + Q.T)
 
         # calculate the small 'h' using a binary search
-        h = 0.5 * find_best_coefficient(X_k, X_k - Q, 0, 1, 50)
+        U_k = null_calculator(X_k)
+        h = 0.5 * find_best_coefficient(U_k.T.dot(X_k).dot(U_k), U_k.T.dot(X_k - Q).dot(U_k), 0, 1, 50)
 
         # update X
         X_k = h * Q + (1 - h) * X_k
         X_k = 0.5 * (X_k + X_k.T)
 
-        # print(np.max(np.abs(Q - X_k)))
-        #
-        # print()
-        # print(Q - X_k)
+        if np.max(np.abs(Q - X_k)) < gap_goal:
+            break
 
         iterations += 1
 
@@ -441,32 +419,28 @@ def physarum_SDC_vanilla(C, X, m, n, A, b, iter_count, output_summary=False, out
             output_file.write("tr(A_{} * X_eq) = {}, b_{} = {}\n".format(i, feasibility_values[i], i, b[i]))
 
     print("H in last iteration:", h)
-    return BDMatrix([X_k]), 0, 0, iterations, 0
+    print(X_k[n-1, n-1])
+    return X_k, 0, 0, iterations, 0
 
 
 def physarum_SDC_vanilla_modified(C, X, m, n, A, b, iter_count, output_summary=False, output_file=None):
-
     Omega = []
     for i in range(len(A)):
         Omega.append(vectorize(A[i]))
     Omega = np.array(Omega)
 
-    C_pinv = np.linalg.pinv(C)
-    X_k = C_pinv
+    C_k_pinv = C
+    X_k = C
     k = C.shape[0] + 1
 
     # Preprocess to compute Q efficiently
-    Q_pre = [[], []]
-    for i in range(m):
-        Q_pre[0].append(0.5 * C_pinv.dot(A[i]))
-        Q_pre[1].append(0.5 * A[i].dot(C_pinv))
 
     iterations = 0
 
     while iterations < iter_count:
         prev_k = k
 
-        C_k_pinv, X_k, k = tranforamtion_calculator(C_pinv, X_k)
+        C_k_pinv, X_k, U_k, k = transformation_calculator(C, X_k)
 
         # Preprocess to compute M efficiently
         M_pre = []
@@ -477,6 +451,11 @@ def physarum_SDC_vanilla_modified(C, X, m, n, A, b, iter_count, output_summary=F
                     M_pre[i].append(A[j].dot(C_k_pinv).dot(A[i]))
                 else:
                     M_pre[i].append(M_pre[j][i])
+
+        Q_pre = [[], []]
+        for i in range(m):
+            Q_pre[0].append(0.5 * C_k_pinv.dot(A[i]))
+            Q_pre[1].append(0.5 * A[i].dot(C_k_pinv))
 
         while iterations < iter_count:
             if iterations % 10 == 0:
@@ -503,7 +482,8 @@ def physarum_SDC_vanilla_modified(C, X, m, n, A, b, iter_count, output_summary=F
             Q = 0.5 * (Q + Q.T)
 
             # calculate the small 'h' using a binary search
-            h = 0.5 * find_best_coefficient(X_k, X_k - Q, 0, 1, 50)
+            U_k = null_calculator(X)
+            h = 0.5 * find_best_coefficient(U_k.T.dot(X_k).dot(U_k), U_k.T.dot(X_k - Q).dot(U_k), 0, 1, 50)
 
             # update X
             X_k = h * Q + (1 - h) * X_k
@@ -516,7 +496,6 @@ def physarum_SDC_vanilla_modified(C, X, m, n, A, b, iter_count, output_summary=F
                     k_ += 1
 
             iterations += 1
-
             if k_ != k or np.max(np.abs(Q - X_k)) < gap_goal:
                 break
 

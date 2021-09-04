@@ -268,8 +268,8 @@ def solve_test_list(test_names_list, max_iter, method_number, gamma=None):
 
 
 def main():
-    test_list = ['tests/vertexcover2-2/vertexcover2010.dat-s']
-    solve_test_list(test_list, gamma=1 / 100, max_iter=3000, method_number=1)
+    test_list = ['tests/vertexcover2-2/vertexcover206.dat-s']
+    solve_test_list(test_list, gamma=0.0001, max_iter=10000, method_number=0)
 
 
 if __name__ == "__main__":

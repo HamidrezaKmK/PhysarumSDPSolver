@@ -13,4 +13,8 @@ with open('info.txt', 'r') as info_file:
         for path in Path(os.path.join('tests', parts[0])).rglob('*'):
             if len(str(path)) > 6 and str(path)[-6:] == '.dat-s':
                 test_list.append(str(path))
-        solve_test_list(test_list, 10000, iter_count, int(parts[-1]) - 1)
+
+        if int(parts[-1]) > 2:
+            solve_test_list(test_list, iter_count, int(parts[-1]) - 1)
+        else:
+            solve_test_list(test_list, iter_count, int(parts[-1]) - 1, gamma=0.01)

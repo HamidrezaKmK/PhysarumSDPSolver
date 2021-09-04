@@ -1,10 +1,10 @@
-testset0 1000 1
+[DONE] testset0 1000 1
 [DONE] testset1 1000 1
-[DONE] vertexcover1-1 1000 1
-[DONE] vertexcover1-2 1000 2
+vertexcover1-1 3000 1
+vertexcover1-2 3000 1
 [DONE] testset2-1 1000 1
 [DONE] testset2-2 1000 1
-[DONE] vertexcover2-1 5000 2
-[DONE] vertexcover2-2 10000 2
+vertexcover2-1 3000 1
+vertexcover2-2 3000 1
 [DONE] testset3-1 10000 1
 [DONE] testset3-2 10000 1

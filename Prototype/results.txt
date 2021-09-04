@@ -2,778 +2,783 @@
 
 > [Test] tests\testset0\Iden0.dat-s
 -Ground truth: 1.7119825735156744
--Physarum solver output: 1.711982617059563
--Error: 4.354388849492352e-08
--Gap: 8.215650382226158e-14
--Number of iterations: 1000
+-Physarum solver output: 1.7119829175412276
+-Error: 3.4402555315615757e-07
+-Gap: 0
+-Number of iterations: 326
 
 > [Test] tests\testset0\sample_0.dat-s
 -Ground truth: 3.930128661430378
--Physarum solver output: 3.9301286779624345
--Error: 1.653205661256152e-08
--Gap: 6.661338147750939e-15
--Number of iterations: 152
+-Physarum solver output: 3.930128862896974
+-Error: 2.0146659629460828e-07
+-Gap: 0
+-Number of iterations: 57
 
->Mean optimality gap: 3.003797255374252e-08
->Maximum optimality gap: 4.354388849492352e-08
->Mean iteration counts: 576.0
+>Mean optimality gap: 2.727460747253829e-07
+>Maximum optimality gap: 3.4402555315615757e-07
+>Mean iteration counts: 191.5
 ============
 
 --- testset1 ---
 
 > [Test] tests\testset1\dense-negative-definite-5-20.dat-s
 -Ground truth: 3.8830049411419165
--Physarum solver output: 3.8830050181145612
--Error: 7.697264470252208e-08
--Gap: 4.743778703186763e-10
--Number of iterations: 1000
+-Physarum solver output: 3.883005430097623
+-Error: 4.889557065901329e-07
+-Gap: 0
+-Number of iterations: 432
 
 > [Test] tests\testset1\dense-negative-definite-5-21.dat-s
 -Ground truth: 9.602462292624855
--Physarum solver output: 9.602487265999581
--Error: 2.4973374726400266e-05
--Gap: 2.495339443520095e-05
--Number of iterations: 1000
+-Physarum solver output: 9.602463713163315
+-Error: 1.4205384601950755e-06
+-Gap: 0
+-Number of iterations: 259
 
 > [Test] tests\testset1\dense-negative-definite-5-210.dat-s
 -Ground truth: 5.776864072223619
--Physarum solver output: 5.776864084649889
--Error: 1.2426269790921651e-08
--Gap: 4.2238212927259156e-11
--Number of iterations: 1000
+-Physarum solver output: 5.7768640854752995
+-Error: 1.3251680641701569e-08
+-Gap: 0
+-Number of iterations: 140
 
 > [Test] tests\testset1\dense-negative-definite-5-211.dat-s
 -Ground truth: 6.2528599106860625
--Physarum solver output: 6.252859920157013
--Error: 9.470950246281973e-09
--Gap: 3.091216171924316e-10
--Number of iterations: 1000
+-Physarum solver output: 6.252860755754267
+-Error: 8.45068204746724e-07
+-Gap: 0
+-Number of iterations: 137
 
 > [Test] tests\testset1\dense-negative-definite-5-212.dat-s
 -Ground truth: 0.5057653352541167
--Physarum solver output: 0.5057653893289641
--Error: 5.407484737762758e-08
--Gap: 4.446443213623752e-11
--Number of iterations: 1000
+-Physarum solver output: 0.5057660243238202
+-Error: 6.890697035188964e-07
+-Gap: 0
+-Number of iterations: 472
 
 > [Test] tests\testset1\dense-negative-definite-5-213.dat-s
 -Ground truth: 2.03925414475186
--Physarum solver output: 2.0392541654155942
--Error: 2.0663734279224855e-08
--Gap: 8.43769498715119e-15
--Number of iterations: 137
+-Physarum solver output: 2.0392550151077664
+-Error: 8.703559064571209e-07
+-Gap: 0
+-Number of iterations: 59
 
 > [Test] tests\testset1\dense-negative-definite-5-214.dat-s
 -Ground truth: 7.366958939174298
--Physarum solver output: 7.36695895993226
--Error: 2.075796246003847e-08
--Gap: 6.022856879894789e-09
--Number of iterations: 1000
+-Physarum solver output: 7.366960162866864
+-Error: 1.2236925659436793e-06
+-Gap: 0
+-Number of iterations: 202
 
 > [Test] tests\testset1\dense-negative-definite-5-215.dat-s
 -Ground truth: 0.24516160089881248
--Physarum solver output: 0.24516164139824645
--Error: 4.0499433973106846e-08
--Gap: 8.798517470154366e-15
--Number of iterations: 212
+-Physarum solver output: 0.2451621371662212
+-Error: 5.362674087294739e-07
+-Gap: 0
+-Number of iterations: 88
 
 > [Test] tests\testset1\dense-negative-definite-5-216.dat-s
 -Ground truth: 3.6078774195279784
--Physarum solver output: 3.6078774390561534
--Error: 1.9528175076999332e-08
--Gap: 1.354338863279736e-11
--Number of iterations: 1000
+-Physarum solver output: 3.6078776470594476
+-Error: 2.2753146922127598e-07
+-Gap: 0
+-Number of iterations: 85
 
 > [Test] tests\testset1\dense-negative-definite-5-217.dat-s
 -Ground truth: 3.8113832202172775
--Physarum solver output: 3.811569828570967
--Error: 0.00018660835368944362
--Gap: 0.0001870063118198928
--Number of iterations: 1000
+-Physarum solver output: 3.811384526525773
+-Error: 1.306308495596653e-06
+-Gap: 0
+-Number of iterations: 903
 
 > [Test] tests\testset1\dense-negative-definite-5-218.dat-s
 -Ground truth: 2.8606110759702315
--Physarum solver output: 2.8606110949512256
--Error: 1.8980994109796256e-08
--Gap: 8.881784197001252e-15
--Number of iterations: 550
+-Physarum solver output: 2.860611446121107
+-Error: 3.7015087572811467e-07
+-Gap: 0
+-Number of iterations: 163
 
 > [Test] tests\testset1\dense-negative-definite-5-219.dat-s
 -Ground truth: 2.206963970439973
--Physarum solver output: 2.206963992297805
--Error: 2.1857831988825183e-08
--Gap: 7.549516567451064e-15
--Number of iterations: 141
+-Physarum solver output: 2.2069651594193544
+-Error: 1.1889793816166616e-06
+-Gap: 0
+-Number of iterations: 61
 
 > [Test] tests\testset1\dense-negative-definite-5-22.dat-s
 -Ground truth: 2.2653084617981127
--Physarum solver output: 2.2653084727533876
--Error: 1.0955274909463242e-08
--Gap: 1.9841905896100798e-12
--Number of iterations: 1000
+-Physarum solver output: 2.26530850214204
+-Error: 4.03439273100048e-08
+-Gap: 0
+-Number of iterations: 99
 
 > [Test] tests\testset1\dense-negative-definite-5-23.dat-s
 -Ground truth: 2.2336523998206874
--Physarum solver output: 2.2336524100826876
--Error: 1.0262000138538951e-08
--Gap: 9.769962616701378e-15
--Number of iterations: 399
+-Physarum solver output: 2.2336526340671243
+-Error: 2.3424643691427605e-07
+-Gap: 0
+-Number of iterations: 135
 
 > [Test] tests\testset1\dense-negative-definite-5-24.dat-s
 -Ground truth: 1.2163325742176365
--Physarum solver output: 1.2163325958471525
--Error: 2.162951595607865e-08
--Gap: 6.8833827526759706e-15
--Number of iterations: 129
+-Physarum solver output: 1.21633311270259
+-Error: 5.384849535161607e-07
+-Gap: 0
+-Number of iterations: 60
 
 > [Test] tests\testset1\dense-negative-definite-5-25.dat-s
 -Ground truth: 4.720056921768257
--Physarum solver output: 4.72005693681636
--Error: 1.5048103207959684e-08
--Gap: 1.0151212315179237e-08
--Number of iterations: 1000
+-Physarum solver output: 4.720058373846065
+-Error: 1.4520778082172114e-06
+-Gap: 0
+-Number of iterations: 91
 
 > [Test] tests\testset1\dense-negative-definite-5-26.dat-s
 -Ground truth: 1.0224798387402598
--Physarum solver output: 1.022479850544771
--Error: 1.1804511146351615e-08
--Gap: 9.547918011776346e-15
--Number of iterations: 110
+-Physarum solver output: 1.022480452659904
+-Error: 6.139196442322969e-07
+-Gap: 0
+-Number of iterations: 57
 
 > [Test] tests\testset1\dense-negative-definite-5-27.dat-s
 -Ground truth: 4.222617529253349
--Physarum solver output: 4.222617534350867
--Error: 5.09751796329283e-09
--Gap: 1.042517183691416e-10
--Number of iterations: 1000
+-Physarum solver output: 4.222617607452262
+-Error: 7.819891312266236e-08
+-Gap: 0
+-Number of iterations: 103
 
 > [Test] tests\testset1\dense-negative-definite-5-28.dat-s
 -Ground truth: 4.155098898688811
--Physarum solver output: 4.155197519736639
--Error: 9.862104782776271e-05
--Gap: 0.0017545034391366343
--Number of iterations: 1000
+-Physarum solver output: 4.155099019919499
+-Error: 1.212306877107494e-07
+-Gap: 0
+-Number of iterations: 989
 
 > [Test] tests\testset1\dense-negative-definite-5-29.dat-s
 -Ground truth: 0.4639321084205541
--Physarum solver output: 0.4639321493543306
--Error: 4.0933776479512574e-08
--Gap: 9.992007221626409e-15
--Number of iterations: 280
+-Physarum solver output: 0.463932677449307
+-Error: 5.690287528947735e-07
+-Gap: 0
+-Number of iterations: 116
 
->Mean optimality gap: 1.5530686989370656e-05
->Maximum optimality gap: 0.00018660835368944362
->Mean iteration counts: 697.9
+>Mean optimality gap: 6.413850491451823e-07
+>Maximum optimality gap: 1.4520778082172114e-06
+>Mean iteration counts: 232.55
 ============
 
 --- testset2-1 ---
 
 > [Test] tests\testset2-1\negative-definite-dense-100.dat-s
 -Ground truth: 1.957001095041
--Physarum solver output: 1.9570010995707128
--Error: 4.529712827050503e-09
--Gap: 9.992007221626409e-15
--Number of iterations: 166
+-Physarum solver output: 1.9570011065693875
+-Error: 1.1528387577897092e-08
+-Gap: 0
+-Number of iterations: 68
 
 > [Test] tests\testset2-1\negative-definite-dense-101.dat-s
 -Ground truth: 1.862181109767214
--Physarum solver output: 1.8621811447889318
--Error: 3.502171774805163e-08
--Gap: 9.547918011776346e-15
--Number of iterations: 301
+-Physarum solver output: 1.8621820914047422
+-Error: 9.816375281523904e-07
+-Gap: 0
+-Number of iterations: 72
 
 > [Test] tests\testset2-1\negative-definite-dense-1010.dat-s
 -Ground truth: 2.1406373228641
--Physarum solver output: 2.14063732951091
--Error: 6.646810213339904e-09
--Gap: 9.769962616701378e-15
--Number of iterations: 353
+-Physarum solver output: 2.140637718566417
+-Error: 3.9570231713526027e-07
+-Gap: 0
+-Number of iterations: 91
 
 > [Test] tests\testset2-1\negative-definite-dense-1012.dat-s
 -Ground truth: 2.326176457515742
--Physarum solver output: 2.326298548252041
--Error: 0.0001220907362990964
--Gap: 0.0015088006244767804
--Number of iterations: 1000
+-Physarum solver output: 2.326176514864942
+-Error: 5.734920005551203e-08
+-Gap: 0
+-Number of iterations: 515
 
 > [Test] tests\testset2-1\negative-definite-dense-1013.dat-s
 -Ground truth: 4.882228695820805
--Physarum solver output: 4.882228707740531
--Error: 1.1919725650955115e-08
--Gap: 3.999717890224019e-09
--Number of iterations: 1000
+-Physarum solver output: 4.8822294539724265
+-Error: 7.581516214827388e-07
+-Gap: 0
+-Number of iterations: 161
 
 > [Test] tests\testset2-1\negative-definite-dense-1014.dat-s
 -Ground truth: 0.3830403685565665
--Physarum solver output: 0.3830403702709485
--Error: 1.7143820252307762e-09
--Gap: 8.326672684688674e-15
--Number of iterations: 386
+-Physarum solver output: 0.38303818409210694
+-Error: 2.1844644595425677e-06
+-Gap: 0
+-Number of iterations: 97
 
 > [Test] tests\testset2-1\negative-definite-dense-1015.dat-s
 -Ground truth: 1.0546438315466737
--Physarum solver output: 1.0546438354695982
--Error: 3.922924429744512e-09
--Gap: 8.659739592076221e-15
--Number of iterations: 234
+-Physarum solver output: 1.0546439668459133
+-Error: 1.3529923958977008e-07
+-Gap: 0
+-Number of iterations: 69
 
 > [Test] tests\testset2-1\negative-definite-dense-1017.dat-s
 -Ground truth: 4.536198329160069
--Physarum solver output: 4.536198339423721
--Error: 1.0263652150399594e-08
--Gap: 9.769962616701378e-15
--Number of iterations: 227
+-Physarum solver output: 4.536200076058467
+-Error: 1.746898398380381e-06
+-Gap: 0
+-Number of iterations: 83
 
 > [Test] tests\testset2-1\negative-definite-dense-102.dat-s
 -Ground truth: 0.4931657433521028
--Physarum solver output: 0.49316579568871216
--Error: 5.233660937964402e-08
--Gap: 9.936496070395151e-15
--Number of iterations: 272
+-Physarum solver output: 0.4931686220036534
+-Error: 2.8786515506307175e-06
+-Gap: 0
+-Number of iterations: 100
 
 > [Test] tests\testset2-1\negative-definite-dense-105.dat-s
 -Ground truth: 1.4475374927216342
--Physarum solver output: 1.4475587899176718
--Error: 2.129719603760627e-05
--Gap: 2.1439971745973452e-05
--Number of iterations: 1000
+-Physarum solver output: 1.4475375130678332
+-Error: 2.0346198947862604e-08
+-Gap: 0
+-Number of iterations: 311
 
 > [Test] tests\testset2-1\negative-definite-dense-106.dat-s
 -Ground truth: 3.9792534707876572
--Physarum solver output: 3.9795148261710347
--Error: 0.00026135538337745956
--Gap: 0.0002613656937997533
--Number of iterations: 1000
+-Physarum solver output: 3.97925494065073
+-Error: 1.4698630725895612e-06
+-Gap: 0
+-Number of iterations: 359
 
 > [Test] tests\testset2-1\negative-definite-dense-107.dat-s
 -Ground truth: 0.9669749584719822
--Physarum solver output: 0.9669749760764573
--Error: 1.7604475099908257e-08
--Gap: 9.992007221626409e-15
--Number of iterations: 125
+-Physarum solver output: 0.9669758032080165
+-Error: 8.447360342334065e-07
+-Gap: 0
+-Number of iterations: 56
 
 > [Test] tests\testset2-1\negative-definite-dense-108.dat-s
 -Ground truth: 3.6218221153697994
--Physarum solver output: 3.621822117537279
--Error: 2.167479529191496e-09
--Gap: 8.881784197001252e-15
--Number of iterations: 459
+-Physarum solver output: 3.6218231371372274
+-Error: 1.0217674279999756e-06
+-Gap: 0
+-Number of iterations: 114
 
 > [Test] tests\testset2-1\negative-definite-dense-109.dat-s
 -Ground truth: 1.232364615546806
--Physarum solver output: 1.2323646175581071
--Error: 2.0113011256484015e-09
--Gap: 8.659739592076221e-15
--Number of iterations: 169
+-Physarum solver output: 1.2323653808255282
+-Error: 7.652787221701374e-07
+-Gap: 0
+-Number of iterations: 73
 
->Mean optimality gap: 2.892081817888153e-05
->Maximum optimality gap: 0.00026135538337745956
->Mean iteration counts: 478.0
+>Mean optimality gap: 9.479767256062985e-07
+>Maximum optimality gap: 2.8786515506307175e-06
+>Mean iteration counts: 154.92857142857142
 ============
 
 --- testset2-2 ---
 
 > [Test] tests\testset2-2\negative-definite-dense-1011.dat-s
 -Ground truth: 4.399302426402843
--Physarum solver output: 4.407239950126049
--Error: 0.00793752372320533
--Gap: 0.00869183418288344
--Number of iterations: 1000
+-Physarum solver output: 4.399303152260042
+-Error: 7.258571983470574e-07
+-Gap: 0
+-Number of iterations: 929
 
 > [Test] tests\testset2-2\negative-definite-dense-1016.dat-s
 -Ground truth: 6.123853644257715
--Physarum solver output: 6.124115238985372
--Error: 0.00026159472765652225
--Gap: 0.001953630579195398
--Number of iterations: 1000
+-Physarum solver output: 6.123854612434386
+-Error: 9.681766703906192e-07
+-Gap: 0
+-Number of iterations: 434
 
 > [Test] tests\testset2-2\negative-definite-dense-1018.dat-s
 -Ground truth: 6.497864793745828
--Physarum solver output: 6.497939709792903
--Error: 7.491604707521304e-05
--Gap: 0.0032665970781309284
--Number of iterations: 1000
+-Physarum solver output: 6.497864872727506
+-Error: 7.898167808662038e-08
+-Gap: 0
+-Number of iterations: 483
 
 > [Test] tests\testset2-2\negative-definite-dense-1019.dat-s
 -Ground truth: 6.605374664396551
--Physarum solver output: 6.60936881228711
--Error: 0.003994147890558963
--Gap: 0.004011561374441364
--Number of iterations: 1000
+-Physarum solver output: 6.605376951543231
+-Error: 2.287146679158525e-06
+-Gap: 0
+-Number of iterations: 390
 
 > [Test] tests\testset2-2\negative-definite-dense-103.dat-s
 -Ground truth: 4.681317919283881
--Physarum solver output: 4.682514183216144
--Error: 0.0011962639322629087
--Gap: 0.00122645797508536
--Number of iterations: 1000
+-Physarum solver output: 4.681318468336861
+-Error: 5.490529799700994e-07
+-Gap: 0
+-Number of iterations: 556
 
 > [Test] tests\testset2-2\negative-definite-dense-104.dat-s
 -Ground truth: 3.681020691953798
--Physarum solver output: 3.682166525914548
--Error: 0.0011458339607499646
--Gap: 0.0011492098925240946
--Number of iterations: 1000
+-Physarum solver output: 3.681023865335733
+-Error: 3.173381935006603e-06
+-Gap: 0
+-Number of iterations: 354
 
->Mean optimality gap: 0.0024350467135848173
->Maximum optimality gap: 0.00793752372320533
->Mean iteration counts: 1000.0
+>Mean optimality gap: 1.297099523493254e-06
+>Maximum optimality gap: 3.173381935006603e-06
+>Mean iteration counts: 524.3333333333334
 ============
 
 --- testset3-1 ---
 
 > [Test] tests\testset3-1\dense25negative-definite0.dat-s
 -Ground truth: 0.6243529563948843
--Physarum solver output: 0.6243529578678844
--Error: 1.473000055263185e-09
--Gap: 9.325873406851315e-15
--Number of iterations: 383
+-Physarum solver output: 0.3322828115144081
+-Error: 0.2920701448804762
+-Gap: 0
+-Number of iterations: 108
 
 > [Test] tests\testset3-1\dense25negative-definite1.dat-s
 -Ground truth: 2.020144819158886
--Physarum solver output: 2.0201448222419316
--Error: 3.0830453745522846e-09
--Gap: 9.325873406851315e-15
--Number of iterations: 1125
+-Physarum solver output: 2.0201468469241277
+-Error: 2.0277652414968372e-06
+-Gap: 0
+-Number of iterations: 217
 
 > [Test] tests\testset3-1\dense25negative-definite11.dat-s
 -Ground truth: 1.7729693439634047
--Physarum solver output: 1.7729693466585685
--Error: 2.6951638698591296e-09
--Gap: 8.659739592076221e-15
--Number of iterations: 184
+-Physarum solver output: 1.7729709120475483
+-Error: 1.5680841436438442e-06
+-Gap: 0
+-Number of iterations: 77
 
 > [Test] tests\testset3-1\dense25negative-definite12.dat-s
+-Ground truth: 4.251406988161757
+-Physarum solver output: 4.25140714124807
+-Error: 1.5308631251542693e-07
+-Gap: 0
+-Number of iterations: 403
 
 > [Test] tests\testset3-1\dense25negative-definite13.dat-s
 -Ground truth: 2.886227462960191
--Physarum solver output: 2.886227471741868
--Error: 8.781677163227641e-09
--Gap: 8.43769498715119e-15
--Number of iterations: 813
+-Physarum solver output: 2.8862285706795197
+-Error: 1.1077193287079012e-06
+-Gap: 0
+-Number of iterations: 163
 
 > [Test] tests\testset3-1\dense25negative-definite14.dat-s
 -Ground truth: 5.005492489138462
--Physarum solver output: 5.005492527499012
--Error: 3.836055029182717e-08
--Gap: 2.8973909405038967e-07
--Number of iterations: 10000
+-Physarum solver output: 5.005492527505937
+-Error: 3.836747541896557e-08
+-Gap: 0
+-Number of iterations: 226
 
 > [Test] tests\testset3-1\dense25negative-definite15.dat-s
 -Ground truth: 4.434091052601332
--Physarum solver output: 4.434091108510609
--Error: 5.590927720788841e-08
--Gap: 8.881784197001252e-15
--Number of iterations: 1544
+-Physarum solver output: 4.43409222709018
+-Error: 1.1744888483988802e-06
+-Gap: 0
+-Number of iterations: 275
 
 > [Test] tests\testset3-1\dense25negative-definite16.dat-s
 -Ground truth: 2.6661916795706144
--Physarum solver output: 2.6661916846443763
--Error: 5.073761855101111e-09
--Gap: 8.43769498715119e-15
--Number of iterations: 719
+-Physarum solver output: 1.9419750946524728
+-Error: 0.7242165849181417
+-Gap: 0
+-Number of iterations: 225
 
 > [Test] tests\testset3-1\dense25negative-definite17.dat-s
 -Ground truth: 5.031226487839172
--Physarum solver output: 5.03122649531578
--Error: 7.47660777733472e-09
--Gap: 9.769962616701378e-15
--Number of iterations: 1047
+-Physarum solver output: 5.031226510290713
+-Error: 2.245154107072267e-08
+-Gap: 0
+-Number of iterations: 224
 
 > [Test] tests\testset3-1\dense25negative-definite19.dat-s
 -Ground truth: 0.38359140887685905
--Physarum solver output: 0.3835914106719192
--Error: 1.795060156073447e-09
--Gap: 9.825473767932635e-15
--Number of iterations: 202
+-Physarum solver output: 0.3835927422495741
+-Error: 1.3333727150732777e-06
+-Gap: 0
+-Number of iterations: 81
 
 > [Test] tests\testset3-1\dense25negative-definite2.dat-s
 -Ground truth: 2.418472330307896
--Physarum solver output: 2.418472338294086
--Error: 7.986189931585841e-09
--Gap: 9.769962616701378e-15
--Number of iterations: 2872
+-Physarum solver output: 2.418472338326684
+-Error: 8.018787855945675e-09
+-Gap: 0
+-Number of iterations: 570
 
 > [Test] tests\testset3-1\dense25negative-definite3.dat-s
 -Ground truth: 2.5828765882909295
--Physarum solver output: 2.5828765902829014
--Error: 1.9919719207450726e-09
--Gap: 7.549516567451064e-15
--Number of iterations: 910
+-Physarum solver output: 2.5828773774975198
+-Error: 7.892065903014611e-07
+-Gap: 0
+-Number of iterations: 181
 
 > [Test] tests\testset3-1\dense25negative-definite4.dat-s
 -Ground truth: 2.2563289208753483
--Physarum solver output: 2.256328927685863
--Error: 6.810514818766933e-09
--Gap: 7.993605777301127e-15
--Number of iterations: 2137
+-Physarum solver output: 2.256328927734749
+-Error: 6.859400603076438e-09
+-Gap: 0
+-Number of iterations: 447
 
 > [Test] tests\testset3-1\dense25negative-definite5.dat-s
 -Ground truth: 4.93797651336955
--Physarum solver output: 4.937976575349691
--Error: 6.198014101954641e-08
--Gap: 1.4076206866775465e-10
--Number of iterations: 10000
+-Physarum solver output: 4.9379765753830185
+-Error: 6.201346813838882e-08
+-Gap: 0
+-Number of iterations: 309
 
 > [Test] tests\testset3-1\dense25negative-definite6.dat-s
 -Ground truth: 3.452643455518454
--Physarum solver output: 3.4526434569300815
--Error: 1.4116272595288137e-09
--Gap: 9.325873406851315e-15
--Number of iterations: 1467
+-Physarum solver output: 3.4526434599646425
+-Error: 4.446188306417298e-09
+-Gap: 0
+-Number of iterations: 406
 
 > [Test] tests\testset3-1\dense25negative-definite7.dat-s
 -Ground truth: 0.15817983513550968
--Physarum solver output: 0.1581798364851738
--Error: 1.3496641304566737e-09
--Gap: 9.547918011776346e-15
--Number of iterations: 448
+-Physarum solver output: 0.1581826660049646
+-Error: 2.8308694549339375e-06
+-Gap: 0
+-Number of iterations: 148
 
 > [Test] tests\testset3-1\dense25negative-definite8.dat-s
 -Ground truth: 3.461576898145831
--Physarum solver output: 3.461576903386159
--Error: 5.240328171396413e-09
--Gap: 8.881784197001252e-15
--Number of iterations: 983
+-Physarum solver output: 3.4615769296770846
+-Error: 3.1531253608108045e-08
+-Gap: 0
+-Number of iterations: 272
 
->Mean optimality gap: 1.2436387117832544e-08
->Maximum optimality gap: 6.198014101954641e-08
->Mean iteration counts: 2049.0588235294117
+>Mean optimality gap: 0.05978222871055105
+>Maximum optimality gap: 0.7242165849181417
+>Mean iteration counts: 254.8235294117647
 ============
 
 --- testset3-2 ---
 
 > [Test] tests\testset3-2\dense25negative-definite10.dat-s
 -Ground truth: 8.301735671683897
--Physarum solver output: 8.303223616066733
--Error: 0.0014879443828359484
--Gap: 0.0015212179284507243
--Number of iterations: 10000
+-Physarum solver output: 8.301737500862965
+-Error: 1.8291790677693598e-06
+-Gap: 0
+-Number of iterations: 558
 
 > [Test] tests\testset3-2\dense25negative-definite18.dat-s
 -Ground truth: 5.0086500323500545
--Physarum solver output: 5.008970477903798
--Error: 0.00032044555374355355
--Gap: 0.005323838679189841
--Number of iterations: 10000
+-Physarum solver output: 5.008650050526837
+-Error: 1.817678274562695e-08
+-Gap: 0
+-Number of iterations: 2587
 
 > [Test] tests\testset3-2\dense25negative-definite9.dat-s
 -Ground truth: 10.65255468104307
--Physarum solver output: 10.653169727164485
--Error: 0.0006150461214158298
--Gap: 0.0038043049329274936
--Number of iterations: 10000
+-Physarum solver output: 10.652554693671927
+-Error: 1.2628857959384732e-08
+-Gap: 0
+-Number of iterations: 1263
 
->Mean optimality gap: 0.0008078120193317773
->Maximum optimality gap: 0.0014879443828359484
->Mean iteration counts: 10000.0
+>Mean optimality gap: 6.199949028247905e-07
+>Maximum optimality gap: 1.8291790677693598e-06
+>Mean iteration counts: 1469.3333333333333
 ============
 
 --- vertexcover1-1 ---
 
 > [Test] tests\vertexcover1-1\vertex-cover50.dat-s
 -Ground truth: 2.999999970904484
--Physarum solver output: 3.000026977478667
--Error: 2.7006574183197074e-05
--Gap: 2.7818671977082534
--Number of iterations: 1000
+-Physarum solver output: 3.000000318076977
+-Error: 3.4717249342008927e-07
+-Gap: 0
+-Number of iterations: 157
 
 > [Test] tests\vertexcover1-1\vertex-cover51.dat-s
 -Ground truth: 1.9999999679726472
--Physarum solver output: 2.0000000000000027
--Error: 3.202735543439417e-08
--Gap: 7.327471962526033e-15
--Number of iterations: 543
+-Physarum solver output: 2.000000317319213
+-Error: 3.493465658976902e-07
+-Gap: 0
+-Number of iterations: 90
 
 > [Test] tests\vertexcover1-1\vertex-cover511.dat-s
 -Ground truth: 2.9999996301296816
--Physarum solver output: 3.000000000000002
--Error: 3.6987032059343505e-07
--Gap: 5.773159728050814e-15
--Number of iterations: 326
+-Physarum solver output: 2.99957491237031
+-Error: 0.00042471775937169554
+-Gap: 0
+-Number of iterations: 2999
 
 > [Test] tests\vertexcover1-1\vertex-cover513.dat-s
 -Ground truth: 1.9999999679726006
--Physarum solver output: 1.9999999999999998
--Error: 3.202739917718134e-08
--Gap: 8.881784197001252e-16
--Number of iterations: 375
+-Physarum solver output: 2.0000003179936563
+-Error: 3.5002105569503783e-07
+-Gap: 0
+-Number of iterations: 90
 
 > [Test] tests\vertexcover1-1\vertex-cover515.dat-s
 -Ground truth: 1.999999969341443
--Physarum solver output: 1.9999999999999998
--Error: 3.065855680439711e-08
--Gap: 2.6645352591003757e-15
--Number of iterations: 428
+-Physarum solver output: 2.000000376337838
+-Error: 4.069963948083455e-07
+-Gap: 0
+-Number of iterations: 121
 
 > [Test] tests\vertexcover1-1\vertex-cover516.dat-s
 -Ground truth: 3.9999994726372994
--Physarum solver output: 3.9999999999999885
--Error: 5.273626890733851e-07
--Gap: 1.7763568394002505e-15
--Number of iterations: 345
+-Physarum solver output: 3.9427861731910436
+-Error: 0.05721329944625575
+-Gap: 0
+-Number of iterations: 2999
 
 > [Test] tests\vertexcover1-1\vertex-cover517.dat-s
 -Ground truth: 2.9999999721766395
--Physarum solver output: 3.0000219755562934
--Error: 2.200337965385657e-05
--Gap: 2.9881792539572345
--Number of iterations: 1000
+-Physarum solver output: 3.000000525092219
+-Error: 5.529155795436225e-07
+-Gap: 0
+-Number of iterations: 167
 
 > [Test] tests\vertexcover1-1\vertex-cover518.dat-s
 -Ground truth: 2.999999822026231
--Physarum solver output: 3.0000000000000036
--Error: 1.7797377260819758e-07
--Gap: 6.217248937900877e-15
--Number of iterations: 183
+-Physarum solver output: 2.96575008477767
+-Error: 0.03424973724856084
+-Gap: 0
+-Number of iterations: 149
 
 > [Test] tests\vertexcover1-1\vertex-cover53.dat-s
 -Ground truth: 2.9999996188188485
--Physarum solver output: 2.9999987287619523
--Error: 8.900568961855981e-07
--Gap: -6.395460250274709e-08
--Number of iterations: 1000
+-Physarum solver output: 3.0000000982645973
+-Error: 4.794457488799253e-07
+-Gap: 0
+-Number of iterations: 215
 
 > [Test] tests\vertexcover1-1\vertex-cover54.dat-s
 -Ground truth: 2.999999959639153
--Physarum solver output: 3.000000063914938
--Error: 1.04275784895691e-07
--Gap: 6.391496532032193e-08
--Number of iterations: 1000
+-Physarum solver output: 3.0241151562534143
+-Error: 0.024115196614261425
+-Gap: 0
+-Number of iterations: 2999
 
 > [Test] tests\vertexcover1-1\vertex-cover55.dat-s
 -Ground truth: 2.9999996301296976
--Physarum solver output: 3.0000000000000018
--Error: 3.698703041621343e-07
--Gap: 7.993605777301127e-15
--Number of iterations: 340
+-Physarum solver output: 2.9995749123703086
+-Error: 0.000424717759389015
+-Gap: 0
+-Number of iterations: 2999
 
 > [Test] tests\vertexcover1-1\vertex-cover56.dat-s
 -Ground truth: 3.9999995532026014
--Physarum solver output: 4.000038304890316
--Error: 3.875168771427795e-05
--Gap: 3.9999271462927855
--Number of iterations: 1000
+-Physarum solver output: 3.9910485274256207
+-Error: 0.008951025776980703
+-Gap: 0
+-Number of iterations: 2999
 
 > [Test] tests\vertexcover1-1\vertex-cover57.dat-s
 -Ground truth: 1.9999996849577284
--Physarum solver output: 2.000000000000002
--Error: 3.1504227382406214e-07
--Gap: 7.993605777301127e-15
--Number of iterations: 161
+-Physarum solver output: 2.0000001230890145
+-Error: 4.3813128614011987e-07
+-Gap: 0
+-Number of iterations: 81
 
 > [Test] tests\vertexcover1-1\vertex-cover58.dat-s
 -Ground truth: 2.9999999721766217
--Physarum solver output: 2.9999983285659524
--Error: 1.6436106693440422e-06
--Gap: 1.4095892949967217
--Number of iterations: 1000
+-Physarum solver output: 3.00000052588288
+-Error: 5.537062581773e-07
+-Gap: 0
+-Number of iterations: 167
 
 > [Test] tests\vertexcover1-1\vertex-cover59.dat-s
 -Ground truth: 2.9999999665819557
--Physarum solver output: 3.004378579104057
--Error: 0.004378612522101477
--Gap: 3.004336075593044
--Number of iterations: 1000
+-Physarum solver output: 3.000000319801131
+-Error: 3.532191752420033e-07
+-Gap: 0
+-Number of iterations: 145
 
->Mean optimality gap: 0.0002980577959783274
->Maximum optimality gap: 0.004378612522101477
->Mean iteration counts: 646.7333333333333
+>Mean optimality gap: 0.008358835037291816
+>Maximum optimality gap: 0.05721329944625575
+>Mean iteration counts: 1091.8
 ============
 
 --- vertexcover1-2 ---
 
 > [Test] tests\vertexcover1-2\vertex-cover510.dat-s
 -Ground truth: 2.9999996188189275
--Physarum solver output: 3.000001607963641
--Error: 1.989144713387958e-06
--Gap: 2.96482720821011
--Number of iterations: 1000
+-Physarum solver output: 3.000000098305138
+-Error: 4.79486210291924e-07
+-Gap: 0
+-Number of iterations: 215
 
 > [Test] tests\vertexcover1-2\vertex-cover512.dat-s
 -Ground truth: 2.9999999709045375
--Physarum solver output: 2.999888837928147
--Error: 0.00011113297639031572
--Gap: 1.099771122867164
--Number of iterations: 1000
+-Physarum solver output: 3.000000318226655
+-Error: 3.473221172889396e-07
+-Gap: 0
+-Number of iterations: 157
 
 > [Test] tests\vertexcover1-2\vertex-cover514.dat-s
 -Ground truth: 2.9999999725195714
--Physarum solver output: 3.000240070231953
--Error: 0.00024009771238153732
--Gap: 3.0002180881419775
--Number of iterations: 1000
+-Physarum solver output: 3.000000314574695
+-Error: 3.420551237809377e-07
+-Gap: 0
+-Number of iterations: 213
 
 > [Test] tests\vertexcover1-2\vertex-cover519.dat-s
 -Ground truth: 3.999999538895719
--Physarum solver output: 3.9999801068031253
--Error: 1.9432092593696382e-05
--Gap: 3.546479094732622
--Number of iterations: 1000
+-Physarum solver output: 3.990858294136098
+-Error: 0.009141244759621081
+-Gap: 0
+-Number of iterations: 2999
 
 > [Test] tests\vertexcover1-2\vertex-cover52.dat-s
 -Ground truth: 2.9999999709045166
--Physarum solver output: 2.9999954107238254
--Error: 4.560180691282056e-06
--Gap: 1.1172267798059106
--Number of iterations: 1000
+-Physarum solver output: 3.0000003187617237
+-Error: 3.4785720703922607e-07
+-Gap: 0
+-Number of iterations: 157
 
->Mean optimality gap: 7.544242135404389e-05
->Maximum optimality gap: 0.00024009771238153732
->Mean iteration counts: 1000.0
+>Mean optimality gap: 0.0018285522960558964
+>Maximum optimality gap: 0.009141244759621081
+>Mean iteration counts: 748.2
 ============
 
 --- vertexcover2-1 ---
 
 > [Test] tests\vertexcover2-1\vertexcover201.dat-s
 -Ground truth: 10.999999938845818
--Physarum solver output: 11.000185854982517
--Error: 0.00018591613669904916
--Gap: 0.0005229172143685901
--Number of iterations: 1606
+-Physarum solver output: 10.983679327659775
+-Error: 0.016320611186042555
+-Gap: 0
+-Number of iterations: 2999
 
 > [Test] tests\vertexcover2-1\vertexcover2011.dat-s
 -Ground truth: 12.99999928676844
--Physarum solver output: 13.000004797730758
--Error: 5.510962317600843e-06
--Gap: 0.0002199861432963246
--Number of iterations: 1781
+-Physarum solver output: 12.666857612044463
+-Error: 0.3331416747239775
+-Gap: 0
+-Number of iterations: 2999
 
 > [Test] tests\vertexcover2-1\vertexcover2012.dat-s
 -Ground truth: 12.999999577969481
--Physarum solver output: 13.000000012700406
--Error: 4.347309250363196e-07
--Gap: 6.517891399582254e-05
--Number of iterations: 5000
+-Physarum solver output: 12.671409069343452
+-Error: 0.32859050862602857
+-Gap: 0
+-Number of iterations: 2999
 
 > [Test] tests\vertexcover2-1\vertexcover207.dat-s
 -Ground truth: 7.999999915261021
--Physarum solver output: 8.002823869497645
--Error: 0.002823954236624182
--Gap: 0.003327930670445234
--Number of iterations: 929
+-Physarum solver output: 8.000000005641922
+-Error: 9.038090187374337e-08
+-Gap: 0
+-Number of iterations: 722
 
->Mean optimality gap: 0.0007539540166414671
->Maximum optimality gap: 0.002823954236624182
->Mean iteration counts: 2329.0
+>Mean optimality gap: 0.16951322122923762
+>Maximum optimality gap: 0.3331416747239775
+>Mean iteration counts: 2429.75
 ============
 
 --- vertexcover2-2 ---
 
 > [Test] tests\vertexcover2-2\vertexcover200.dat-s
 -Ground truth: 15.999999380510062
--Physarum solver output: 16.000160542772303
--Error: 0.00016116226224127672
--Gap: 15.996909935596209
--Number of iterations: 1000
+-Physarum solver output: 15.260857617970125
+-Error: 0.739141762539937
+-Gap: 0
+-Number of iterations: 2999
 
 > [Test] tests\vertexcover2-2\vertexcover2010.dat-s
 -Ground truth: 11.999999972111771
--Physarum solver output: 12.04438767740538
--Error: 0.0443877052936088
--Gap: 0.04737244566284993
--Number of iterations: 1248
+-Physarum solver output: 11.981876866442555
+-Error: 0.0181231056692166
+-Gap: 0
+-Number of iterations: 2999
 
 > [Test] tests\vertexcover2-2\vertexcover2013.dat-s
 -Ground truth: 15.999999928584671
--Physarum solver output: 15.999974373873512
--Error: 2.5554711159614385e-05
--Gap: 15.92769623884498
--Number of iterations: 1883
+-Physarum solver output: 15.472038227397777
+-Error: 0.5279617011868947
+-Gap: 0
+-Number of iterations: 2999
 
 > [Test] tests\vertexcover2-2\vertexcover2014.dat-s
 -Ground truth: 14.999999465105375
--Physarum solver output: 14.999996138292833
--Error: 3.326812542780999e-06
--Gap: 13.726738611277277
--Number of iterations: 3630
+-Physarum solver output: 14.670825258621207
+-Error: 0.3291742064841685
+-Gap: 0
+-Number of iterations: 2999
 
 > [Test] tests\vertexcover2-2\vertexcover2015.dat-s
 -Ground truth: 15.883823740685393
--Physarum solver output: 15.883832287274139
--Error: 8.546588745161898e-06
--Gap: 15.666514741707598
--Number of iterations: 2618
+-Physarum solver output: 15.204595724982996
+-Error: 0.6792280157023978
+-Gap: 0
+-Number of iterations: 2999
 
 > [Test] tests\vertexcover2-2\vertexcover2016.dat-s
 -Ground truth: 15.999999914052324
--Physarum solver output: 16.00000490325757
--Error: 4.989205244498862e-06
--Gap: 1.6543625100950976e-05
--Number of iterations: 10000
+-Physarum solver output: 15.681243979507165
+-Error: 0.31875593454515894
+-Gap: 0
+-Number of iterations: 1990
 
 > [Test] tests\vertexcover2-2\vertexcover2017.dat-s
 -Ground truth: 15.999999957250544
--Physarum solver output: 16.000076883179382
--Error: 7.692592883756788e-05
--Gap: 15.680120604121141
--Number of iterations: 3003
+-Physarum solver output: 15.47404171351495
+-Error: 0.5259582437355945
+-Gap: 0
+-Number of iterations: 2835
 
 > [Test] tests\vertexcover2-2\vertexcover2018.dat-s
 -Ground truth: 14.999998787662918
--Physarum solver output: 14.999902985344303
--Error: 9.580231861505695e-05
--Gap: 14.971645722152134
--Number of iterations: 3115
+-Physarum solver output: 14.933216930460393
+-Error: 0.06678185720252472
+-Gap: 0
+-Number of iterations: 2999
 
 > [Test] tests\vertexcover2-2\vertexcover2019.dat-s
 -Ground truth: 15.999999268083421
--Physarum solver output: 16.000000032602603
--Error: 7.645191821836761e-07
--Gap: 15.018306112463925
--Number of iterations: 10000
+-Physarum solver output: 15.373519157867388
+-Error: 0.6264801102160327
+-Gap: 0
+-Number of iterations: 2999
 
 > [Test] tests\vertexcover2-2\vertexcover202.dat-s
 -Ground truth: 15.8034419337598
--Physarum solver output: 15.803356289671122
--Error: 8.564408867783868e-05
--Gap: 15.798240472620554
--Number of iterations: 3047
+-Physarum solver output: 15.146237163451449
+-Error: 0.6572047703083506
+-Gap: 0
+-Number of iterations: 2999
 
 > [Test] tests\vertexcover2-2\vertexcover203.dat-s
 -Ground truth: 13.999999950194955
--Physarum solver output: 14.000579021171584
--Error: 0.0005790709766291258
--Gap: 0.0005791806155901469
--Number of iterations: 10000
+-Physarum solver output: 13.871909409300645
+-Error: 0.12809054089430916
+-Gap: 0
+-Number of iterations: 2326
 
 > [Test] tests\vertexcover2-2\vertexcover204.dat-s
 -Ground truth: 16.64278471290151
--Physarum solver output: 16.642785659081355
--Error: 9.461798455845383e-07
--Gap: 4.054659395080762e-05
--Number of iterations: 10000
+-Physarum solver output: 15.726422422032147
+-Error: 0.9163622908693618
+-Gap: 0
+-Number of iterations: 2999
 
 > [Test] tests\vertexcover2-2\vertexcover205.dat-s
 -Ground truth: 8.999999965660969
--Physarum solver output: 9.000011599352572
--Error: 1.1633691602952467e-05
--Gap: 1.2137326818262295e-05
--Number of iterations: 10000
+-Physarum solver output: 9.000004520844206
+-Error: 4.555183236831795e-06
+-Gap: 0
+-Number of iterations: 2999
 
 > [Test] tests\vertexcover2-2\vertexcover206.dat-s
 -Ground truth: 16.989561888846843
--Physarum solver output: 16.989582465752548
--Error: 2.05769057046723e-05
--Gap: 13.455681436234636
--Number of iterations: 4233
+-Physarum solver output: 16.041423692598872
+-Error: 0.9481381962479709
+-Gap: 0
+-Number of iterations: 1298
 
 > [Test] tests\vertexcover2-2\vertexcover208.dat-s
 -Ground truth: 13.71012399467875
--Physarum solver output: 13.710122078540216
--Error: 1.9161385331756264e-06
--Gap: 7.905099411906712
--Number of iterations: 4300
+-Physarum solver output: 13.345040153070215
+-Error: 0.36508384160853424
+-Gap: 0
+-Number of iterations: 2659
 
 > [Test] tests\vertexcover2-2\vertexcover209.dat-s
 -Ground truth: 12.999999818973471
--Physarum solver output: 12.999948091426742
--Error: 5.172754672955193e-05
--Gap: 12.994753228935357
--Number of iterations: 2242
+-Physarum solver output: 13.000001356886433
+-Error: 1.5379129614245812e-06
+-Gap: 0
+-Number of iterations: 950
 
->Mean optimality gap: 0.0028447683229937404
->Maximum optimality gap: 0.0443877052936088
->Mean iteration counts: 5019.9375
+>Mean optimality gap: 0.42790566689416565
+>Maximum optimality gap: 0.9481381962479709
+>Mean iteration counts: 2628.0
 ============
 
