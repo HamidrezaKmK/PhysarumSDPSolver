@@ -10,5 +10,5 @@ DONE,TestSet,IterationCount,MethodNumber,Gamma,RestartFactor,h,EpochLimit
 1,testset3-1,100000,5,,1000,0.003,
 1,testset3-2,100000,5,,1000,0.001,1
 1,large1,10000,5,,1000,0.05,1
-0,large2,10000,5,,1000,0.05,1
-1,vertexcover3,10000,5,,1000,0.05,1
+1,large2,10000,5,,1000,0.05,1
+0,vertexcover3,10000,5,,1000,0.05,1

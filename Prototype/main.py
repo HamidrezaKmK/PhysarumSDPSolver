@@ -293,8 +293,8 @@ def solve_test_list(test_names_list, max_iter, method_number, gamma=None, restar
 
 
 def main():
-    test_list = ['tests/vertexcover2-1/vertexcover201.dat-s']
-    solve_test_list(test_list, gamma=None, max_iter=500000, method_number=4, restart_factor=1000, h_rate=0.003, epoch_limit=1)
+    test_list = ['tests/large1/large-503.dat-s']
+    solve_test_list(test_list, gamma=None, max_iter=50000, method_number=4, restart_factor=1000, h_rate=0.01, epoch_limit=3)
 
 
 if __name__ == "__main__":

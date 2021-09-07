@@ -619,19 +619,131 @@
 >Mean iteration counts: 49193.875
 ============
 
---- sdplib-arch ---
+--- vertexcover3 ---
 
-> [Test] tests/sdplib-arch/arch8.dat-s
+> [Test] tests/vertexcover3/vertexcover3-500.dat-s
+- [General Setting]-Ground truth: 13.99999958977792
+-Physarum solver output: 13.99997921857012
+-Error: 2.0371207799740887e-05
+-Gap: 0
+-Number of iterations: 9999
+-h bound: 0.05
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 2.190858664685713e-05
+-Time spent: 445.06536769866943
 
-> [Test] tests/sdplib-arch/arch2.dat-s
+> [Test] tests/vertexcover3/vertexcover3-504.dat-s
+- [General Setting]-Ground truth: 8.99999991076566
+-Physarum solver output: 9.000001207849643
+-Error: 1.297083983331504e-06
+-Gap: 0
+-Number of iterations: 9999
+-h bound: 0.05
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.2324749152328626e-05
+-Time spent: 393.78084802627563
 
-> [Test] tests/sdplib-arch/arch4.dat-s
+> [Test] tests/vertexcover3/vertexcover3-501.dat-s
+- [General Setting]-Ground truth: 8.999999941909325
+-Physarum solver output: 9.00000355490816
+-Error: 3.6129988352229248e-06
+-Gap: 0
+-Number of iterations: 9999
+-h bound: 0.05
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 5.332089039266211e-06
+-Time spent: 387.76887345314026
 
-> [Test] tests/sdplib-arch/arch0.dat-s
+> [Test] tests/vertexcover3/vertexcover3-507.dat-s
+- [General Setting]-Ground truth: 7.999999940561865
+-Physarum solver output: 7.999982585900879
+-Error: 1.7354660985624548e-05
+-Gap: 0
+-Number of iterations: 9999
+-h bound: 0.05
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.4985888768581646e-05
+-Time spent: 389.6452226638794
 
->Mean optimality gap: 0.0
->Maximum optimality gap: 0
->Mean iteration counts: 0.0
+> [Test] tests/vertexcover3/vertexcover3-508.dat-s
+- [General Setting]-Ground truth: 14.999999602813741
+-Physarum solver output: 15.000168154784488
+-Error: 0.00016855197074683304
+-Gap: 0
+-Number of iterations: 9999
+-h bound: 0.05
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 0.0001812392745019764
+-Time spent: 460.4332683086395
+
+> [Test] tests/vertexcover3/vertexcover3-502.dat-s
+- [General Setting]-Ground truth: 9.99999986478594
+-Physarum solver output: 10.000000000000815
+-Error: 1.3521487574053026e-07
+-Gap: 0
+-Number of iterations: 6580
+-h bound: 0.05
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 6.649794270008156e-14
+-Time spent: 247.70719122886658
+
+> [Test] tests/vertexcover3/vertexcover3-503.dat-s
+- [General Setting]-Ground truth: 11.999999850076028
+-Physarum solver output: 11.999977489077379
+-Error: 2.236099864916241e-05
+-Gap: 0
+-Number of iterations: 9999
+-h bound: 0.05
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 2.317047282107687e-05
+-Time spent: 460.87910294532776
+
+> [Test] tests/vertexcover3/vertexcover3-509.dat-s
+- [General Setting]-Ground truth: 12.999999925971423
+-Physarum solver output: 13.000006843829848
+-Error: 6.917858424770884e-06
+-Gap: 0
+-Number of iterations: 9999
+-h bound: 0.05
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 8.515954446064455e-06
+-Time spent: 468.7314567565918
+
+> [Test] tests/vertexcover3/vertexcover3-505.dat-s
+- [General Setting]-Ground truth: 9.99999991599215
+-Physarum solver output: 10.000011437378753
+-Error: 1.1521386602098005e-05
+-Gap: 0
+-Number of iterations: 9999
+-h bound: 0.05
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 7.938978432875388e-06
+-Time spent: 442.96625566482544
+
+> [Test] tests/vertexcover3/vertexcover3-506.dat-s
+- [General Setting]-Ground truth: 10.999999922996048
+-Physarum solver output: 10.999999189300434
+-Error: 7.336956144854412e-07
+-Gap: 0
+-Number of iterations: 9999
+-h bound: 0.05
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.4293270801823965e-05
+-Time spent: 458.0565114021301
+
+>Mean optimality gap: 2.5285707651701017e-05
+>Maximum optimality gap: 0.00016855197074683304
+>Mean iteration counts: 9657.1
 ============
 
 --- vertexcover1-1 ---
@@ -907,33 +1019,47 @@
 >Mean iteration counts: 19999.0
 ============
 
---- sdplib-mcp ---
+--- large2 ---
 
-> [Test] tests/sdplib-mcp/mcp500-1.dat-s
+> [Test] tests/large2/large2-100-18.dat-s
 
-> [Test] tests/sdplib-mcp/mcp124-2.dat-s
+> [Test] tests/large2/large2-100-12.dat-s
 
-> [Test] tests/sdplib-mcp/mcp250-1.dat-s
+> [Test] tests/large2/large2-100-16.dat-s
 
-> [Test] tests/sdplib-mcp/mcp500-2.dat-s
+> [Test] tests/large2/large2-100-9.dat-s
 
-> [Test] tests/sdplib-mcp/mcp500-4.dat-s
+> [Test] tests/large2/large2-100-13.dat-s
 
-> [Test] tests/sdplib-mcp/mcp250-2.dat-s
+> [Test] tests/large2/large2-100-1.dat-s
 
-> [Test] tests/sdplib-mcp/mcp124-3.dat-s
+> [Test] tests/large2/large2-100-0.dat-s
 
-> [Test] tests/sdplib-mcp/mcp500-3.dat-s
+> [Test] tests/large2/large2-100-6.dat-s
 
-> [Test] tests/sdplib-mcp/mcp100.dat-s
+> [Test] tests/large2/large2-100-14.dat-s
 
-> [Test] tests/sdplib-mcp/mcp250-3.dat-s
+> [Test] tests/large2/large2-100-7.dat-s
 
-> [Test] tests/sdplib-mcp/mcp124-1.dat-s
+> [Test] tests/large2/large2-100-15.dat-s
 
-> [Test] tests/sdplib-mcp/mcp124-4.dat-s
+> [Test] tests/large2/large2-100-4.dat-s
 
-> [Test] tests/sdplib-mcp/mcp250-4.dat-s
+> [Test] tests/large2/large2-100-2.dat-s
+
+> [Test] tests/large2/large2-100-11.dat-s
+
+> [Test] tests/large2/large2-100-5.dat-s
+
+> [Test] tests/large2/large2-100-19.dat-s
+
+> [Test] tests/large2/large2-100-8.dat-s
+
+> [Test] tests/large2/large2-100-3.dat-s
+
+> [Test] tests/large2/large2-100-17.dat-s
+
+> [Test] tests/large2/large2-100-10.dat-s
 
 >Mean optimality gap: 0.0
 >Maximum optimality gap: 0
@@ -1050,54 +1176,6 @@
 >Mean iteration counts: 92692.83333333333
 ============
 
---- sdplib-control ---
-
-> [Test] tests/sdplib-control/control1.dat-s
-
-> [Test] tests/sdplib-control/control10.dat-s
-
-> [Test] tests/sdplib-control/control8.dat-s
-
-> [Test] tests/sdplib-control/control3.dat-s
-
-> [Test] tests/sdplib-control/control6.dat-s
-
-> [Test] tests/sdplib-control/control2.dat-s
-
-> [Test] tests/sdplib-control/control11.dat-s
-
-> [Test] tests/sdplib-control/control5.dat-s
-
-> [Test] tests/sdplib-control/control4.dat-s
-
-> [Test] tests/sdplib-control/control7.dat-s
-
-> [Test] tests/sdplib-control/control9.dat-s
-
->Mean optimality gap: 0.0
->Maximum optimality gap: 0
->Mean iteration counts: 0.0
-============
-
---- sdplib-maxG ---
-
-> [Test] tests/sdplib-maxG/maxG51.dat-s
-
-> [Test] tests/sdplib-maxG/maxG32.dat-s
-
-> [Test] tests/sdplib-maxG/maxG11.dat-s
-
-> [Test] tests/sdplib-maxG/maxG60.dat-s
-
-> [Test] tests/sdplib-maxG/mcp100.dat-s
-
-> [Test] tests/sdplib-maxG/maxG55.dat-s
-
->Mean optimality gap: 0.0
->Maximum optimality gap: 0
->Mean iteration counts: 0.0
-============
-
 --- vertexcover1-2 ---
 
 > [Test] tests/vertexcover1-2/vertex-cover52.dat-s
@@ -1187,9 +1265,6 @@
 >Mean optimality gap: 8.436472344605253e-05
 >Maximum optimality gap: 0.0005893417802558254
 >Mean iteration counts: 59191.857142857145
-============
-
---- manual ---
 ============
 
 --- vertexcover2-2 ---
@@ -1391,45 +1466,130 @@
 >Mean iteration counts: 19999.0
 ============
 
---- sdplib-hinf ---
+--- large1 ---
 
-> [Test] tests/sdplib-hinf/hinf10.dat-s
+> [Test] tests/large1/large-503.dat-s
+- [General Setting]-Ground truth: 1.649142919769142
+-Physarum solver output: 1.649245264661687
+-Error: 0.00010234489254501433
+-Gap: 0
+-Number of iterations: 52557
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 5.944583136852089e-07
+-Time spent: 128.83791637420654
 
-> [Test] tests/sdplib-hinf/hinf5.dat-s
+> [Test] tests/large1/large-500.dat-s
+- [General Setting]-Ground truth: 4.497144929290595
+-Physarum solver output: 4.497144970563601
+-Error: 4.12730054577537e-08
+-Gap: 0
+-Number of iterations: 9999
+-h bound: 0.05
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.7053025658242404e-13
+-Time spent: 30.166627883911133
 
-> [Test] tests/sdplib-hinf/hinf9.dat-s
+> [Test] tests/large1/large-502.dat-s
+- [General Setting]-Ground truth: 2.8450913209089013
+-Physarum solver output: 2.845091323882197
+-Error: 2.973295831765199e-09
+-Gap: 0
+-Number of iterations: 1999
+-h bound: 0.05
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 2.842170943040401e-14
+-Time spent: 5.916373252868652
 
-> [Test] tests/sdplib-hinf/hinf13.dat-s
+> [Test] tests/large1/large-504.dat-s
+- [General Setting]-Ground truth: 2.3278445060305337
+-Physarum solver output: 2.3278445924013482
+-Error: 8.637081450046935e-08
+-Gap: 0
+-Number of iterations: 9999
+-h bound: 0.05
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 8.526512829121202e-14
+-Time spent: 29.70017910003662
 
-> [Test] tests/sdplib-hinf/hinf12.dat-s
+> [Test] tests/large1/large-507.dat-s
+- [General Setting]-Ground truth: 4.08955774332853
+-Physarum solver output: 4.089557761581734
+-Error: 1.825320339321479e-08
+-Gap: 0
+-Number of iterations: 9999
+-h bound: 0.05
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.1368683772161603e-13
+-Time spent: 34.14187431335449
 
-> [Test] tests/sdplib-hinf/hinf1.dat-s
+> [Test] tests/large1/large-508.dat-s
+- [General Setting]-Ground truth: 3.36174090592524
+-Physarum solver output: 3.3617409165418204
+-Error: 1.0616580503608475e-08
+-Gap: 0
+-Number of iterations: 2652
+-h bound: 0.05
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.7053025658242404e-13
+-Time spent: 8.614320039749146
 
-> [Test] tests/sdplib-hinf/hinf3.dat-s
+> [Test] tests/large1/large-509.dat-s
+- [General Setting]-Ground truth: 3.02650722097679
+-Physarum solver output: 3.026531912983255
+-Error: 2.4692006465265592e-05
+-Gap: 0
+-Number of iterations: 9999
+-h bound: 0.05
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.5265017320811029e-12
+-Time spent: 31.781677961349487
 
-> [Test] tests/sdplib-hinf/hinf4.dat-s
+> [Test] tests/large1/large-505.dat-s
+- [General Setting]-Ground truth: 2.4890447795584163
+-Physarum solver output: 2.489044789358876
+-Error: 9.800459555009411e-09
+-Gap: 0
+-Number of iterations: 4714
+-h bound: 0.05
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 5.684341886080802e-14
+-Time spent: 16.191359758377075
 
-> [Test] tests/sdplib-hinf/hinf7.dat-s
+> [Test] tests/large1/large-501.dat-s
+- [General Setting]-Ground truth: 7.15523805889973
+-Physarum solver output: 7.155238067492382
+-Error: 8.592651923322592e-09
+-Gap: 0
+-Number of iterations: 3434
+-h bound: 0.05
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.4210854715202004e-13
+-Time spent: 11.155614852905273
 
-> [Test] tests/sdplib-hinf/hinf6.dat-s
+> [Test] tests/large1/large-506.dat-s
+- [General Setting]-Ground truth: 3.5624488204303875
+-Physarum solver output: 3.5624488256398728
+-Error: 5.209485287593907e-09
+-Gap: 0
+-Number of iterations: 9999
+-h bound: 0.05
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.7053025658242404e-13
+-Time spent: 27.36311984062195
 
->Mean optimality gap: 0.0
->Maximum optimality gap: 0
->Mean iteration counts: 0.0
-============
-
---- sdplib-inf ---
-
-> [Test] tests/sdplib-inf/infp2.dat-s
-
-> [Test] tests/sdplib-inf/infd1.dat-s
-
-> [Test] tests/sdplib-inf/infd2.dat-s
-
-> [Test] tests/sdplib-inf/infp1.dat-s
-
->Mean optimality gap: 0.0
->Maximum optimality gap: 0
->Mean iteration counts: 0.0
+>Mean optimality gap: 1.2721998850673267e-05
+>Maximum optimality gap: 0.00010234489254501433
+>Mean iteration counts: 11535.1
 ============
 
