@@ -76,6 +76,14 @@ def null_calculator(X):
             U_k.append(U[:, i])
     return np.array(U_k).T
 
+def calculate_infeasibility(X, A, b, m):
+    infeasibility = -inf
+    t = np.min(np.linalg.eigh(X)[0])
+    t = max(0, -t)
+    infeasibility = max(infeasibility, t)
+    for i in range(m):
+        infeasibility = max(infeasibility, abs(np.sum(A[i] * X) - b[i]))
+    return infeasibility
 
 def physarum_C_iden_modified(C, X, m, n, A, b, iter_count, output_summary=False, output_file=None):
     C, X, A = _make_dense(C, X, A)
@@ -419,7 +427,7 @@ def physarum_SDC_vanilla(C, X, m, n, A, b, iter_count, output_summary=False, out
 
     print("H in last iteration:", h)
     print(X_k[n - 1, n - 1])
-    return X_k, 0, 0, iterations, 0
+    return X_k, 0, 0, iterations, 0, calculate_infeasibility(X, A, b, m)
 
 
 def SDC(C, X, n):

@@ -1,0 +1,42 @@
+SDPA (Version 7.3.6) start at [Thu Jul 15 21:27:31 2021]
+param is ./param.sdpa
+data  is G:\Research\PhysarumSDPSolver\SDPA\testSet\vertex-conver1\vertex-cover510.dat-s : sparse
+out   is G:\Research\PhysarumSDPSolver\SDPA\testSet\vertex-conver1\vertex-cover510.dat-s.res
+NumThreads  is set as 1
+Schur computation : DENSE 
+   mu      thetaP  thetaD  objP      objD      alphaP  alphaD  beta 
+ 0 1.0e+004 1.0e+000 1.0e+000 -0.00e+000 -6.00e+002 1.0e+000 8.0e-001 2.00e-001
+ 1 2.7e+003 0.0e+000 2.0e-001 +3.66e+002 -1.53e+002 8.8e-001 8.8e-001 2.00e-001
+ 2 5.0e+002 7.2e-017 2.4e-002 +4.67e+002 -2.08e+001 2.8e+000 8.6e-001 2.00e-001
+ 3 1.3e+002 2.9e-016 3.3e-003 +2.97e+002 -6.13e+000 1.9e+000 9.2e-001 2.00e-001
+ 4 1.7e+001 2.9e-016 2.6e-004 +7.60e+001 -4.41e+000 1.1e+000 1.0e+000 2.00e-001
+ 5 2.9e+000 2.9e-016 1.8e-016 +1.33e+001 -4.33e+000 9.0e-001 3.6e+000 1.00e-001
+ 6 4.7e-001 3.4e-016 4.6e-016 -8.94e-001 -3.69e+000 8.3e-001 1.3e+000 1.00e-001
+ 7 9.1e-002 3.5e-016 1.9e-016 -2.73e+000 -3.27e+000 9.5e-001 9.7e-001 1.00e-001
+ 8 1.2e-002 3.5e-016 7.4e-017 -2.97e+000 -3.04e+000 9.7e-001 1.0e+000 1.00e-001
+ 9 1.4e-003 3.5e-016 5.3e-017 -3.00e+000 -3.00e+000 9.7e-001 1.0e+000 1.00e-001
+10 1.5e-004 3.5e-016 4.6e-017 -3.00e+000 -3.00e+000 9.8e-001 1.0e+000 1.00e-001
+11 1.5e-005 3.5e-016 3.5e-016 -3.00e+000 -3.00e+000 9.8e-001 1.0e+000 1.00e-001
+12 1.5e-006 3.5e-016 5.0e-015 -3.00e+000 -3.00e+000 9.8e-001 1.0e+000 1.00e-001
+Strange behavior : primal < dual :: line 144 in sdpa_solve.cpp
+Entering DMUMPS driver with JOB, N, NZ =  -2           0              0
+13 1.5e-007 3.5e-016 4.5e-014 -3.00e+000 -3.00e+000 9.0e-001 9.0e-001 1.00e-001
+
+phase.value  = pdFEAS    
+   Iteration = 13
+          mu = +1.5133297755672478e-007
+relative gap = +3.0265397319957260e-007
+        gap  = +9.0796194163189625e-007
+     digits  = +6.5190536203560105e+000
+objValPrimal = -2.9999996188189275e+000
+objValDual   = -3.0000005267808691e+000
+p.feas.error = +3.5083047578154947e-014
+d.feas.error = +8.9339646791586347e-012
+total time   = 0.026635
+  main loop time = 0.026635
+      total time = 0.026635
+file  check time = 0.000000
+file change time = 0.000000
+file   read time = 0.000000
+SDPA end at [Thu Jul 15 21:27:31 2021]
+ALL TIME = 0.029582

@@ -1,0 +1,41 @@
+SDPA (Version 7.3.6) start at [Thu Jul 15 21:27:25 2021]
+param is ./param.sdpa
+data  is G:\Research\PhysarumSDPSolver\SDPA\testSet\testset2\negative-definite-dense-106.dat-s : sparse
+out   is G:\Research\PhysarumSDPSolver\SDPA\testSet\testset2\negative-definite-dense-106.dat-s.res
+NumThreads  is set as 1
+Schur computation : DENSE 
+   mu      thetaP  thetaD  objP      objD      alphaP  alphaD  beta 
+Entering DMUMPS driver with JOB, N, NZ =  -2           0              0
+ 0 1.0e+004 1.0e+000 1.0e+000 -0.00e+000 -6.60e+003 9.3e-001 1.0e+000 2.00e-001
+ 1 1.7e+003 7.5e-002 1.8e-016 +1.83e+000 -8.24e+003 1.0e+000 1.5e+000 2.00e-001
+ 2 2.6e+002 9.3e-018 1.4e-016 +1.81e+000 -2.64e+003 9.0e+001 9.7e-001 1.00e-001
+ 3 3.4e+001 9.3e-018 1.7e-016 -1.48e-002 -3.36e+002 2.4e+001 9.7e-001 1.00e-001
+ 4 4.0e+000 9.3e-018 2.2e-018 -3.09e+000 -4.33e+001 3.3e+000 9.4e-001 1.00e-001
+ 5 5.6e-001 1.9e-017 5.7e-018 -3.83e+000 -9.42e+000 2.9e+000 8.8e-001 1.00e-001
+ 6 1.1e-001 1.9e-017 3.6e-019 -3.92e+000 -5.03e+000 1.3e+000 8.5e-001 1.00e-001
+ 7 2.4e-002 9.3e-018 5.7e-018 -3.97e+000 -4.21e+000 1.3e+000 9.6e-001 1.00e-001
+ 8 3.1e-003 1.9e-017 2.9e-018 -3.98e+000 -4.01e+000 1.4e+000 9.8e-001 1.00e-001
+ 9 3.4e-004 1.9e-017 2.9e-018 -3.98e+000 -3.98e+000 1.5e+000 9.9e-001 1.00e-001
+10 3.5e-005 1.9e-017 1.4e-018 -3.98e+000 -3.98e+000 1.5e+000 9.9e-001 1.00e-001
+11 3.5e-006 1.9e-017 5.7e-018 -3.98e+000 -3.98e+000 1.5e+000 9.9e-001 1.00e-001
+12 3.5e-007 9.3e-018 8.6e-018 -3.98e+000 -3.98e+000 1.5e+000 9.9e-001 1.00e-001
+13 3.5e-008 9.3e-018 1.1e-016 -3.98e+000 -3.98e+000 1.5e+000 9.9e-001 1.00e-001
+
+phase.value  = pdOPT     
+   Iteration = 13
+          mu = +3.5245778151615780e-008
+relative gap = +8.8573831965663887e-008
+        gap  = +3.5245774387959727e-007
+     digits  = +7.0526945660533409e+000
+objValPrimal = -3.9792534707876572e+000
+objValDual   = -3.9792538232454011e+000
+p.feas.error = +8.8817841970012523e-016
+d.feas.error = +5.3290705182007514e-013
+total time   = 0.021168
+  main loop time = 0.020172
+      total time = 0.021168
+file  check time = 0.000000
+file change time = 0.000000
+file   read time = 0.000996
+SDPA end at [Thu Jul 15 21:27:25 2021]
+ALL TIME = 0.022806

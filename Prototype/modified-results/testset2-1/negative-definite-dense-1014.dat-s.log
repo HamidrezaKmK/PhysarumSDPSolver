@@ -1,0 +1,42 @@
+SDPA (Version 7.3.6) start at [Thu Jul 15 21:27:25 2021]
+param is ./param.sdpa
+data  is G:\Research\PhysarumSDPSolver\SDPA\testSet\testset2\negative-definite-dense-1014.dat-s : sparse
+out   is G:\Research\PhysarumSDPSolver\SDPA\testSet\testset2\negative-definite-dense-1014.dat-s.res
+NumThreads  is set as 1
+Schur computation : DENSE 
+   mu      thetaP  thetaD  objP      objD      alphaP  alphaD  beta 
+ 0 1.0e+004 1.0e+000 1.0e+000 -0.00e+000 -5.30e+003 9.1e-001 1.0e+000 2.00e-001
+ 1 1.8e+003 9.2e-002 6.6e-016 -6.11e-002 -6.63e+003 9.9e-001 1.6e+000 2.00e-001
+ 2 2.8e+002 1.0e-003 3.3e-015 -6.14e-002 -2.72e+003 1.0e+000 1.0e+000 2.00e-001
+ 3 4.6e+001 9.2e-018 1.4e-015 -6.39e-002 -4.60e+002 9.0e+001 9.9e-001 1.00e-001
+ 4 5.2e+000 9.2e-018 7.2e-017 -2.33e-001 -5.22e+001 9.9e-001 9.9e-001 1.00e-001
+ 5 5.7e-001 9.2e-018 4.6e-017 -2.27e-001 -5.95e+000 2.2e+000 9.3e-001 1.00e-001
+ 6 8.4e-002 9.2e-018 2.6e-018 -3.67e-001 -1.21e+000 1.9e+000 9.8e-001 1.00e-001
+ 7 9.1e-003 1.8e-017 6.4e-019 -3.81e-001 -4.72e-001 2.1e+000 9.7e-001 1.00e-001
+ 8 1.1e-003 1.8e-017 6.4e-019 -3.83e-001 -3.93e-001 2.6e+000 9.8e-001 1.00e-001
+ 9 1.2e-004 1.8e-017 1.3e-018 -3.83e-001 -3.84e-001 2.9e+000 9.9e-001 1.00e-001
+10 1.2e-005 1.8e-017 5.1e-018 -3.83e-001 -3.83e-001 2.8e+000 9.9e-001 1.00e-001
+11 1.2e-006 1.8e-017 3.8e-018 -3.83e-001 -3.83e-001 2.9e+000 9.9e-001 1.00e-001
+12 1.2e-007 1.8e-017 1.8e-018 -3.83e-001 -3.83e-001 2.9e+000 9.9e-001 1.00e-001
+Strange behavior : primal < dual :: line 144 in sdpa_solve.cpp
+Entering DMUMPS driver with JOB, N, NZ =  -2           0              0
+13 1.2e-008 1.8e-017 1.0e-017 -3.83e-001 -3.83e-001 9.0e-001 9.0e-001 1.00e-001
+
+phase.value  = pdFEAS    
+   Iteration = 13
+          mu = +1.1733902142638253e-008
+relative gap = +1.1733902183230782e-007
+        gap  = +1.1733902183230782e-007
+     digits  = +6.5138021496121095e+000
+objValPrimal = -3.8304036855656648e-001
+objValDual   = -3.8304048589558831e-001
+p.feas.error = +1.7763568394002505e-015
+d.feas.error = +7.1054273576010019e-015
+total time   = 0.023215
+  main loop time = 0.022233
+      total time = 0.023215
+file  check time = 0.000000
+file change time = 0.000000
+file   read time = 0.000982
+SDPA end at [Thu Jul 15 21:27:25 2021]
+ALL TIME = 0.023215

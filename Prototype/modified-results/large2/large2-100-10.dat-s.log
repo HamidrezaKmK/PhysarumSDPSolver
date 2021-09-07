@@ -1,0 +1,43 @@
+SDPA (Version 7.3.6) start at [Tue Sep 07 12:42:26 2021]
+param is ./param.sdpa
+data  is G:\Research\PhysarumSDPSolver\SDPA\testSet\large2\large2-100-10.dat-s : sparse
+out   is G:\Research\PhysarumSDPSolver\SDPA\testSet\large2\large2-100-10.dat-s.res
+NumThreads  is set as 1
+Schur computation : DENSE 
+   mu      thetaP  thetaD  objP      objD      alphaP  alphaD  beta 
+ 0 1.0e+004 1.0e+000 1.0e+000 -0.00e+000 -5.61e+004 9.1e-001 1.0e+000 2.00e-001
+ 1 1.8e+003 9.2e-002 1.1e-015 +2.85e-001 -7.00e+004 9.9e-001 1.6e+000 2.00e-001
+ 2 2.9e+002 8.9e-004 1.5e-015 +2.79e-001 -2.83e+004 1.0e+000 1.1e+000 2.00e-001
+ 3 4.6e+001 9.3e-018 8.5e-016 +2.60e-001 -4.56e+003 8.9e+001 9.8e-001 1.00e-001
+ 4 5.2e+000 9.3e-018 1.4e-016 -3.07e+000 -5.26e+002 9.9e-001 9.9e-001 1.00e-001
+ 5 5.8e-001 9.3e-018 3.8e-017 -2.89e+000 -6.05e+001 9.9e-001 9.5e-001 1.00e-001
+ 6 8.3e-002 1.9e-017 4.2e-018 -3.43e+000 -1.18e+001 2.8e+000 8.4e-001 1.00e-001
+ 7 2.0e-002 1.9e-017 4.2e-018 -3.48e+000 -5.46e+000 1.0e+000 8.3e-001 1.00e-001
+ 8 5.0e-003 1.9e-017 1.7e-017 -3.50e+000 -4.01e+000 1.1e+000 9.7e-001 1.00e-001
+ 9 6.3e-004 1.9e-017 1.5e-017 -3.51e+000 -3.57e+000 1.1e+000 9.9e-001 1.00e-001
+10 6.7e-005 1.9e-017 1.7e-017 -3.51e+000 -3.51e+000 1.1e+000 9.9e-001 1.00e-001
+11 7.0e-006 1.9e-017 1.9e-017 -3.51e+000 -3.51e+000 1.1e+000 1.0e+000 1.00e-001
+12 7.1e-007 2.8e-017 6.7e-017 -3.51e+000 -3.51e+000 1.1e+000 1.0e+000 1.00e-001
+13 7.2e-008 1.9e-017 1.8e-016 -3.51e+000 -3.51e+000 1.1e+000 1.0e+000 1.00e-001
+Strange behavior : primal < dual :: line 144 in sdpa_solve.cpp
+Entering DMUMPS driver with JOB, N, NZ =  -2           0              0
+14 7.2e-009 2.8e-017 1.0e-015 -3.51e+000 -3.51e+000 9.0e-001 9.0e-001 1.00e-001
+
+phase.value  = pdFEAS    
+   Iteration = 14
+          mu = +7.1621455577375318e-009
+relative gap = +2.0419863535185083e-007
+        gap  = +7.1621430208779202e-007
+     digits  = +6.6899471646053339e+000
+objValPrimal = -3.5074388608361913e+000
+objValDual   = -3.5074395770504934e+000
+p.feas.error = +2.6645352591003757e-015
+d.feas.error = +2.7625901566352695e-011
+total time   = 0.815915
+  main loop time = 0.708803
+      total time = 0.815915
+file  check time = 0.000000
+file change time = 0.000000
+file   read time = 0.107112
+SDPA end at [Tue Sep 07 12:42:26 2021]
+ALL TIME = 0.859805

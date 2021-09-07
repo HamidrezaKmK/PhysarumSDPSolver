@@ -1,0 +1,24 @@
+Answer of test tests/testset1/dense-negative-definite-5-211.dat-s
+[General Setting]
+Primal solution:
+[[ 4.32396447e-01 -6.56663703e-03  2.38175672e-01 -5.49292117e-01
+  -1.08807400e-01]
+ [-6.56663703e-03  9.97276651e-05 -3.61708349e-03  8.34187875e-03
+   1.65241278e-03]
+ [ 2.38175672e-01 -3.61708349e-03  1.31193611e-01 -3.02564967e-01
+  -5.99340602e-02]
+ [-5.49292117e-01  8.34187875e-03 -3.02564967e-01  6.97789818e-01
+   1.38222807e-01]
+ [-1.08807400e-01  1.65241278e-03 -5.99340602e-02  1.38222807e-01
+   2.73800856e-02]]
+Dual solution:
+0
+Tr(CX) = 6.252859956567978
+Primal and dual gap: 0
+Number of iterations: 24961
+Max error in symmetry of Q: 0
+Maximum h bound: 0.003
+Method name is: Physarum SDC modified (v.2)
+Restart factor: 1000
+Infeasibility: 5.684341886080802e-14
+Time spent (seconds): 5.609896659851074

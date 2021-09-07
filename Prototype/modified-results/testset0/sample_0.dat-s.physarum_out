@@ -1,0 +1,17 @@
+Answer of test tests/testset0/sample_0.dat-s
+[General Setting]
+Primal solution:
+[[0.25029428 0.26484613 0.34304341]
+ [0.26484613 0.280244   0.3629876 ]
+ [0.34304341 0.3629876  0.4701617 ]]
+Dual solution:
+0
+Tr(CX) = 3.9301287168936003
+Primal and dual gap: 0
+Number of iterations: 8387
+Max error in symmetry of Q: 0
+Maximum h bound: 0.01
+Method name is: Physarum SDC modified (v.2)
+Restart factor: 1000
+Infeasibility: 3.467042475335802e-07
+Time spent (seconds): 1.6647276878356934
