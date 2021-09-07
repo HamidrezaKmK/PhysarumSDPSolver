@@ -22,7 +22,9 @@ def is_pos_def(A):
 
 
 def find_best_coefficient(X, Y, left, right, iteration):
-
+    """
+    Find largest 'h' that X - hY is positive definite
+    """
     if iteration == 0:
         return left
     mid = (left + right) / 2

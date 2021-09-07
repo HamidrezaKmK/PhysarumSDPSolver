@@ -1,784 +1,1435 @@
---- testset0 ---
-
-> [Test] tests\testset0\Iden0.dat-s
--Ground truth: 1.7119825735156744
--Physarum solver output: 1.7119829175412276
--Error: 3.4402555315615757e-07
--Gap: 0
--Number of iterations: 326
-
-> [Test] tests\testset0\sample_0.dat-s
--Ground truth: 3.930128661430378
--Physarum solver output: 3.930128862896974
--Error: 2.0146659629460828e-07
--Gap: 0
--Number of iterations: 57
-
->Mean optimality gap: 2.727460747253829e-07
->Maximum optimality gap: 3.4402555315615757e-07
->Mean iteration counts: 191.5
-============
-
 --- testset1 ---
 
-> [Test] tests\testset1\dense-negative-definite-5-20.dat-s
--Ground truth: 3.8830049411419165
--Physarum solver output: 3.883005430097623
--Error: 4.889557065901329e-07
+> [Test] tests/testset1/dense-negative-definite-5-219.dat-s
+- [General Setting]-Ground truth: 2.206963970439973
+-Physarum solver output: 2.206964051813857
+-Error: 8.137388407547519e-08
 -Gap: 0
--Number of iterations: 432
+-Number of iterations: 12316
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 4.227729277772596e-13
+-Time spent: 2.1668860912323
 
-> [Test] tests\testset1\dense-negative-definite-5-21.dat-s
--Ground truth: 9.602462292624855
--Physarum solver output: 9.602463713163315
--Error: 1.4205384601950755e-06
+> [Test] tests/testset1/dense-negative-definite-5-23.dat-s
+- [General Setting]-Ground truth: 2.2336523998206874
+-Physarum solver output: 2.233652421347662
+-Error: 2.152697442525664e-08
 -Gap: 0
--Number of iterations: 259
+-Number of iterations: 25413
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 3.6415315207705135e-14
+-Time spent: 5.412372350692749
 
-> [Test] tests\testset1\dense-negative-definite-5-210.dat-s
--Ground truth: 5.776864072223619
--Physarum solver output: 5.7768640854752995
--Error: 1.3251680641701569e-08
+> [Test] tests/testset1/dense-negative-definite-5-25.dat-s
+- [General Setting]-Ground truth: 4.720056921768257
+-Physarum solver output: 4.720056965212379
+-Error: 4.3444122077573866e-08
 -Gap: 0
--Number of iterations: 140
+-Number of iterations: 16540
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 3.552713678800501e-14
+-Time spent: 3.529909372329712
 
-> [Test] tests\testset1\dense-negative-definite-5-211.dat-s
--Ground truth: 6.2528599106860625
--Physarum solver output: 6.252860755754267
--Error: 8.45068204746724e-07
+> [Test] tests/testset1/dense-negative-definite-5-217.dat-s
+- [General Setting]-Ground truth: 3.8113832202172775
+-Physarum solver output: 3.8114196254901587
+-Error: 3.640527288117923e-05
 -Gap: 0
--Number of iterations: 137
+-Number of iterations: 99999
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 5.329070518200751e-15
+-Time spent: 18.784510135650635
 
-> [Test] tests\testset1\dense-negative-definite-5-212.dat-s
--Ground truth: 0.5057653352541167
--Physarum solver output: 0.5057660243238202
--Error: 6.890697035188964e-07
+> [Test] tests/testset1/dense-negative-definite-5-213.dat-s
+- [General Setting]-Ground truth: 2.03925414475186
+-Physarum solver output: 2.03925421673139
+-Error: 7.197952989201895e-08
 -Gap: 0
--Number of iterations: 472
+-Number of iterations: 12291
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 5.968558980384842e-13
+-Time spent: 2.084486484527588
 
-> [Test] tests\testset1\dense-negative-definite-5-213.dat-s
--Ground truth: 2.03925414475186
--Physarum solver output: 2.0392550151077664
--Error: 8.703559064571209e-07
+> [Test] tests/testset1/dense-negative-definite-5-22.dat-s
+- [General Setting]-Ground truth: 2.2653084617981127
+-Physarum solver output: 2.2653084731985107
+-Error: 1.1400397958993835e-08
 -Gap: 0
--Number of iterations: 59
+-Number of iterations: 19084
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 2.842170943040401e-14
+-Time spent: 3.5903708934783936
 
-> [Test] tests\testset1\dense-negative-definite-5-214.dat-s
--Ground truth: 7.366958939174298
--Physarum solver output: 7.366960162866864
--Error: 1.2236925659436793e-06
+> [Test] tests/testset1/dense-negative-definite-5-27.dat-s
+- [General Setting]-Ground truth: 4.222617529253349
+-Physarum solver output: 4.222617536959348
+-Error: 7.705998505969092e-09
 -Gap: 0
--Number of iterations: 202
+-Number of iterations: 19417
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 4.263256414560601e-14
+-Time spent: 4.304028511047363
 
-> [Test] tests\testset1\dense-negative-definite-5-215.dat-s
--Ground truth: 0.24516160089881248
--Physarum solver output: 0.2451621371662212
--Error: 5.362674087294739e-07
+> [Test] tests/testset1/dense-negative-definite-5-26.dat-s
+- [General Setting]-Ground truth: 1.0224798387402598
+-Physarum solver output: 1.022479870356903
+-Error: 3.1616643081378015e-08
 -Gap: 0
--Number of iterations: 88
+-Number of iterations: 12047
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 5.9117155615240335e-12
+-Time spent: 2.1211578845977783
 
-> [Test] tests\testset1\dense-negative-definite-5-216.dat-s
--Ground truth: 3.6078774195279784
--Physarum solver output: 3.6078776470594476
--Error: 2.2753146922127598e-07
+> [Test] tests/testset1/dense-negative-definite-5-214.dat-s
+- [General Setting]-Ground truth: 7.366958939174298
+-Physarum solver output: 7.366958985384115
+-Error: 4.620981730596441e-08
 -Gap: 0
--Number of iterations: 85
+-Number of iterations: 35251
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 2.842170943040401e-14
+-Time spent: 7.611947774887085
 
-> [Test] tests\testset1\dense-negative-definite-5-217.dat-s
--Ground truth: 3.8113832202172775
--Physarum solver output: 3.811384526525773
--Error: 1.306308495596653e-06
+> [Test] tests/testset1/dense-negative-definite-5-28.dat-s
+- [General Setting]-Ground truth: 4.155098898688811
+-Physarum solver output: 4.155099053459692
+-Error: 1.5477088055604327e-07
 -Gap: 0
--Number of iterations: 903
+-Number of iterations: 99999
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.7763568394002505e-14
+-Time spent: 21.72721815109253
 
-> [Test] tests\testset1\dense-negative-definite-5-218.dat-s
--Ground truth: 2.8606110759702315
--Physarum solver output: 2.860611446121107
--Error: 3.7015087572811467e-07
+> [Test] tests/testset1/dense-negative-definite-5-218.dat-s
+- [General Setting]-Ground truth: 2.8606110759702315
+-Physarum solver output: 2.8606111025055805
+-Error: 2.6535349029188637e-08
 -Gap: 0
--Number of iterations: 163
+-Number of iterations: 30987
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 6.394884621840902e-14
+-Time spent: 6.850497007369995
 
-> [Test] tests\testset1\dense-negative-definite-5-219.dat-s
--Ground truth: 2.206963970439973
--Physarum solver output: 2.2069651594193544
--Error: 1.1889793816166616e-06
+> [Test] tests/testset1/dense-negative-definite-5-24.dat-s
+- [General Setting]-Ground truth: 1.2163325742176365
+-Physarum solver output: 1.2163326220789408
+-Error: 4.78613042531606e-08
 -Gap: 0
--Number of iterations: 61
+-Number of iterations: 12484
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 5.471179065352771e-13
+-Time spent: 2.129380464553833
 
-> [Test] tests\testset1\dense-negative-definite-5-22.dat-s
--Ground truth: 2.2653084617981127
--Physarum solver output: 2.26530850214204
--Error: 4.03439273100048e-08
+> [Test] tests/testset1/dense-negative-definite-5-212.dat-s
+- [General Setting]-Ground truth: 0.5057653352541167
+-Physarum solver output: 0.5057654274512903
+-Error: 9.219717356234725e-08
 -Gap: 0
--Number of iterations: 99
+-Number of iterations: 99999
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 3.552713678800501e-15
+-Time spent: 19.282248973846436
 
-> [Test] tests\testset1\dense-negative-definite-5-23.dat-s
--Ground truth: 2.2336523998206874
--Physarum solver output: 2.2336526340671243
--Error: 2.3424643691427605e-07
+> [Test] tests/testset1/dense-negative-definite-5-29.dat-s
+- [General Setting]-Ground truth: 0.4639321084205541
+-Physarum solver output: 0.4639321694806112
+-Error: 6.106005712158691e-08
 -Gap: 0
--Number of iterations: 135
+-Number of iterations: 24945
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.0248123186334179e-16
+-Time spent: 4.221068859100342
 
-> [Test] tests\testset1\dense-negative-definite-5-24.dat-s
--Ground truth: 1.2163325742176365
--Physarum solver output: 1.21633311270259
--Error: 5.384849535161607e-07
+> [Test] tests/testset1/dense-negative-definite-5-216.dat-s
+- [General Setting]-Ground truth: 3.6078774195279784
+-Physarum solver output: 3.6078774440120784
+-Error: 2.448410008071278e-08
 -Gap: 0
--Number of iterations: 60
+-Number of iterations: 16242
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.5987211554602254e-14
+-Time spent: 3.5220742225646973
 
-> [Test] tests\testset1\dense-negative-definite-5-25.dat-s
--Ground truth: 4.720056921768257
--Physarum solver output: 4.720058373846065
--Error: 1.4520778082172114e-06
+> [Test] tests/testset1/dense-negative-definite-5-21.dat-s
+- [General Setting]-Ground truth: 9.602462292624855
+-Physarum solver output: 9.602462353884771
+-Error: 6.125991625083316e-08
 -Gap: 0
--Number of iterations: 91
+-Number of iterations: 46780
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 7.815970093361102e-14
+-Time spent: 10.230371236801147
 
-> [Test] tests\testset1\dense-negative-definite-5-26.dat-s
--Ground truth: 1.0224798387402598
--Physarum solver output: 1.022480452659904
--Error: 6.139196442322969e-07
+> [Test] tests/testset1/dense-negative-definite-5-215.dat-s
+- [General Setting]-Ground truth: 0.24516160089881248
+-Physarum solver output: 0.24516165273676052
+-Error: 5.1837948045196924e-08
 -Gap: 0
--Number of iterations: 57
+-Number of iterations: 19669
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 3.552713678800501e-15
+-Time spent: 3.4502367973327637
 
-> [Test] tests\testset1\dense-negative-definite-5-27.dat-s
--Ground truth: 4.222617529253349
--Physarum solver output: 4.222617607452262
--Error: 7.819891312266236e-08
+> [Test] tests/testset1/dense-negative-definite-5-211.dat-s
+- [General Setting]-Ground truth: 6.2528599106860625
+-Physarum solver output: 6.252859956567978
+-Error: 4.5881915156087416e-08
 -Gap: 0
--Number of iterations: 103
+-Number of iterations: 24961
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 5.684341886080802e-14
+-Time spent: 5.609896659851074
 
-> [Test] tests\testset1\dense-negative-definite-5-28.dat-s
--Ground truth: 4.155098898688811
--Physarum solver output: 4.155099019919499
--Error: 1.212306877107494e-07
+> [Test] tests/testset1/dense-negative-definite-5-20.dat-s
+- [General Setting]-Ground truth: 3.8830049411419165
+-Physarum solver output: 3.8830050305925226
+-Error: 8.945060603338106e-08
 -Gap: 0
--Number of iterations: 989
+-Number of iterations: 86888
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 3.197442310920451e-14
+-Time spent: 16.66465425491333
 
-> [Test] tests\testset1\dense-negative-definite-5-29.dat-s
--Ground truth: 0.4639321084205541
--Physarum solver output: 0.463932677449307
--Error: 5.690287528947735e-07
+> [Test] tests/testset1/dense-negative-definite-5-210.dat-s
+- [General Setting]-Ground truth: 5.776864072223619
+-Physarum solver output: 5.776864084612813
+-Error: 1.2389194559148109e-08
 -Gap: 0
--Number of iterations: 116
+-Number of iterations: 27657
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 5.684341886080802e-14
+-Time spent: 5.372962951660156
 
->Mean optimality gap: 6.413850491451823e-07
->Maximum optimality gap: 1.4520778082172114e-06
->Mean iteration counts: 232.55
+>Mean optimality gap: 1.8694129346574773e-06
+>Maximum optimality gap: 3.640527288117923e-05
+>Mean iteration counts: 37148.45
 ============
 
 --- testset2-1 ---
 
-> [Test] tests\testset2-1\negative-definite-dense-100.dat-s
--Ground truth: 1.957001095041
--Physarum solver output: 1.9570011065693875
--Error: 1.1528387577897092e-08
+> [Test] tests/testset2-1/negative-definite-dense-1013.dat-s
+- [General Setting]-Ground truth: 4.882228695820805
+-Physarum solver output: 4.882229133727032
+-Error: 4.3790622683559377e-07
 -Gap: 0
--Number of iterations: 68
+-Number of iterations: 11172
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 4.8584300671450364e-06
+-Time spent: 3.2209300994873047
 
-> [Test] tests\testset2-1\negative-definite-dense-101.dat-s
--Ground truth: 1.862181109767214
--Physarum solver output: 1.8621820914047422
--Error: 9.816375281523904e-07
+> [Test] tests/testset2-1/negative-definite-dense-100.dat-s
+- [General Setting]-Ground truth: 1.957001095041
+-Physarum solver output: 1.9570011146498982
+-Error: 1.9608898282896803e-08
 -Gap: 0
--Number of iterations: 72
+-Number of iterations: 7004
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 4.314705677188613e-07
+-Time spent: 1.697796106338501
 
-> [Test] tests\testset2-1\negative-definite-dense-1010.dat-s
--Ground truth: 2.1406373228641
--Physarum solver output: 2.140637718566417
--Error: 3.9570231713526027e-07
+> [Test] tests/testset2-1/negative-definite-dense-101.dat-s
+- [General Setting]-Ground truth: 1.862181109767214
+-Physarum solver output: 1.8621812387953687
+-Error: 1.290281546051375e-07
 -Gap: 0
--Number of iterations: 91
+-Number of iterations: 6600
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 7.785444182673018e-07
+-Time spent: 2.143953323364258
 
-> [Test] tests\testset2-1\negative-definite-dense-1012.dat-s
--Ground truth: 2.326176457515742
--Physarum solver output: 2.326176514864942
--Error: 5.734920005551203e-08
+> [Test] tests/testset2-1/negative-definite-dense-1017.dat-s
+- [General Setting]-Ground truth: 4.536198329160069
+-Physarum solver output: 4.536198378070289
+-Error: 4.891021987418753e-08
 -Gap: 0
--Number of iterations: 515
+-Number of iterations: 10341
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 5.878520852320435e-07
+-Time spent: 2.2328035831451416
 
-> [Test] tests\testset2-1\negative-definite-dense-1013.dat-s
--Ground truth: 4.882228695820805
--Physarum solver output: 4.8822294539724265
--Error: 7.581516214827388e-07
+> [Test] tests/testset2-1/negative-definite-dense-1015.dat-s
+- [General Setting]-Ground truth: 1.0546438315466737
+-Physarum solver output: 1.0546438462080732
+-Error: 1.4661399427851052e-08
 -Gap: 0
--Number of iterations: 161
+-Number of iterations: 6976
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 4.0401654644028895e-07
+-Time spent: 1.8768696784973145
 
-> [Test] tests\testset2-1\negative-definite-dense-1014.dat-s
--Ground truth: 0.3830403685565665
--Physarum solver output: 0.38303818409210694
--Error: 2.1844644595425677e-06
+> [Test] tests/testset2-1/negative-definite-dense-1010.dat-s
+- [General Setting]-Ground truth: 2.1406373228641
+-Physarum solver output: 2.1406373551774833
+-Error: 3.2313383524495976e-08
 -Gap: 0
--Number of iterations: 97
+-Number of iterations: 10346
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 2.877525950850668e-07
+-Time spent: 2.48691987991333
 
-> [Test] tests\testset2-1\negative-definite-dense-1015.dat-s
--Ground truth: 1.0546438315466737
--Physarum solver output: 1.0546439668459133
--Error: 1.3529923958977008e-07
+> [Test] tests/testset2-1/negative-definite-dense-105.dat-s
+- [General Setting]-Ground truth: 1.4475374927216342
+-Physarum solver output: 1.4475375305092777
+-Error: 3.778764345874208e-08
 -Gap: 0
--Number of iterations: 69
+-Number of iterations: 15177
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 2.4868995751603507e-14
+-Time spent: 3.386544942855835
 
-> [Test] tests\testset2-1\negative-definite-dense-1017.dat-s
--Ground truth: 4.536198329160069
--Physarum solver output: 4.536200076058467
--Error: 1.746898398380381e-06
+> [Test] tests/testset2-1/negative-definite-dense-102.dat-s
+- [General Setting]-Ground truth: 0.4931657433521028
+-Physarum solver output: 0.49316583364678906
+-Error: 9.029468628352078e-08
 -Gap: 0
--Number of iterations: 83
+-Number of iterations: 11239
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 3.0787284543976057e-07
+-Time spent: 2.404174566268921
 
-> [Test] tests\testset2-1\negative-definite-dense-102.dat-s
--Ground truth: 0.4931657433521028
--Physarum solver output: 0.4931686220036534
--Error: 2.8786515506307175e-06
+> [Test] tests/testset2-1/negative-definite-dense-1012.dat-s
+- [General Setting]-Ground truth: 2.326176457515742
+-Physarum solver output: 2.3261793901166263
+-Error: 2.9326008843533202e-06
 -Gap: 0
--Number of iterations: 100
+-Number of iterations: 12548
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 3.21505261524635e-07
+-Time spent: 4.037858724594116
 
-> [Test] tests\testset2-1\negative-definite-dense-105.dat-s
--Ground truth: 1.4475374927216342
--Physarum solver output: 1.4475375130678332
--Error: 2.0346198947862604e-08
+> [Test] tests/testset2-1/negative-definite-dense-1014.dat-s
+- [General Setting]-Ground truth: 0.3830403685565665
+-Physarum solver output: 0.38304039413361163
+-Error: 2.5577045148494904e-08
 -Gap: 0
--Number of iterations: 311
+-Number of iterations: 7750
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 4.3626312873357165e-07
+-Time spent: 1.8949415683746338
 
-> [Test] tests\testset2-1\negative-definite-dense-106.dat-s
--Ground truth: 3.9792534707876572
--Physarum solver output: 3.97925494065073
--Error: 1.4698630725895612e-06
+> [Test] tests/testset2-1/negative-definite-dense-107.dat-s
+- [General Setting]-Ground truth: 0.9669749584719822
+-Physarum solver output: 0.9669749880254622
+-Error: 2.9553479996557996e-08
 -Gap: 0
--Number of iterations: 359
+-Number of iterations: 8632
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 4.077843982486229e-07
+-Time spent: 1.8640313148498535
 
-> [Test] tests\testset2-1\negative-definite-dense-107.dat-s
--Ground truth: 0.9669749584719822
--Physarum solver output: 0.9669758032080165
--Error: 8.447360342334065e-07
+> [Test] tests/testset2-1/negative-definite-dense-108.dat-s
+- [General Setting]-Ground truth: 3.6218221153697994
+-Physarum solver output: 3.6218221438114098
+-Error: 2.8441610400165018e-08
 -Gap: 0
--Number of iterations: 56
+-Number of iterations: 12314
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 4.351911471189851e-07
+-Time spent: 2.951963186264038
 
-> [Test] tests\testset2-1\negative-definite-dense-108.dat-s
--Ground truth: 3.6218221153697994
--Physarum solver output: 3.6218231371372274
--Error: 1.0217674279999756e-06
+> [Test] tests/testset2-1/negative-definite-dense-106.dat-s
+- [General Setting]-Ground truth: 3.9792534707876572
+-Physarum solver output: 3.979253846497435
+-Error: 3.757097779555352e-07
 -Gap: 0
--Number of iterations: 114
+-Number of iterations: 19999
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 6.394884621840902e-14
+-Time spent: 4.4302942752838135
 
-> [Test] tests\testset2-1\negative-definite-dense-109.dat-s
--Ground truth: 1.232364615546806
--Physarum solver output: 1.2323653808255282
--Error: 7.652787221701374e-07
+> [Test] tests/testset2-1/negative-definite-dense-109.dat-s
+- [General Setting]-Ground truth: 1.232364615546806
+-Physarum solver output: 1.2323646289363845
+-Error: 1.3389578557010395e-08
 -Gap: 0
--Number of iterations: 73
+-Number of iterations: 9494
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 3.231509069223648e-07
+-Time spent: 2.0992093086242676
 
->Mean optimality gap: 9.479767256062985e-07
->Maximum optimality gap: 2.8786515506307175e-06
->Mean iteration counts: 154.92857142857142
-============
-
---- testset2-2 ---
-
-> [Test] tests\testset2-2\negative-definite-dense-1011.dat-s
--Ground truth: 4.399302426402843
--Physarum solver output: 4.399303152260042
--Error: 7.258571983470574e-07
--Gap: 0
--Number of iterations: 929
-
-> [Test] tests\testset2-2\negative-definite-dense-1016.dat-s
--Ground truth: 6.123853644257715
--Physarum solver output: 6.123854612434386
--Error: 9.681766703906192e-07
--Gap: 0
--Number of iterations: 434
-
-> [Test] tests\testset2-2\negative-definite-dense-1018.dat-s
--Ground truth: 6.497864793745828
--Physarum solver output: 6.497864872727506
--Error: 7.898167808662038e-08
--Gap: 0
--Number of iterations: 483
-
-> [Test] tests\testset2-2\negative-definite-dense-1019.dat-s
--Ground truth: 6.605374664396551
--Physarum solver output: 6.605376951543231
--Error: 2.287146679158525e-06
--Gap: 0
--Number of iterations: 390
-
-> [Test] tests\testset2-2\negative-definite-dense-103.dat-s
--Ground truth: 4.681317919283881
--Physarum solver output: 4.681318468336861
--Error: 5.490529799700994e-07
--Gap: 0
--Number of iterations: 556
-
-> [Test] tests\testset2-2\negative-definite-dense-104.dat-s
--Ground truth: 3.681020691953798
--Physarum solver output: 3.681023865335733
--Error: 3.173381935006603e-06
--Gap: 0
--Number of iterations: 354
-
->Mean optimality gap: 1.297099523493254e-06
->Maximum optimality gap: 3.173381935006603e-06
->Mean iteration counts: 524.3333333333334
+>Mean optimality gap: 3.0112735633596497e-07
+>Maximum optimality gap: 2.9326008843533202e-06
+>Mean iteration counts: 10685.142857142857
 ============
 
 --- testset3-1 ---
 
-> [Test] tests\testset3-1\dense25negative-definite0.dat-s
--Ground truth: 0.6243529563948843
--Physarum solver output: 0.3322828115144081
--Error: 0.2920701448804762
+> [Test] tests/testset3-1/dense25negative-definite13.dat-s
+- [General Setting]-Ground truth: 2.886227462960191
+-Physarum solver output: 2.8862274850391905
+-Error: 2.207899951756076e-08
 -Gap: 0
--Number of iterations: 108
+-Number of iterations: 30036
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 8.526512829121202e-14
+-Time spent: 37.39155173301697
 
-> [Test] tests\testset3-1\dense25negative-definite1.dat-s
--Ground truth: 2.020144819158886
--Physarum solver output: 2.0201468469241277
--Error: 2.0277652414968372e-06
+> [Test] tests/testset3-1/dense25negative-definite17.dat-s
+- [General Setting]-Ground truth: 5.031226487839172
+-Physarum solver output: 5.031226495347431
+-Error: 7.508258903499154e-09
 -Gap: 0
--Number of iterations: 217
+-Number of iterations: 39125
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 7.105427357601002e-14
+-Time spent: 47.182812213897705
 
-> [Test] tests\testset3-1\dense25negative-definite11.dat-s
--Ground truth: 1.7729693439634047
--Physarum solver output: 1.7729709120475483
--Error: 1.5680841436438442e-06
+> [Test] tests/testset3-1/dense25negative-definite2.dat-s
+- [General Setting]-Ground truth: 2.418472330307896
+-Physarum solver output: 2.418472516918932
+-Error: 1.8661103595718487e-07
 -Gap: 0
--Number of iterations: 77
+-Number of iterations: 107763
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 5.169356185774632e-06
+-Time spent: 97.42959952354431
 
-> [Test] tests\testset3-1\dense25negative-definite12.dat-s
--Ground truth: 4.251406988161757
--Physarum solver output: 4.25140714124807
--Error: 1.5308631251542693e-07
+> [Test] tests/testset3-1/dense25negative-definite16.dat-s
+- [General Setting]-Ground truth: 2.6661916795706144
+-Physarum solver output: 2.6661916849843164
+-Error: 5.413701931189507e-09
 -Gap: 0
--Number of iterations: 403
+-Number of iterations: 32048
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 8.526512829121202e-14
+-Time spent: 27.189407110214233
 
-> [Test] tests\testset3-1\dense25negative-definite13.dat-s
--Ground truth: 2.886227462960191
--Physarum solver output: 2.8862285706795197
--Error: 1.1077193287079012e-06
+> [Test] tests/testset3-1/dense25negative-definite8.dat-s
+- [General Setting]-Ground truth: 3.461576898145831
+-Physarum solver output: 3.461576903391035
+-Error: 5.245203826831357e-09
 -Gap: 0
--Number of iterations: 163
+-Number of iterations: 63133
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 9.947598300641403e-14
+-Time spent: 56.466471910476685
 
-> [Test] tests\testset3-1\dense25negative-definite14.dat-s
--Ground truth: 5.005492489138462
--Physarum solver output: 5.005492527505937
--Error: 3.836747541896557e-08
+> [Test] tests/testset3-1/dense25negative-definite11.dat-s
+- [General Setting]-Ground truth: 1.7729693439634047
+-Physarum solver output: 1.7729693642246667
+-Error: 2.026126200149747e-08
 -Gap: 0
--Number of iterations: 226
+-Number of iterations: 16584
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 7.105427357601002e-14
+-Time spent: 13.8792405128479
 
-> [Test] tests\testset3-1\dense25negative-definite15.dat-s
--Ground truth: 4.434091052601332
--Physarum solver output: 4.43409222709018
--Error: 1.1744888483988802e-06
+> [Test] tests/testset3-1/dense25negative-definite7.dat-s
+- [General Setting]-Ground truth: 0.15817983513550968
+-Physarum solver output: 0.15817986548079502
+-Error: 3.034528534007208e-08
 -Gap: 0
--Number of iterations: 275
+-Number of iterations: 35690
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 3.552713678800501e-15
+-Time spent: 29.52401304244995
 
-> [Test] tests\testset3-1\dense25negative-definite16.dat-s
--Ground truth: 2.6661916795706144
--Physarum solver output: 1.9419750946524728
--Error: 0.7242165849181417
+> [Test] tests/testset3-1/dense25negative-definite15.dat-s
+- [General Setting]-Ground truth: 4.434091052601332
+-Physarum solver output: 4.434091125351187
+-Error: 7.274985502903064e-08
 -Gap: 0
--Number of iterations: 225
+-Number of iterations: 52714
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.2789769243681803e-13
+-Time spent: 71.55770897865295
 
-> [Test] tests\testset3-1\dense25negative-definite17.dat-s
--Ground truth: 5.031226487839172
--Physarum solver output: 5.031226510290713
--Error: 2.245154107072267e-08
+> [Test] tests/testset3-1/dense25negative-definite3.dat-s
+- [General Setting]-Ground truth: 2.5828765882909295
+-Physarum solver output: 2.5828766012132998
+-Error: 1.2922370284940143e-08
 -Gap: 0
--Number of iterations: 224
+-Number of iterations: 31922
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.4210854715202004e-13
+-Time spent: 41.29262089729309
 
-> [Test] tests\testset3-1\dense25negative-definite19.dat-s
--Ground truth: 0.38359140887685905
--Physarum solver output: 0.3835927422495741
--Error: 1.3333727150732777e-06
+> [Test] tests/testset3-1/dense25negative-definite19.dat-s
+- [General Setting]-Ground truth: 0.38359140887685905
+-Physarum solver output: 0.38359142693239817
+-Error: 1.8055539119377073e-08
 -Gap: 0
--Number of iterations: 81
+-Number of iterations: 18353
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.7763568394002505e-14
+-Time spent: 16.223671674728394
 
-> [Test] tests\testset3-1\dense25negative-definite2.dat-s
--Ground truth: 2.418472330307896
--Physarum solver output: 2.418472338326684
--Error: 8.018787855945675e-09
+> [Test] tests/testset3-1/dense25negative-definite0.dat-s
+- [General Setting]-Ground truth: 0.6243529563948843
+-Physarum solver output: 0.6243529583002848
+-Error: 1.9054005040430866e-09
 -Gap: 0
--Number of iterations: 570
+-Number of iterations: 25624
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 2.4868995751603507e-14
+-Time spent: 21.35006046295166
 
-> [Test] tests\testset3-1\dense25negative-definite3.dat-s
--Ground truth: 2.5828765882909295
--Physarum solver output: 2.5828773774975198
--Error: 7.892065903014611e-07
+> [Test] tests/testset3-1/dense25negative-definite1.dat-s
+- [General Setting]-Ground truth: 2.020144819158886
+-Physarum solver output: 2.0201448479317827
+-Error: 2.8772896509821067e-08
 -Gap: 0
--Number of iterations: 181
+-Number of iterations: 45029
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 5.684341886080802e-14
+-Time spent: 42.719919204711914
 
-> [Test] tests\testset3-1\dense25negative-definite4.dat-s
--Ground truth: 2.2563289208753483
--Physarum solver output: 2.256328927734749
--Error: 6.859400603076438e-09
+> [Test] tests/testset3-1/dense25negative-definite12.dat-s
+- [General Setting]-Ground truth: 4.251406988161757
+-Physarum solver output: 4.251407007470603
+-Error: 1.9308846077592534e-08
 -Gap: 0
--Number of iterations: 447
+-Number of iterations: 93310
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.1368683772161603e-13
+-Time spent: 135.74601364135742
 
-> [Test] tests\testset3-1\dense25negative-definite5.dat-s
--Ground truth: 4.93797651336955
--Physarum solver output: 4.9379765753830185
--Error: 6.201346813838882e-08
+> [Test] tests/testset3-1/dense25negative-definite6.dat-s
+- [General Setting]-Ground truth: 3.452643455518454
+-Physarum solver output: 3.4526434569318734
+-Error: 1.4134191594905587e-09
 -Gap: 0
--Number of iterations: 309
+-Number of iterations: 89567
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 4.263256414560601e-14
+-Time spent: 74.17075538635254
 
-> [Test] tests\testset3-1\dense25negative-definite6.dat-s
--Ground truth: 3.452643455518454
--Physarum solver output: 3.4526434599646425
--Error: 4.446188306417298e-09
+> [Test] tests/testset3-1/dense25negative-definite14.dat-s
+- [General Setting]-Ground truth: 5.005492489138462
+-Physarum solver output: 5.005492527498583
+-Error: 3.836012130165045e-08
 -Gap: 0
--Number of iterations: 406
+-Number of iterations: 41998
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 7.105427357601002e-14
+-Time spent: 44.75801467895508
 
-> [Test] tests\testset3-1\dense25negative-definite7.dat-s
--Ground truth: 0.15817983513550968
--Physarum solver output: 0.1581826660049646
--Error: 2.8308694549339375e-06
+> [Test] tests/testset3-1/dense25negative-definite5.dat-s
+- [General Setting]-Ground truth: 4.93797651336955
+-Physarum solver output: 4.9379765753496905
+-Error: 6.198014013136799e-08
 -Gap: 0
--Number of iterations: 148
+-Number of iterations: 64206
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 8.526512829121202e-14
+-Time spent: 74.32162523269653
 
-> [Test] tests\testset3-1\dense25negative-definite8.dat-s
--Ground truth: 3.461576898145831
--Physarum solver output: 3.4615769296770846
--Error: 3.1531253608108045e-08
--Gap: 0
--Number of iterations: 272
-
->Mean optimality gap: 0.05978222871055105
->Maximum optimality gap: 0.7242165849181417
->Mean iteration counts: 254.8235294117647
+>Mean optimality gap: 3.3308270974696796e-08
+>Maximum optimality gap: 1.8661103595718487e-07
+>Mean iteration counts: 49193.875
 ============
 
---- testset3-2 ---
+--- sdplib-arch ---
 
-> [Test] tests\testset3-2\dense25negative-definite10.dat-s
--Ground truth: 8.301735671683897
--Physarum solver output: 8.301737500862965
--Error: 1.8291790677693598e-06
--Gap: 0
--Number of iterations: 558
+> [Test] tests/sdplib-arch/arch8.dat-s
 
-> [Test] tests\testset3-2\dense25negative-definite18.dat-s
--Ground truth: 5.0086500323500545
--Physarum solver output: 5.008650050526837
--Error: 1.817678274562695e-08
--Gap: 0
--Number of iterations: 2587
+> [Test] tests/sdplib-arch/arch2.dat-s
 
-> [Test] tests\testset3-2\dense25negative-definite9.dat-s
--Ground truth: 10.65255468104307
--Physarum solver output: 10.652554693671927
--Error: 1.2628857959384732e-08
--Gap: 0
--Number of iterations: 1263
+> [Test] tests/sdplib-arch/arch4.dat-s
 
->Mean optimality gap: 6.199949028247905e-07
->Maximum optimality gap: 1.8291790677693598e-06
->Mean iteration counts: 1469.3333333333333
+> [Test] tests/sdplib-arch/arch0.dat-s
+
+>Mean optimality gap: 0.0
+>Maximum optimality gap: 0
+>Mean iteration counts: 0.0
 ============
 
 --- vertexcover1-1 ---
 
-> [Test] tests\vertexcover1-1\vertex-cover50.dat-s
--Ground truth: 2.999999970904484
--Physarum solver output: 3.000000318076977
--Error: 3.4717249342008927e-07
+> [Test] tests/vertexcover1-1/vertex-cover51.dat-s
+- [General Setting]-Ground truth: 1.9999999679726472
+-Physarum solver output: 2.0000000003243272
+-Error: 3.2351680001596606e-08
 -Gap: 0
--Number of iterations: 157
+-Number of iterations: 13185
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 8.346745072884687e-09
+-Time spent: 5.538281679153442
 
-> [Test] tests\vertexcover1-1\vertex-cover51.dat-s
--Ground truth: 1.9999999679726472
--Physarum solver output: 2.000000317319213
--Error: 3.493465658976902e-07
+> [Test] tests/vertexcover1-1/vertex-cover55.dat-s
+- [General Setting]-Ground truth: 2.9999996301296976
+-Physarum solver output: 2.9999999999999956
+-Error: 3.6987029794488535e-07
 -Gap: 0
--Number of iterations: 90
+-Number of iterations: 12104
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 3.688268340157326e-13
+-Time spent: 5.434100151062012
 
-> [Test] tests\vertexcover1-1\vertex-cover511.dat-s
--Ground truth: 2.9999996301296816
--Physarum solver output: 2.99957491237031
--Error: 0.00042471775937169554
+> [Test] tests/vertexcover1-1/vertex-cover54.dat-s
+- [General Setting]-Ground truth: 2.999999959639153
+-Physarum solver output: 3.0000010433935453
+-Error: 1.0837543924502313e-06
 -Gap: 0
--Number of iterations: 2999
+-Number of iterations: 18397
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 2.4107491158886774e-07
+-Time spent: 11.045840740203857
 
-> [Test] tests\vertexcover1-1\vertex-cover513.dat-s
--Ground truth: 1.9999999679726006
--Physarum solver output: 2.0000003179936563
--Error: 3.5002105569503783e-07
+> [Test] tests/vertexcover1-1/vertex-cover56.dat-s
+- [General Setting]-Ground truth: 3.9999995532026014
+-Physarum solver output: 4.000000006854072
+-Error: 4.536514706110495e-07
 -Gap: 0
--Number of iterations: 90
+-Number of iterations: 16062
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 2.7305278038625147e-09
+-Time spent: 11.988090991973877
 
-> [Test] tests\vertexcover1-1\vertex-cover515.dat-s
--Ground truth: 1.999999969341443
--Physarum solver output: 2.000000376337838
--Error: 4.069963948083455e-07
+> [Test] tests/vertexcover1-1/vertex-cover517.dat-s
+- [General Setting]-Ground truth: 2.9999999721766395
+-Physarum solver output: 3.0000000082382203
+-Error: 3.6061580832580375e-08
 -Gap: 0
--Number of iterations: 121
+-Number of iterations: 24603
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 5.718829854117757e-10
+-Time spent: 13.029651403427124
 
-> [Test] tests\vertexcover1-1\vertex-cover516.dat-s
--Ground truth: 3.9999994726372994
--Physarum solver output: 3.9427861731910436
--Error: 0.05721329944625575
+> [Test] tests/vertexcover1-1/vertex-cover57.dat-s
+- [General Setting]-Ground truth: 1.9999996849577284
+-Physarum solver output: 2.000000006901568
+-Error: 3.219438398094354e-07
 -Gap: 0
--Number of iterations: 2999
+-Number of iterations: 8918
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 4.60412363646452e-09
+-Time spent: 3.578014850616455
 
-> [Test] tests\vertexcover1-1\vertex-cover517.dat-s
--Ground truth: 2.9999999721766395
--Physarum solver output: 3.000000525092219
--Error: 5.529155795436225e-07
+> [Test] tests/vertexcover1-1/vertex-cover511.dat-s
+- [General Setting]-Ground truth: 2.9999996301296816
+-Physarum solver output: 2.9999999999999964
+-Error: 3.698703148202753e-07
 -Gap: 0
--Number of iterations: 167
+-Number of iterations: 12104
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 3.688283138714693e-13
+-Time spent: 5.9809441566467285
 
-> [Test] tests\vertexcover1-1\vertex-cover518.dat-s
--Ground truth: 2.999999822026231
--Physarum solver output: 2.96575008477767
--Error: 0.03424973724856084
+> [Test] tests/vertexcover1-1/vertex-cover53.dat-s
+- [General Setting]-Ground truth: 2.9999996188188485
+-Physarum solver output: 3.000000008538021
+-Error: 3.897191724888671e-07
 -Gap: 0
--Number of iterations: 149
+-Number of iterations: 17297
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.3091563388911709e-09
+-Time spent: 9.366048336029053
 
-> [Test] tests\vertexcover1-1\vertex-cover53.dat-s
--Ground truth: 2.9999996188188485
--Physarum solver output: 3.0000000982645973
--Error: 4.794457488799253e-07
+> [Test] tests/vertexcover1-1/vertex-cover50.dat-s
+- [General Setting]-Ground truth: 2.999999970904484
+-Physarum solver output: 3.000000000526655
+-Error: 2.9622171382470697e-08
 -Gap: 0
--Number of iterations: 215
+-Number of iterations: 19857
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 8.211711755023998e-09
+-Time spent: 12.415692567825317
 
-> [Test] tests\vertexcover1-1\vertex-cover54.dat-s
--Ground truth: 2.999999959639153
--Physarum solver output: 3.0241151562534143
--Error: 0.024115196614261425
+> [Test] tests/vertexcover1-1/vertex-cover58.dat-s
+- [General Setting]-Ground truth: 2.9999999721766217
+-Physarum solver output: 3.0000000024012627
+-Error: 3.0224641012210895e-08
 -Gap: 0
--Number of iterations: 2999
+-Number of iterations: 25112
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 2.67075761506419e-09
+-Time spent: 13.589893817901611
 
-> [Test] tests\vertexcover1-1\vertex-cover55.dat-s
--Ground truth: 2.9999996301296976
--Physarum solver output: 2.9995749123703086
--Error: 0.000424717759389015
+> [Test] tests/vertexcover1-1/vertex-cover59.dat-s
+- [General Setting]-Ground truth: 2.9999999665819557
+-Physarum solver output: 3.000001299692567
+-Error: 1.3331106112346447e-06
 -Gap: 0
--Number of iterations: 2999
+-Number of iterations: 14542
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 5.221392118670565e-08
+-Time spent: 9.454387426376343
 
-> [Test] tests\vertexcover1-1\vertex-cover56.dat-s
--Ground truth: 3.9999995532026014
--Physarum solver output: 3.9910485274256207
--Error: 0.008951025776980703
+> [Test] tests/vertexcover1-1/vertex-cover513.dat-s
+- [General Setting]-Ground truth: 1.9999999679726006
+-Physarum solver output: 2.0000000065162213
+-Error: 3.854362073951734e-08
 -Gap: 0
--Number of iterations: 2999
+-Number of iterations: 13284
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 8.00280730572922e-10
+-Time spent: 6.271075963973999
 
-> [Test] tests\vertexcover1-1\vertex-cover57.dat-s
--Ground truth: 1.9999996849577284
--Physarum solver output: 2.0000001230890145
--Error: 4.3813128614011987e-07
+> [Test] tests/vertexcover1-1/vertex-cover515.dat-s
+- [General Setting]-Ground truth: 1.999999969341443
+-Physarum solver output: 2.0000000084536973
+-Error: 3.911225432418064e-08
 -Gap: 0
--Number of iterations: 81
+-Number of iterations: 17383
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.256885706624189e-09
+-Time spent: 7.176952838897705
 
-> [Test] tests\vertexcover1-1\vertex-cover58.dat-s
--Ground truth: 2.9999999721766217
--Physarum solver output: 3.00000052588288
--Error: 5.537062581773e-07
--Gap: 0
--Number of iterations: 167
-
-> [Test] tests\vertexcover1-1\vertex-cover59.dat-s
--Ground truth: 2.9999999665819557
--Physarum solver output: 3.000000319801131
--Error: 3.532191752420033e-07
--Gap: 0
--Number of iterations: 145
-
->Mean optimality gap: 0.008358835037291816
->Maximum optimality gap: 0.05721329944625575
->Mean iteration counts: 1091.8
+>Mean optimality gap: 3.482950805886112e-07
+>Maximum optimality gap: 1.3331106112346447e-06
+>Mean iteration counts: 16372.923076923076
 ============
 
---- vertexcover1-2 ---
+--- testset3-2 ---
 
-> [Test] tests\vertexcover1-2\vertex-cover510.dat-s
--Ground truth: 2.9999996188189275
--Physarum solver output: 3.000000098305138
--Error: 4.79486210291924e-07
+> [Test] tests/testset3-2/dense25negative-definite9.dat-s
+- [General Setting]-Ground truth: 10.65255468104307
+-Physarum solver output: 10.653341860969086
+-Error: 0.0007871799260161794
 -Gap: 0
--Number of iterations: 215
+-Number of iterations: 99999
+-h bound: 0.001
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 2.0402088229669585e-10
+-Time spent: 140.93705797195435
 
-> [Test] tests\vertexcover1-2\vertex-cover512.dat-s
--Ground truth: 2.9999999709045375
--Physarum solver output: 3.000000318226655
--Error: 3.473221172889396e-07
+> [Test] tests/testset3-2/dense25negative-definite10.dat-s
+- [General Setting]-Ground truth: 8.301735671683897
+-Physarum solver output: 8.30255618810509
+-Error: 0.0008205164211929628
 -Gap: 0
--Number of iterations: 157
+-Number of iterations: 99999
+-h bound: 0.001
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 3.085008811335866e-11
+-Time spent: 116.85118079185486
 
-> [Test] tests\vertexcover1-2\vertex-cover514.dat-s
--Ground truth: 2.9999999725195714
--Physarum solver output: 3.000000314574695
--Error: 3.420551237809377e-07
+> [Test] tests/testset3-2/dense25negative-definite4.dat-s
+- [General Setting]-Ground truth: 2.2563289208753483
+-Physarum solver output: 2.2563304878556556
+-Error: 1.5669803072881905e-06
 -Gap: 0
--Number of iterations: 213
+-Number of iterations: 99999
+-h bound: 0.001
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 6.114884518943259e-13
+-Time spent: 102.70481824874878
 
-> [Test] tests\vertexcover1-2\vertex-cover519.dat-s
--Ground truth: 3.999999538895719
--Physarum solver output: 3.990858294136098
--Error: 0.009141244759621081
+> [Test] tests/testset3-2/dense25negative-definite18.dat-s
+- [General Setting]-Ground truth: 5.0086500323500545
+-Physarum solver output: 5.009042612106552
+-Error: 0.0003925797564976463
 -Gap: 0
--Number of iterations: 2999
+-Number of iterations: 99999
+-h bound: 0.001
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 8.51584498976753e-12
+-Time spent: 99.8152847290039
 
-> [Test] tests\vertexcover1-2\vertex-cover52.dat-s
--Ground truth: 2.9999999709045166
--Physarum solver output: 3.0000003187617237
--Error: 3.4785720703922607e-07
--Gap: 0
--Number of iterations: 157
-
->Mean optimality gap: 0.0018285522960558964
->Maximum optimality gap: 0.009141244759621081
->Mean iteration counts: 748.2
+>Mean optimality gap: 0.0005004607710035192
+>Maximum optimality gap: 0.0008205164211929628
+>Mean iteration counts: 99999.0
 ============
 
 --- vertexcover2-1 ---
 
-> [Test] tests\vertexcover2-1\vertexcover201.dat-s
--Ground truth: 10.999999938845818
--Physarum solver output: 10.983679327659775
--Error: 0.016320611186042555
+> [Test] tests/vertexcover2-1/vertexcover2011.dat-s
+- [General Setting]-Ground truth: 12.99999928676844
+-Physarum solver output: 13.000002249927613
+-Error: 2.9631591722534267e-06
 -Gap: 0
--Number of iterations: 2999
+-Number of iterations: 19999
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 3.878791357436739e-06
+-Time spent: 647.097464799881
 
-> [Test] tests\vertexcover2-1\vertexcover2011.dat-s
--Ground truth: 12.99999928676844
--Physarum solver output: 12.666857612044463
--Error: 0.3331416747239775
+> [Test] tests/vertexcover2-1/vertexcover207.dat-s
+- [General Setting]-Ground truth: 7.999999915261021
+-Physarum solver output: 8.000003932720968
+-Error: 4.017459947824875e-06
 -Gap: 0
--Number of iterations: 2999
+-Number of iterations: 19999
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 3.0118069203055597e-06
+-Time spent: 119.76970767974854
 
-> [Test] tests\vertexcover2-1\vertexcover2012.dat-s
--Ground truth: 12.999999577969481
--Physarum solver output: 12.671409069343452
--Error: 0.32859050862602857
+> [Test] tests/vertexcover2-1/vertexcover201.dat-s
+- [General Setting]-Ground truth: 10.999999938845818
+-Physarum solver output: 11.00000005626327
+-Error: 1.1741745176152563e-07
 -Gap: 0
--Number of iterations: 2999
+-Number of iterations: 19999
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 7.227121079367294e-08
+-Time spent: 497.2392404079437
 
-> [Test] tests\vertexcover2-1\vertexcover207.dat-s
--Ground truth: 7.999999915261021
--Physarum solver output: 8.000000005641922
--Error: 9.038090187374337e-08
+> [Test] tests/vertexcover2-1/vertexcover2012.dat-s
+- [General Setting]-Ground truth: 12.999999577969481
+-Physarum solver output: 13.000000002172968
+-Error: 4.2420348655980433e-07
 -Gap: 0
--Number of iterations: 722
+-Number of iterations: 19999
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 6.873827427538672e-09
+-Time spent: 595.4847288131714
 
->Mean optimality gap: 0.16951322122923762
->Maximum optimality gap: 0.3331416747239775
->Mean iteration counts: 2429.75
+>Mean optimality gap: 1.880560014599908e-06
+>Maximum optimality gap: 4.017459947824875e-06
+>Mean iteration counts: 19999.0
+============
+
+--- sdplib-mcp ---
+
+> [Test] tests/sdplib-mcp/mcp500-1.dat-s
+
+> [Test] tests/sdplib-mcp/mcp124-2.dat-s
+
+> [Test] tests/sdplib-mcp/mcp250-1.dat-s
+
+> [Test] tests/sdplib-mcp/mcp500-2.dat-s
+
+> [Test] tests/sdplib-mcp/mcp500-4.dat-s
+
+> [Test] tests/sdplib-mcp/mcp250-2.dat-s
+
+> [Test] tests/sdplib-mcp/mcp124-3.dat-s
+
+> [Test] tests/sdplib-mcp/mcp500-3.dat-s
+
+> [Test] tests/sdplib-mcp/mcp100.dat-s
+
+> [Test] tests/sdplib-mcp/mcp250-3.dat-s
+
+> [Test] tests/sdplib-mcp/mcp124-1.dat-s
+
+> [Test] tests/sdplib-mcp/mcp124-4.dat-s
+
+> [Test] tests/sdplib-mcp/mcp250-4.dat-s
+
+>Mean optimality gap: 0.0
+>Maximum optimality gap: 0
+>Mean iteration counts: 0.0
+============
+
+--- testset0 ---
+
+> [Test] tests/testset0/sample_0.dat-s
+- [General Setting]-Ground truth: 3.930128661430378
+-Physarum solver output: 3.9301287168936003
+-Error: 5.546322245919555e-08
+-Gap: 0
+-Number of iterations: 8387
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 3.467042475335802e-07
+-Time spent: 1.6647276878356934
+
+> [Test] tests/testset0/Iden0.dat-s
+- [General Setting]-Ground truth: 1.7119825735156744
+-Physarum solver output: 1.71198983627084
+-Error: 7.262755165493573e-06
+-Gap: 0
+-Number of iterations: 12573
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 4.477627584265065e-07
+-Time spent: 3.7919280529022217
+
+>Mean optimality gap: 3.6591091939763842e-06
+>Maximum optimality gap: 7.262755165493573e-06
+>Mean iteration counts: 10480.0
+============
+
+--- testset2-2 ---
+
+> [Test] tests/testset2-2/negative-definite-dense-104.dat-s
+- [General Setting]-Ground truth: 3.681020691953798
+-Physarum solver output: 3.6810207483153534
+-Error: 5.6361555422768106e-08
+-Gap: 0
+-Number of iterations: 75201
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 2.4868995751603507e-14
+-Time spent: 23.16261601448059
+
+> [Test] tests/testset2-2/negative-definite-dense-1016.dat-s
+- [General Setting]-Ground truth: 6.123853644257715
+-Physarum solver output: 6.123853774243769
+-Error: 1.2998605392056106e-07
+-Gap: 0
+-Number of iterations: 99999
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 5.684341886080802e-14
+-Time spent: 37.348880767822266
+
+> [Test] tests/testset2-2/negative-definite-dense-1019.dat-s
+- [General Setting]-Ground truth: 6.605374664396551
+-Physarum solver output: 6.60537471363284
+-Error: 4.923628882380626e-08
+-Gap: 0
+-Number of iterations: 82407
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 3.552713678800501e-14
+-Time spent: 25.55506420135498
+
+> [Test] tests/testset2-2/negative-definite-dense-1011.dat-s
+- [General Setting]-Ground truth: 4.399302426402843
+-Physarum solver output: 4.399327250130698
+-Error: 2.482372785461706e-05
+-Gap: 0
+-Number of iterations: 99999
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.1368683772161603e-13
+-Time spent: 34.113483905792236
+
+> [Test] tests/testset2-2/negative-definite-dense-1018.dat-s
+- [General Setting]-Ground truth: 6.497864793745828
+-Physarum solver output: 6.497864872713252
+-Error: 7.896742371116261e-08
+-Gap: 0
+-Number of iterations: 98552
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 3.197442310920451e-14
+-Time spent: 37.8632493019104
+
+> [Test] tests/testset2-2/negative-definite-dense-103.dat-s
+- [General Setting]-Ground truth: 4.681317919283881
+-Physarum solver output: 4.681317992342579
+-Error: 7.305869775819929e-08
+-Gap: 0
+-Number of iterations: 99999
+-h bound: 0.003
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 4.618527782440651e-14
+-Time spent: 31.7643826007843
+
+>Mean optimality gap: 4.201889645708927e-06
+>Maximum optimality gap: 2.482372785461706e-05
+>Mean iteration counts: 92692.83333333333
+============
+
+--- sdplib-control ---
+
+> [Test] tests/sdplib-control/control1.dat-s
+
+> [Test] tests/sdplib-control/control10.dat-s
+
+> [Test] tests/sdplib-control/control8.dat-s
+
+> [Test] tests/sdplib-control/control3.dat-s
+
+> [Test] tests/sdplib-control/control6.dat-s
+
+> [Test] tests/sdplib-control/control2.dat-s
+
+> [Test] tests/sdplib-control/control11.dat-s
+
+> [Test] tests/sdplib-control/control5.dat-s
+
+> [Test] tests/sdplib-control/control4.dat-s
+
+> [Test] tests/sdplib-control/control7.dat-s
+
+> [Test] tests/sdplib-control/control9.dat-s
+
+>Mean optimality gap: 0.0
+>Maximum optimality gap: 0
+>Mean iteration counts: 0.0
+============
+
+--- sdplib-maxG ---
+
+> [Test] tests/sdplib-maxG/maxG51.dat-s
+
+> [Test] tests/sdplib-maxG/maxG32.dat-s
+
+> [Test] tests/sdplib-maxG/maxG11.dat-s
+
+> [Test] tests/sdplib-maxG/maxG60.dat-s
+
+> [Test] tests/sdplib-maxG/mcp100.dat-s
+
+> [Test] tests/sdplib-maxG/maxG55.dat-s
+
+>Mean optimality gap: 0.0
+>Maximum optimality gap: 0
+>Mean iteration counts: 0.0
+============
+
+--- vertexcover1-2 ---
+
+> [Test] tests/vertexcover1-2/vertex-cover52.dat-s
+- [General Setting]-Ground truth: 2.9999999709045166
+-Physarum solver output: 3.000000015739871
+-Error: 4.4835354540140315e-08
+-Gap: 0
+-Number of iterations: 57552
+-h bound: 0.001
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 5.807128999890665e-09
+-Time spent: 35.681044816970825
+
+> [Test] tests/vertexcover1-2/vertex-cover518.dat-s
+- [General Setting]-Ground truth: 2.999999822026231
+-Physarum solver output: 2.99999999915951
+-Error: 1.7713327915558352e-07
+-Gap: 0
+-Number of iterations: 27810
+-h bound: 0.001
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.6754820360671732e-09
+-Time spent: 13.097530841827393
+
+> [Test] tests/vertexcover1-2/vertex-cover510.dat-s
+- [General Setting]-Ground truth: 2.9999996188189275
+-Physarum solver output: 3.0000000064429613
+-Error: 3.8762403375969257e-07
+-Gap: 0
+-Number of iterations: 51320
+-h bound: 0.001
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.072982369620945e-09
+-Time spent: 27.87989044189453
+
+> [Test] tests/vertexcover1-2/vertex-cover512.dat-s
+- [General Setting]-Ground truth: 2.9999999709045375
+-Physarum solver output: 3.0000000077034623
+-Error: 3.679892479624414e-08
+-Gap: 0
+-Number of iterations: 57038
+-h bound: 0.001
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 5.84284864935114e-09
+-Time spent: 34.65237736701965
+
+> [Test] tests/vertexcover1-2/vertex-cover516.dat-s
+- [General Setting]-Ground truth: 3.9999994726372994
+-Physarum solver output: 3.9999999999966476
+-Error: 5.273593481902594e-07
+-Gap: 0
+-Number of iterations: 34829
+-h bound: 0.001
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.6606716002343092e-12
+-Time spent: 24.360614776611328
+
+> [Test] tests/vertexcover1-2/vertex-cover514.dat-s
+- [General Setting]-Ground truth: 2.9999999725195714
+-Physarum solver output: 3.0000000100524975
+-Error: 3.753292610042536e-08
+-Gap: 0
+-Number of iterations: 59382
+-h bound: 0.001
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 7.322128681153117e-09
+-Time spent: 39.77809381484985
+
+> [Test] tests/vertexcover1-2/vertex-cover519.dat-s
+- [General Setting]-Ground truth: 3.999999538895719
+-Physarum solver output: 3.999410197115463
+-Error: 0.0005893417802558254
+-Gap: 0
+-Number of iterations: 126412
+-h bound: 0.001
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 0.0002625233031947616
+-Time spent: 109.85026025772095
+
+>Mean optimality gap: 8.436472344605253e-05
+>Maximum optimality gap: 0.0005893417802558254
+>Mean iteration counts: 59191.857142857145
+============
+
+--- manual ---
 ============
 
 --- vertexcover2-2 ---
 
-> [Test] tests\vertexcover2-2\vertexcover200.dat-s
--Ground truth: 15.999999380510062
--Physarum solver output: 15.260857617970125
--Error: 0.739141762539937
+> [Test] tests/vertexcover2-2/vertexcover200.dat-s
+- [General Setting]-Ground truth: 15.999999380510062
+-Physarum solver output: 16.00019042447228
+-Error: 0.0001910439622179183
 -Gap: 0
--Number of iterations: 2999
+-Number of iterations: 19999
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 5.837261751085377e-10
+-Time spent: 2246.7738292217255
 
-> [Test] tests\vertexcover2-2\vertexcover2010.dat-s
--Ground truth: 11.999999972111771
--Physarum solver output: 11.981876866442555
--Error: 0.0181231056692166
+> [Test] tests/vertexcover2-2/vertexcover2017.dat-s
+- [General Setting]-Ground truth: 15.999999957250544
+-Physarum solver output: 16.000174789755405
+-Error: 0.00017483250486094448
 -Gap: 0
--Number of iterations: 2999
+-Number of iterations: 19999
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 5.978023376635585e-07
+-Time spent: 2290.2887432575226
 
-> [Test] tests\vertexcover2-2\vertexcover2013.dat-s
--Ground truth: 15.999999928584671
--Physarum solver output: 15.472038227397777
--Error: 0.5279617011868947
+> [Test] tests/vertexcover2-2/vertexcover2018.dat-s
+- [General Setting]-Ground truth: 14.999998787662918
+-Physarum solver output: 15.003543968229872
+-Error: 0.003545180566954187
 -Gap: 0
--Number of iterations: 2999
+-Number of iterations: 19999
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.7090271217087204e-06
+-Time spent: 1919.593603849411
 
-> [Test] tests\vertexcover2-2\vertexcover2014.dat-s
--Ground truth: 14.999999465105375
--Physarum solver output: 14.670825258621207
--Error: 0.3291742064841685
+> [Test] tests/vertexcover2-2/vertexcover204.dat-s
+- [General Setting]-Ground truth: 16.64278471290151
+-Physarum solver output: 16.64289444683623
+-Error: 0.00010973393472113457
 -Gap: 0
--Number of iterations: 2999
+-Number of iterations: 19999
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.3959946191896519e-09
+-Time spent: 1958.9946341514587
 
-> [Test] tests\vertexcover2-2\vertexcover2015.dat-s
--Ground truth: 15.883823740685393
--Physarum solver output: 15.204595724982996
--Error: 0.6792280157023978
+> [Test] tests/vertexcover2-2/vertexcover209.dat-s
+- [General Setting]-Ground truth: 12.999999818973471
+-Physarum solver output: 12.999998319822872
+-Error: 1.4991505992156817e-06
 -Gap: 0
--Number of iterations: 2999
+-Number of iterations: 19999
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 1.9049941035377572e-06
+-Time spent: 1155.7692472934723
 
-> [Test] tests\vertexcover2-2\vertexcover2016.dat-s
--Ground truth: 15.999999914052324
--Physarum solver output: 15.681243979507165
--Error: 0.31875593454515894
+> [Test] tests/vertexcover2-2/vertexcover206.dat-s
+- [General Setting]-Ground truth: 16.989561888846843
+-Physarum solver output: 16.990454188559735
+-Error: 0.0008922997128912868
 -Gap: 0
--Number of iterations: 1990
+-Number of iterations: 19999
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 8.899700600371594e-06
+-Time spent: 2321.9798834323883
 
-> [Test] tests\vertexcover2-2\vertexcover2017.dat-s
--Ground truth: 15.999999957250544
--Physarum solver output: 15.47404171351495
--Error: 0.5259582437355945
+> [Test] tests/vertexcover2-2/vertexcover2016.dat-s
+- [General Setting]-Ground truth: 15.999999914052324
+-Physarum solver output: 16.000009270679502
+-Error: 9.356627177936616e-06
 -Gap: 0
--Number of iterations: 2835
+-Number of iterations: 19999
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 2.662382740936664e-07
+-Time spent: 2198.6332638263702
 
-> [Test] tests\vertexcover2-2\vertexcover2018.dat-s
--Ground truth: 14.999998787662918
--Physarum solver output: 14.933216930460393
--Error: 0.06678185720252472
+> [Test] tests/vertexcover2-2/vertexcover2014.dat-s
+- [General Setting]-Ground truth: 14.999999465105375
+-Physarum solver output: 15.010303231060018
+-Error: 0.01030376595464233
 -Gap: 0
--Number of iterations: 2999
+-Number of iterations: 19999
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 3.3194904898161415e-05
+-Time spent: 1460.1496093273163
 
-> [Test] tests\vertexcover2-2\vertexcover2019.dat-s
--Ground truth: 15.999999268083421
--Physarum solver output: 15.373519157867388
--Error: 0.6264801102160327
+> [Test] tests/vertexcover2-2/vertexcover208.dat-s
+- [General Setting]-Ground truth: 13.71012399467875
+-Physarum solver output: 13.710258396070364
+-Error: 0.00013440139161424725
 -Gap: 0
--Number of iterations: 2999
+-Number of iterations: 19999
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 9.761406793984406e-09
+-Time spent: 793.9676632881165
 
-> [Test] tests\vertexcover2-2\vertexcover202.dat-s
--Ground truth: 15.8034419337598
--Physarum solver output: 15.146237163451449
--Error: 0.6572047703083506
+> [Test] tests/vertexcover2-2/vertexcover2019.dat-s
+- [General Setting]-Ground truth: 15.999999268083421
+-Physarum solver output: 16.000822340989192
+-Error: 0.000823072905770772
 -Gap: 0
--Number of iterations: 2999
+-Number of iterations: 19999
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 2.9291693093260723e-06
+-Time spent: 1843.835559129715
 
-> [Test] tests\vertexcover2-2\vertexcover203.dat-s
--Ground truth: 13.999999950194955
--Physarum solver output: 13.871909409300645
--Error: 0.12809054089430916
+> [Test] tests/vertexcover2-2/vertexcover203.dat-s
+- [General Setting]-Ground truth: 13.999999950194955
+-Physarum solver output: 14.000295773454095
+-Error: 0.0002958232591403487
 -Gap: 0
--Number of iterations: 2326
+-Number of iterations: 19999
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 6.477369751678452e-10
+-Time spent: 974.3672297000885
 
-> [Test] tests\vertexcover2-2\vertexcover204.dat-s
--Ground truth: 16.64278471290151
--Physarum solver output: 15.726422422032147
--Error: 0.9163622908693618
+> [Test] tests/vertexcover2-2/vertexcover2010.dat-s
+- [General Setting]-Ground truth: 11.999999972111771
+-Physarum solver output: 12.000197770721273
+-Error: 0.00019779860950208672
 -Gap: 0
--Number of iterations: 2999
+-Number of iterations: 19999
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 4.41449188315346e-09
+-Time spent: 477.78802156448364
 
-> [Test] tests\vertexcover2-2\vertexcover205.dat-s
--Ground truth: 8.999999965660969
--Physarum solver output: 9.000004520844206
--Error: 4.555183236831795e-06
+> [Test] tests/vertexcover2-2/vertexcover202.dat-s
+- [General Setting]-Ground truth: 15.8034419337598
+-Physarum solver output: 15.822360884429097
+-Error: 0.018918950669297274
 -Gap: 0
--Number of iterations: 2999
+-Number of iterations: 19999
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 3.2639330926453514e-05
+-Time spent: 1582.465497970581
 
-> [Test] tests\vertexcover2-2\vertexcover206.dat-s
--Ground truth: 16.989561888846843
--Physarum solver output: 16.041423692598872
--Error: 0.9481381962479709
+> [Test] tests/vertexcover2-2/vertexcover2013.dat-s
+- [General Setting]-Ground truth: 15.999999928584671
+-Physarum solver output: 16.000126497249035
+-Error: 0.00012656866436344671
 -Gap: 0
--Number of iterations: 1298
+-Number of iterations: 19999
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 9.354862019250731e-06
+-Time spent: 2357.373376607895
 
-> [Test] tests\vertexcover2-2\vertexcover208.dat-s
--Ground truth: 13.71012399467875
--Physarum solver output: 13.345040153070215
--Error: 0.36508384160853424
+> [Test] tests/vertexcover2-2/vertexcover205.dat-s
+- [General Setting]-Ground truth: 8.999999965660969
+-Physarum solver output: 8.999999940474911
+-Error: 2.5186057683868057e-08
 -Gap: 0
--Number of iterations: 2659
+-Number of iterations: 19999
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 8.797543315864389e-07
+-Time spent: 351.0140070915222
 
-> [Test] tests\vertexcover2-2\vertexcover209.dat-s
--Ground truth: 12.999999818973471
--Physarum solver output: 13.000001356886433
--Error: 1.5379129614245812e-06
+> [Test] tests/vertexcover2-2/vertexcover2015.dat-s
+- [General Setting]-Ground truth: 15.883823740685393
+-Physarum solver output: 15.89572397053427
+-Error: 0.01190022984887662
 -Gap: 0
--Number of iterations: 950
+-Number of iterations: 19999
+-h bound: 0.01
+-Method name is: Physarum SDC modified (v.2)
+-Restart factor is: 1000
+-Infeasibility: 2.1085484562035335e-05
+-Time spent: 2015.8687949180603
 
->Mean optimality gap: 0.42790566689416565
->Maximum optimality gap: 0.9481381962479709
->Mean iteration counts: 2628.0
+>Mean optimality gap: 0.0029765364342929646
+>Maximum optimality gap: 0.018918950669297274
+>Mean iteration counts: 19999.0
+============
+
+--- sdplib-hinf ---
+
+> [Test] tests/sdplib-hinf/hinf10.dat-s
+
+> [Test] tests/sdplib-hinf/hinf5.dat-s
+
+> [Test] tests/sdplib-hinf/hinf9.dat-s
+
+> [Test] tests/sdplib-hinf/hinf13.dat-s
+
+> [Test] tests/sdplib-hinf/hinf12.dat-s
+
+> [Test] tests/sdplib-hinf/hinf1.dat-s
+
+> [Test] tests/sdplib-hinf/hinf3.dat-s
+
+> [Test] tests/sdplib-hinf/hinf4.dat-s
+
+> [Test] tests/sdplib-hinf/hinf7.dat-s
+
+> [Test] tests/sdplib-hinf/hinf6.dat-s
+
+>Mean optimality gap: 0.0
+>Maximum optimality gap: 0
+>Mean iteration counts: 0.0
+============
+
+--- sdplib-inf ---
+
+> [Test] tests/sdplib-inf/infp2.dat-s
+
+> [Test] tests/sdplib-inf/infd1.dat-s
+
+> [Test] tests/sdplib-inf/infd2.dat-s
+
+> [Test] tests/sdplib-inf/infp1.dat-s
+
+>Mean optimality gap: 0.0
+>Maximum optimality gap: 0
+>Mean iteration counts: 0.0
 ============
 

@@ -1,30 +1,17 @@
-Answer of test tests\testset0\sample_0.dat-s
-------------------------------
------ Last Matrix Values -----
-------------------------------
-X_eq =
-[[2.50294448e-01 2.64846166e-01 3.43043385e-01 0.00000000e+00]
- [2.64846166e-01 2.80244051e-01 3.62987551e-01 0.00000000e+00]
- [3.43043385e-01 3.62987551e-01 4.70161499e-01 0.00000000e+00]
- [0.00000000e+00 0.00000000e+00 0.00000000e+00 5.50239134e-47]]
-Eigenvalues of X
-[-1.30144461e-14  5.50239134e-47  8.85057185e-08  1.00069991e+00]
-tr(X_eq) = 1.000699998413165
-"h" in the last iteration = 0.49999999999999956
-------------------------
------ Feasibility ------
-------------------------
-Feasibility check:
-tr(A_0 * X_eq) = 35.0, b_0 = 35.0
-tr(A_1 * X_eq) = 16.0, b_1 = 16.0
-This is beta: 5.502391335075865e-47
+Answer of test tests/testset0/sample_0.dat-s
+[General Setting]
 Primal solution:
-[[0.25029445 0.26484617 0.34304339]
- [0.26484617 0.28024405 0.36298755]
- [0.34304339 0.36298755 0.4701615 ]]
+[[0.25029428 0.26484613 0.34304341]
+ [0.26484613 0.280244   0.3629876 ]
+ [0.34304341 0.3629876  0.4701617 ]]
 Dual solution:
 0
-Tr(CX) = 3.930128862896974
+Tr(CX) = 3.9301287168936003
 Primal and dual gap: 0
-Number of iterations: 57
+Number of iterations: 8387
 Max error in symmetry of Q: 0
+Maximum h bound: 0.01
+Method name is: Physarum SDC modified (v.2)
+Restart factor: 1000
+Infeasibility: 3.467042475335802e-07
+Time spent (seconds): 1.6647276878356934

@@ -9,14 +9,23 @@ import re
 from scipy.sparse import coo_matrix
 from pathlib import Path
 from physarum_solver import physarum_C_iden_modified, physarum_C_iden_vanilla, physarum_SDC_vanilla, \
-    physarum_SDC_vanilla_modified
+    physarum_SDC_vanilla_modified, physarum_hamid_modified
 from mat_utils import vectorize
+import time
 
 physarum_solver_methods = [
     physarum_SDC_vanilla,
     physarum_SDC_vanilla_modified,
     physarum_C_iden_vanilla,
-    physarum_C_iden_modified
+    physarum_C_iden_modified,
+    physarum_hamid_modified
+]
+method_names = [
+    'Physarum SDC vanilla',
+    'Physarum SDC modified (v.1)',
+    'Physarum identity matrix (Large Lagrange Function)',
+    'Physarum identity matrix (Larga Lagrange with modifications)',
+    'Physarum SDC modified (v.2)'
 ]
 
 
@@ -36,7 +45,7 @@ def augment_problem(C, m, n, A, b, gamma):
     return C_bar, m, n_bar, A_bar, b
 
 
-def solve_SDP_pos_definite_C(C, X0, m, n, A, b, iter_count, method_number, output_summary=False, out_file=None):
+def solve_SDP_pos_definite_C(C, X0, m, n, A, b, iter_count, method_number, output_summary=False, out_file=None, restart_factor=1, h_rate=0.01, epoch_limit=inf):
     """
     This code solves the SDP for a positive definite cost matrix C
 
@@ -66,9 +75,11 @@ def solve_SDP_pos_definite_C(C, X0, m, n, A, b, iter_count, method_number, outpu
 
     :return:
     """
-    X_opt, y, gap, count, max_error = physarum_solver_methods[method_number](C, X0, m, n, A, b, iter_count,
-                                                                             output_summary, out_file)
-    return X_opt, y, gap, count, max_error
+    if np.min(np.linalg.eigh(C)[0]) < 0:
+        raise Exception("Negative eigenvalues detected in C : {}".format(np.min(np.linalg.eigh(C)[0])))
+    X_opt, y, gap, count, max_error, infeasibility = physarum_solver_methods[method_number](C, X0, m, n, A, b, iter_count,
+                                                                             output_summary, out_file, restart_factor=restart_factor, h_rate=h_rate, epoch_limit=epoch_limit)
+    return X_opt, y, gap, count, max_error, infeasibility
 
 
 def simple_input():
@@ -149,18 +160,22 @@ def dat_s_input(input_file):
             current_state = InputStates.BLOCK_DESC
 
         elif current_state == InputStates.BLOCK_DESC:
+            #print(input_file)
+            #line = re.sub(r'\+', '', line)
             tmp = list(re.sub(r'([{,}])', ' ', line).strip().split())
             block_sizes = []
             for i in range(n_block):
-                block_sizes.append(abs(int(tmp[i])))
+                block_sizes.append(abs(int(float(tmp[i]))))
 
             rows = [[[] for block_no in range(n_block)] for id in range(m + 1)]
             cols = [[[] for block_no in range(n_block)] for id in range(m + 1)]
             vals = [[[] for block_no in range(n_block)] for id in range(m + 1)]
             current_state = InputStates.C
+            print(block_sizes)
 
         elif current_state == InputStates.C:
-            b = np.array(list(map(float, line.strip().split())))
+            tmp = list(re.sub(r'([{,}])', ' ', line).strip().split())
+            b = np.array(list(map(float, tmp)))
             current_state = InputStates.MATRICES
 
         elif current_state == InputStates.MATRICES:
@@ -200,7 +215,7 @@ def convert_block_sparse_to_dense(block_sizes, A):
     return ret
 
 
-def solve_test_list(test_names_list, max_iter, method_number, gamma=None):
+def solve_test_list(test_names_list, max_iter, method_number, gamma=None, restart_factor=1, h_rate=0.01, epoch_limit=inf):
     """
     This function solves a list of .dat-s files
     It then creates .physarum_out outputs next to each test
@@ -216,7 +231,7 @@ def solve_test_list(test_names_list, max_iter, method_number, gamma=None):
     """
 
     test_count = 1
-    for test_name in test_names_list:
+    for en, test_name in enumerate(test_names_list):
         print("******************************************")
         print("************ Test No.{}*******************".format(test_count))
         print("******************************************")
@@ -230,11 +245,12 @@ def solve_test_list(test_names_list, max_iter, method_number, gamma=None):
             C = -convert_block_sparse_to_dense(block_sizes, C)
             n = sum(block_sizes)
 
-        for i in range(len(A)):
-            print("mat no. {}\n{}".format(i, A[i]))
-        print("This is C:")
-        print(C)
+        # for i in range(len(A)):
+        #     print("mat no. {}\n{}".format(i, A[i]))
+        # print("This is C:")
+        # print(C)
         print("m = {}, n = {}".format(m, n))
+        print("Test name: <{}> [{}/{}]".format(test_name, en, len(test_names_list)))
         # max_iter = int(input("Enter maximum iteration count: "))
         with open(os.path.join('.', test_name + ".physarum_out"), 'w') as output_file:
             output_file.write("Answer of test {}\n".format(test_name))
@@ -242,34 +258,43 @@ def solve_test_list(test_names_list, max_iter, method_number, gamma=None):
 
             if gamma is not None:
                 C, m, n, A, b = augment_problem(C, m, n, A, b, gamma)
-                X0 = np.linalg.pinv(C)
-            else:
-                X0 = 1000 * np.eye(n)
-
-            X_opt, y, gap, count, max_error = solve_SDP_pos_definite_C(C, X0, m, n, A, b, max_iter,
+            X0 = np.linalg.pinv(C)
+            bef = time.time()
+            X_opt, y, gap, count, max_error, infeasibility = solve_SDP_pos_definite_C(C, X0, m, n, A, b, max_iter,
                                                                        method_number=method_number, output_summary=True,
-                                                                       out_file=output_file)
-
+                                                                       out_file=output_file, restart_factor=restart_factor, h_rate=h_rate, epoch_limit=epoch_limit)
+            spent = time.time() - bef
             if gamma is not None:
-                output_file.write("This is beta: {}\n".format(X_opt[n-1][n-1]))
+                output_file.write("[Augmented Setting]\n")
                 X_opt = X_opt[:n - 1, :n - 1]
                 C = C[:n - 1, :n - 1] / gamma
                 output_file.write(
                     "Primal solution:\n{}\nDual solution:\n{}\nTr(CX) = {}\n".format(X_opt, y, np.sum(C * X_opt)))
                 output_file.write("Primal and dual gap: {}\n".format(gap))
                 output_file.write("Number of iterations: {}\n".format(count - 1))
-                output_file.write("Max error in symmetry of Q: {}".format(max_error))
+                output_file.write("Max error in symmetry of Q: {}\n".format(max_error))
+                output_file.write("Maximum h bound: {}\n".format(h_rate))
+                output_file.write("Method name is: {}\n".format(method_names[method_number]))
+                output_file.write("This is beta: {}\n".format(X_opt[n-1][n-1]))
+                output_file.write("Infeasibility : {}\n".format(infeasibility))
+                output_file.write("Time spent (seconds): {}\n".format(spent))
             else:
+                output_file.write("[General Setting]\n")
                 output_file.write(
                     "Primal solution:\n{}\nDual solution:\n{}\nTr(CX) = {}\n".format(X_opt, y, C.dot(X_opt).trace()))
                 output_file.write("Primal and dual gap: {}\n".format(gap))
                 output_file.write("Number of iterations: {}\n".format(count - 1))
-                output_file.write("Max error in symmetry of Q: {}".format(max_error))
+                output_file.write("Max error in symmetry of Q: {}\n".format(max_error))
+                output_file.write("Maximum h bound: {}\n".format(h_rate))
+                output_file.write("Method name is: {}\n".format(method_names[method_number]))
+                output_file.write("Restart factor: {}\n".format(restart_factor))
+                output_file.write("Infeasibility: {}\n".format(infeasibility))
+                output_file.write("Time spent (seconds): {}\n".format(spent))
 
 
 def main():
-    test_list = ['tests/vertexcover2-2/vertexcover206.dat-s']
-    solve_test_list(test_list, gamma=0.0001, max_iter=10000, method_number=0)
+    test_list = ['tests/vertexcover2-1/vertexcover201.dat-s']
+    solve_test_list(test_list, gamma=None, max_iter=500000, method_number=4, restart_factor=1000, h_rate=0.003, epoch_limit=1)
 
 
 if __name__ == "__main__":
