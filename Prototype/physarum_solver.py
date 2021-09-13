@@ -8,7 +8,7 @@ import math
 # set the boolean to True
 PRINT_SUMMARY = False
 # the following is the value of gap we aim to achieve
-gap_goal = 10 ** -14
+gap_goal = 10 ** -7
 
 
 def print_summary(*content):
@@ -351,7 +351,7 @@ def physarum_C_iden_vanilla(C, X, m, n, A, b, iter_count, output_summary=False, 
     return BDMatrix([X]), tau * p, gap, count, _
 
 
-def physarum_SDC_vanilla(C, X, m, n, A, b, iter_count, output_summary=False, output_file=None):
+def physarum_SDC_vanilla(C, X, m, n, A, b, iter_count, output_summary=False, output_file=None, restart_factor=1, h_rate=0.01, epoch_limit=inf):
     # C, X, A = _make_dense(C, X, A)
 
     Omega = []

@@ -266,6 +266,7 @@ def solve_test_list(test_names_list, max_iter, method_number, gamma=None, restar
             spent = time.time() - bef
             if gamma is not None:
                 output_file.write("[Augmented Setting]\n")
+                beta = X_opt[n-1, n-1]
                 X_opt = X_opt[:n - 1, :n - 1]
                 C = C[:n - 1, :n - 1] / gamma
                 output_file.write(
@@ -275,7 +276,7 @@ def solve_test_list(test_names_list, max_iter, method_number, gamma=None, restar
                 output_file.write("Max error in symmetry of Q: {}\n".format(max_error))
                 output_file.write("Maximum h bound: {}\n".format(h_rate))
                 output_file.write("Method name is: {}\n".format(method_names[method_number]))
-                output_file.write("This is beta: {}\n".format(X_opt[n-1][n-1]))
+                output_file.write("This is beta: {}\n".format(beta))
                 output_file.write("Infeasibility : {}\n".format(infeasibility))
                 output_file.write("Time spent (seconds): {}\n".format(spent))
             else:
