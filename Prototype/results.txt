@@ -374,126 +374,6 @@
 
 --- maxcut ---
 
-> [Test] tests\maxcut\maxcut100-1.dat-s
-- [General Setting]-Ground truth: -2191.6643719125786
--Physarum solver output: -2191.6643516107856
--Error: 2.0301793028920656e-05
--Gap: 0
--Number of iterations: 1797
--h bound: 0.01
--Method name is: Physarum SDC vanilla
--Restart factor is: 1000
--Infeasibility: 0.0
--Time spent: 205.79633784294128
-
-> [Test] tests\maxcut\maxcut100-10.dat-s
-- [General Setting]-Ground truth: -2180.7774224387895
--Physarum solver output: -2180.777411294333
--Error: 1.1144456493639154e-05
--Gap: 0
--Number of iterations: 1474
--h bound: 0.01
--Method name is: Physarum SDC vanilla
--Restart factor is: 1000
--Infeasibility: 0.0
--Time spent: 178.79908776283264
-
-> [Test] tests\maxcut\maxcut100-2.dat-s
-- [General Setting]-Ground truth: -2267.7601205597985
--Physarum solver output: -2267.7601029305215
--Error: 1.7629276953812223e-05
--Gap: 0
--Number of iterations: 1698
--h bound: 0.01
--Method name is: Physarum SDC vanilla
--Restart factor is: 1000
--Infeasibility: 0.0
--Time spent: 199.8840491771698
-
-> [Test] tests\maxcut\maxcut100-3.dat-s
-- [General Setting]-Ground truth: -2124.951630299929
--Physarum solver output: -2124.9516226359624
--Error: 7.663966698601143e-06
--Gap: 0
--Number of iterations: 561
--h bound: 0.01
--Method name is: Physarum SDC vanilla
--Restart factor is: 1000
--Infeasibility: 0.0
--Time spent: 81.6879346370697
-
-> [Test] tests\maxcut\maxcut100-4.dat-s
-- [General Setting]-Ground truth: -2196.9382577121055
--Physarum solver output: -2196.9382404097023
--Error: 1.730240319375298e-05
--Gap: 0
--Number of iterations: 1743
--h bound: 0.01
--Method name is: Physarum SDC vanilla
--Restart factor is: 1000
--Infeasibility: 0.0
--Time spent: 207.2347457408905
-
-> [Test] tests\maxcut\maxcut100-5.dat-s
-- [General Setting]-Ground truth: -2225.1146310240624
--Physarum solver output: -2225.114618787673
--Error: 1.223638946612482e-05
--Gap: 0
--Number of iterations: 759
--h bound: 0.01
--Method name is: Physarum SDC vanilla
--Restart factor is: 1000
--Infeasibility: 0.0
--Time spent: 105.89705276489258
-
-> [Test] tests\maxcut\maxcut100-6.dat-s
-- [General Setting]-Ground truth: -2122.8156787588687
--Physarum solver output: -2122.815667619974
--Error: 1.1138894478790462e-05
--Gap: 0
--Number of iterations: 768
--h bound: 0.01
--Method name is: Physarum SDC vanilla
--Restart factor is: 1000
--Infeasibility: 0.0
--Time spent: 103.86422157287598
-
-> [Test] tests\maxcut\maxcut100-7.dat-s
-- [General Setting]-Ground truth: -2220.650562188766
--Physarum solver output: -2220.6505543780613
--Error: 7.810704573785188e-06
--Gap: 0
--Number of iterations: 809
--h bound: 0.01
--Method name is: Physarum SDC vanilla
--Restart factor is: 1000
--Infeasibility: 0.0
--Time spent: 107.09223079681396
-
-> [Test] tests\maxcut\maxcut100-8.dat-s
-- [General Setting]-Ground truth: -2145.0972347502793
--Physarum solver output: -2145.0972178371767
--Error: 1.6913102626858745e-05
--Gap: 0
--Number of iterations: 1300
--h bound: 0.01
--Method name is: Physarum SDC vanilla
--Restart factor is: 1000
--Infeasibility: 0.0
--Time spent: 161.88615536689758
-
-> [Test] tests\maxcut\maxcut100-9.dat-s
-- [General Setting]-Ground truth: -2234.831750227146
--Physarum solver output: -2234.8317427777224
--Error: 7.449423719663173e-06
--Gap: 0
--Number of iterations: 534
--h bound: 0.01
--Method name is: Physarum SDC vanilla
--Restart factor is: 1000
--Infeasibility: 0.0
--Time spent: 75.7762770652771
-
 > [Test] tests\maxcut\maxcut20-1.dat-s
 - [General Setting]-Ground truth: -116.12022721610722
 -Physarum solver output: -116.12022509204797
@@ -734,9 +614,136 @@
 -Infeasibility: 0.0
 -Time spent: 46.58361744880676
 
->Mean optimality gap: 6.100961711770954e-06
+>Mean optimality gap: 2.6719220059590042e-06
+>Maximum optimality gap: 1.0454525067871145e-05
+>Mean iteration counts: 1154.5
+============
+
+--- maxcut2 ---
+
+> [Test] tests\maxcut2\maxcut100-1.dat-s
+- [General Setting]-Ground truth: -2191.6643719125786
+-Physarum solver output: -2191.6643516107856
+-Error: 2.0301793028920656e-05
+-Gap: 0
+-Number of iterations: 1797
+-h bound: 0.01
+-Method name is: Physarum SDC vanilla
+-Restart factor is: 1000
+-Infeasibility: 0.0
+-Time spent: 205.79633784294128
+
+> [Test] tests\maxcut2\maxcut100-10.dat-s
+- [General Setting]-Ground truth: -2180.7774224387895
+-Physarum solver output: -2180.777411294333
+-Error: 1.1144456493639154e-05
+-Gap: 0
+-Number of iterations: 1474
+-h bound: 0.01
+-Method name is: Physarum SDC vanilla
+-Restart factor is: 1000
+-Infeasibility: 0.0
+-Time spent: 178.79908776283264
+
+> [Test] tests\maxcut2\maxcut100-2.dat-s
+- [General Setting]-Ground truth: -2267.7601205597985
+-Physarum solver output: -2267.7601029305215
+-Error: 1.7629276953812223e-05
+-Gap: 0
+-Number of iterations: 1698
+-h bound: 0.01
+-Method name is: Physarum SDC vanilla
+-Restart factor is: 1000
+-Infeasibility: 0.0
+-Time spent: 199.8840491771698
+
+> [Test] tests\maxcut2\maxcut100-3.dat-s
+- [General Setting]-Ground truth: -2124.951630299929
+-Physarum solver output: -2124.9516226359624
+-Error: 7.663966698601143e-06
+-Gap: 0
+-Number of iterations: 561
+-h bound: 0.01
+-Method name is: Physarum SDC vanilla
+-Restart factor is: 1000
+-Infeasibility: 0.0
+-Time spent: 81.6879346370697
+
+> [Test] tests\maxcut2\maxcut100-4.dat-s
+- [General Setting]-Ground truth: -2196.9382577121055
+-Physarum solver output: -2196.9382404097023
+-Error: 1.730240319375298e-05
+-Gap: 0
+-Number of iterations: 1743
+-h bound: 0.01
+-Method name is: Physarum SDC vanilla
+-Restart factor is: 1000
+-Infeasibility: 0.0
+-Time spent: 207.2347457408905
+
+> [Test] tests\maxcut2\maxcut100-5.dat-s
+- [General Setting]-Ground truth: -2225.1146310240624
+-Physarum solver output: -2225.114618787673
+-Error: 1.223638946612482e-05
+-Gap: 0
+-Number of iterations: 759
+-h bound: 0.01
+-Method name is: Physarum SDC vanilla
+-Restart factor is: 1000
+-Infeasibility: 0.0
+-Time spent: 105.89705276489258
+
+> [Test] tests\maxcut2\maxcut100-6.dat-s
+- [General Setting]-Ground truth: -2122.8156787588687
+-Physarum solver output: -2122.815667619974
+-Error: 1.1138894478790462e-05
+-Gap: 0
+-Number of iterations: 768
+-h bound: 0.01
+-Method name is: Physarum SDC vanilla
+-Restart factor is: 1000
+-Infeasibility: 0.0
+-Time spent: 103.86422157287598
+
+> [Test] tests\maxcut2\maxcut100-7.dat-s
+- [General Setting]-Ground truth: -2220.650562188766
+-Physarum solver output: -2220.6505543780613
+-Error: 7.810704573785188e-06
+-Gap: 0
+-Number of iterations: 809
+-h bound: 0.01
+-Method name is: Physarum SDC vanilla
+-Restart factor is: 1000
+-Infeasibility: 0.0
+-Time spent: 107.09223079681396
+
+> [Test] tests\maxcut2\maxcut100-8.dat-s
+- [General Setting]-Ground truth: -2145.0972347502793
+-Physarum solver output: -2145.0972178371767
+-Error: 1.6913102626858745e-05
+-Gap: 0
+-Number of iterations: 1300
+-h bound: 0.01
+-Method name is: Physarum SDC vanilla
+-Restart factor is: 1000
+-Infeasibility: 0.0
+-Time spent: 161.88615536689758
+
+> [Test] tests\maxcut2\maxcut100-9.dat-s
+- [General Setting]-Ground truth: -2234.831750227146
+-Physarum solver output: -2234.8317427777224
+-Error: 7.449423719663173e-06
+-Gap: 0
+-Number of iterations: 534
+-h bound: 0.01
+-Method name is: Physarum SDC vanilla
+-Restart factor is: 1000
+-Infeasibility: 0.0
+-Time spent: 75.7762770652771
+
+>Mean optimality gap: 1.2959041123394855e-05
 >Maximum optimality gap: 2.0301793028920656e-05
->Mean iteration counts: 1151.1
+>Mean iteration counts: 1144.3
 ============
 
 --- testset0 ---
