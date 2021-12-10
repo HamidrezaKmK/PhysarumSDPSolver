@@ -18,7 +18,10 @@ for i in range(len(df)):
     h_rate = df['h'][i]
     restart_factor = 1 if df['RestartFactor'].isnull()[i] else df['RestartFactor'][i]
     if df['EpochLimit'].isnull()[i]:
-        solve_test_list(test_list, iter_count, method_number, gamma, restart_factor, h_rate)
+        if df['maxcut'].isnull()[i]:
+            solve_test_list(test_list, iter_count, method_number, gamma, restart_factor, h_rate)
+        else:
+            solve_test_list(test_list, iter_count, method_number, gamma, restart_factor, h_rate, max_cut=True)
     else:
         solve_test_list(test_list, iter_count, method_number, gamma, restart_factor, h_rate, int(df['EpochLimit'][i]))
 #

@@ -45,9 +45,10 @@ def augment_problem(C, m, n, A, b, gamma):
     return C_bar, m, n_bar, A_bar, b
 
 
-def solve_SDP_pos_definite_C(C, X0, m, n, A, b, iter_count, method_number, output_summary=False, out_file=None, restart_factor=1, h_rate=0.01, epoch_limit=inf):
+def solve_SDP_pos_definite_C(C, X0, m, n, A, b, iter_count, method_number, output_summary=False, out_file=None,
+                             restart_factor=1, h_rate=0.01, epoch_limit=inf):
     """
-    This code solves the SDP for a positive definite cost matrix C
+    This code solves the SDP for an arbitrary matrix C having all entries of main diagonal of X equal to 1
 
     :param C:
     The cost matrix
@@ -77,8 +78,54 @@ def solve_SDP_pos_definite_C(C, X0, m, n, A, b, iter_count, method_number, outpu
     """
     if np.min(np.linalg.eigh(C)[0]) < 0:
         raise Exception("Negative eigenvalues detected in C : {}".format(np.min(np.linalg.eigh(C)[0])))
-    X_opt, y, gap, count, max_error, infeasibility = physarum_solver_methods[method_number](C, X0, m, n, A, b, iter_count,
-                                                                             output_summary, out_file, restart_factor=restart_factor, h_rate=h_rate, epoch_limit=epoch_limit)
+    X_opt, y, gap, count, max_error, infeasibility = physarum_solver_methods[method_number](C, X0, m, n, A, b,
+                                                                                            iter_count,
+                                                                                            output_summary, out_file,
+                                                                                            restart_factor=restart_factor,
+                                                                                            h_rate=h_rate,
+                                                                                            epoch_limit=epoch_limit)
+    return X_opt, y, gap, count, max_error, infeasibility
+
+
+def solve_SDP_max_cut(C, X0, m, n, A, b, iter_count, method_number, output_summary=False, out_file=None,
+                      restart_factor=1, h_rate=0.01, epoch_limit=inf):
+    """
+    This code solves the SDP for a positive definite cost matrix C
+
+    :param C:
+    The cost matrix
+    :param m:
+    The number of linear constraints
+    :param n:
+    The size of the matrices
+    :param As:
+    A list of matrices where As[i] is the ith linear constraint of the form tr(As[i] X) = b[i]
+
+    :param b:
+    A vector showing linear constraints
+
+    :param iter_count:
+    maximum number of iterations for the physarum solver
+
+    :param dominating_factor:
+    The dominating factor of the starting point
+
+    :param output_summary:
+    If it is true then an output summary will be printed in out_file
+
+    :param out_file:
+    A file in which the output is written
+
+    :return:
+    """
+    min_eig = - np.min(np.linalg.eigh(C)[0])
+    C_ = C + (1 + min_eig) * np.eye(n)
+    X_opt, y, gap, count, max_error, infeasibility = physarum_solver_methods[method_number](C_, X0, m, n, A, b,
+                                                                                            iter_count,
+                                                                                            output_summary, out_file,
+                                                                                            restart_factor=restart_factor,
+                                                                                            h_rate=h_rate,
+                                                                                            epoch_limit=epoch_limit)
     return X_opt, y, gap, count, max_error, infeasibility
 
 
@@ -160,8 +207,8 @@ def dat_s_input(input_file):
             current_state = InputStates.BLOCK_DESC
 
         elif current_state == InputStates.BLOCK_DESC:
-            #print(input_file)
-            #line = re.sub(r'\+', '', line)
+            # print(input_file)
+            # line = re.sub(r'\+', '', line)
             tmp = list(re.sub(r'([{,}])', ' ', line).strip().split())
             block_sizes = []
             for i in range(n_block):
@@ -215,7 +262,8 @@ def convert_block_sparse_to_dense(block_sizes, A):
     return ret
 
 
-def solve_test_list(test_names_list, max_iter, method_number, gamma=None, restart_factor=1, h_rate=0.01, epoch_limit=inf):
+def solve_test_list(test_names_list, max_iter, method_number, gamma=None, restart_factor=1, h_rate=0.01,
+                    epoch_limit=inf, max_cut=False):
     """
     This function solves a list of .dat-s files
     It then creates .physarum_out outputs next to each test
@@ -255,18 +303,33 @@ def solve_test_list(test_names_list, max_iter, method_number, gamma=None, restar
         with open(os.path.join('.', test_name + ".physarum_out"), 'w') as output_file:
             output_file.write("Answer of test {}\n".format(test_name))
 
-
             if gamma is not None:
                 C, m, n, A, b = augment_problem(C, m, n, A, b, gamma)
             X0 = np.linalg.pinv(C)
+            if max_cut:
+                X0 = np.eye(n)
+
             bef = time.time()
-            X_opt, y, gap, count, max_error, infeasibility = solve_SDP_pos_definite_C(C, X0, m, n, A, b, max_iter,
-                                                                       method_number=method_number, output_summary=True,
-                                                                       out_file=output_file, restart_factor=restart_factor, h_rate=h_rate, epoch_limit=epoch_limit)
+            if max_cut:
+                X_opt, y, gap, count, max_error, infeasibility = solve_SDP_max_cut(C, X0, m, n, A, b, max_iter,
+                                                                                   method_number=method_number,
+                                                                                   output_summary=True,
+                                                                                   out_file=output_file,
+                                                                                   restart_factor=restart_factor,
+                                                                                   h_rate=h_rate,
+                                                                                   epoch_limit=epoch_limit)
+            else:
+                X_opt, y, gap, count, max_error, infeasibility = solve_SDP_pos_definite_C(C, X0, m, n, A, b, max_iter,
+                                                                                          method_number=method_number,
+                                                                                          output_summary=True,
+                                                                                          out_file=output_file,
+                                                                                          restart_factor=restart_factor,
+                                                                                          h_rate=h_rate,
+                                                                                          epoch_limit=epoch_limit)
             spent = time.time() - bef
             if gamma is not None:
                 output_file.write("[Augmented Setting]\n")
-                beta = X_opt[n-1, n-1]
+                beta = X_opt[n - 1, n - 1]
                 X_opt = X_opt[:n - 1, :n - 1]
                 C = C[:n - 1, :n - 1] / gamma
                 output_file.write(
@@ -294,8 +357,9 @@ def solve_test_list(test_names_list, max_iter, method_number, gamma=None, restar
 
 
 def main():
-    test_list = ['tests/large1/large-503.dat-s']
-    solve_test_list(test_list, gamma=None, max_iter=50000, method_number=0, restart_factor=1000, h_rate=0.01, epoch_limit=3)
+    test_list = ['tests/maxcut']
+    solve_test_list(test_list, gamma=None, max_iter=5000, method_number=0, restart_factor=1000, h_rate=0.01,
+                    epoch_limit=1, max_cut=True)
 
 
 if __name__ == "__main__":
