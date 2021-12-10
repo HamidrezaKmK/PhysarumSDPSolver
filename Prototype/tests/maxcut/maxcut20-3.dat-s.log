@@ -1,0 +1,41 @@
+SDPA (Version 7.3.6) start at [Fri Dec 10 18:05:50 2021]
+param is ./param.sdpa
+data  is G:\Research\PhysarumSDPSolver\SDPA\testSet\mmdamin\maxcut20-3.dat-s : sparse
+out   is G:\Research\PhysarumSDPSolver\SDPA\testSet\mmdamin\maxcut20-3.dat-s.res
+NumThreads  is set as 1
+Schur computation : DENSE 
+   mu      thetaP  thetaD  objP      objD      alphaP  alphaD  beta 
+Entering DMUMPS driver with JOB, N, NZ =  -2           0              0
+ 0 1.0e+004 1.0e+000 1.0e+000 -0.00e+000 +4.17e+002 1.0e+000 9.0e-001 2.00e-001
+ 1 1.5e+003 2.8e-016 1.0e-001 +2.77e+003 -4.46e+001 9.5e-001 9.5e-001 2.00e-001
+ 2 2.4e+002 2.8e-016 4.6e-003 +3.32e+003 +1.30e+001 1.3e+000 1.0e+000 2.00e-001
+ 3 2.4e+001 1.7e-016 4.5e-018 +4.94e+002 +1.17e+001 7.6e-001 1.5e+000 1.00e-001
+ 4 6.1e+000 1.7e-016 4.5e-018 +1.98e+002 +7.55e+001 8.0e-001 8.2e-001 1.00e-001
+ 5 1.7e+000 1.7e-016 2.2e-018 +1.52e+002 +1.19e+002 9.5e-001 8.3e-001 1.00e-001
+ 6 3.7e-001 1.7e-016 2.2e-018 +1.44e+002 +1.37e+002 9.3e-001 9.6e-001 1.00e-001
+ 7 5.3e-002 1.7e-016 2.2e-018 +1.42e+002 +1.41e+002 9.5e-001 9.6e-001 1.00e-001
+ 8 7.4e-003 1.7e-016 2.2e-018 +1.42e+002 +1.42e+002 9.7e-001 1.0e+000 1.00e-001
+ 9 7.8e-004 1.7e-016 4.5e-018 +1.42e+002 +1.42e+002 9.7e-001 1.0e+000 1.00e-001
+10 7.9e-005 1.7e-016 4.5e-018 +1.42e+002 +1.42e+002 9.7e-001 1.0e+000 1.00e-001
+11 7.9e-006 1.7e-016 6.7e-018 +1.42e+002 +1.42e+002 9.7e-001 1.0e+000 1.00e-001
+12 7.9e-007 1.7e-016 1.6e-017 +1.42e+002 +1.42e+002 9.7e-001 1.0e+000 1.00e-001
+13 7.9e-008 1.7e-016 1.9e-017 +1.42e+002 +1.42e+002 9.7e-001 1.0e+000 1.00e-001
+
+phase.value  = pdOPT     
+   Iteration = 13
+          mu = +7.9476712278037101e-008
+relative gap = +1.1187132366105234e-008
+        gap  = +1.5895342357907793e-006
+     digits  = +7.9512812233180643e+000
+objValPrimal = +1.4208594237232001e+002
+objValDual   = +1.4208594078278577e+002
+p.feas.error = +1.7319479184152442e-014
+d.feas.error = +1.8873791418627661e-015
+total time   = 0.055719
+  main loop time = 0.050732
+      total time = 0.055719
+file  check time = 0.000000
+file change time = 0.000000
+file   read time = 0.004987
+SDPA end at [Fri Dec 10 18:05:50 2021]
+ALL TIME = 0.057897
