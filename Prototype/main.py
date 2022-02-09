@@ -319,8 +319,10 @@ def solve_test_list(test_names_list, max_iter, method_number, gamma=None, restar
 
 
 def main():
-    test_list = ['tests/maxcut']
-    solve_test_list(test_list, gamma=None, max_iter=5000, method_number=0, restart_factor=1000, h_rate=0.01,
+    test_list = ['tests/maxcut2/maxcut100-6.dat-s', 'tests/maxcut2/maxcut100-7.dat-s',
+                 'tests/maxcut2/maxcut100-8.dat-s', 'tests/maxcut2/maxcut100-9.dat-s',
+                 'tests/maxcut2/maxcut100-10.dat-s']
+    solve_test_list(test_list, gamma=None, max_iter=20000, method_number=4, restart_factor=1000, h_rate=0.01,
                     epoch_limit=1, max_cut=True)
 
 
