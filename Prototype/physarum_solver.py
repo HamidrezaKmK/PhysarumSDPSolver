@@ -666,4 +666,4 @@ def physarum_SDC_vanilla_modified(C, X, m, n, A, b, iter_count, output_summary=F
             output_file.write("tr(A_{} * X_eq) = {}, b_{} = {}\n".format(i, feasibility_values[i], i, b[i]))
 
     print("H in last iteration:", h)
-    return X_k, 0, 0, iterations, 0
+    return X_k, 0, 0, iterations, 0, 0

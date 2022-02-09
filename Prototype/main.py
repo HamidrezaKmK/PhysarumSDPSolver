@@ -78,54 +78,20 @@ def solve_SDP_pos_definite_C(C, X0, m, n, A, b, iter_count, method_number, outpu
     """
     if np.min(np.linalg.eigh(C)[0]) < 0:
         raise Exception("Negative eigenvalues detected in C : {}".format(np.min(np.linalg.eigh(C)[0])))
-    X_opt, y, gap, count, max_error, infeasibility = physarum_solver_methods[method_number](C, X0, m, n, A, b,
-                                                                                            iter_count,
-                                                                                            output_summary, out_file,
-                                                                                            restart_factor=restart_factor,
-                                                                                            h_rate=h_rate,
-                                                                                            epoch_limit=epoch_limit)
-    return X_opt, y, gap, count, max_error, infeasibility
+    if method_number != 1:
+        X_opt, y, gap, count, max_error, infeasibility = physarum_solver_methods[method_number](C, X0, m, n, A, b,
+                                                                                                iter_count,
+                                                                                                output_summary,
+                                                                                                out_file,
+                                                                                                restart_factor=restart_factor,
+                                                                                                h_rate=h_rate,
+                                                                                                epoch_limit=epoch_limit)
+    else:
+        X_opt, y, gap, count, max_error, infeasibility = physarum_solver_methods[method_number](C, X0, m, n, A, b,
+                                                                                                iter_count,
+                                                                                                output_summary,
+                                                                                                out_file)
 
-
-def solve_SDP_max_cut(C, X0, m, n, A, b, iter_count, method_number, output_summary=False, out_file=None,
-                      restart_factor=1, h_rate=0.01, epoch_limit=inf):
-    """
-    This code solves the SDP for a positive definite cost matrix C
-
-    :param C:
-    The cost matrix
-    :param m:
-    The number of linear constraints
-    :param n:
-    The size of the matrices
-    :param As:
-    A list of matrices where As[i] is the ith linear constraint of the form tr(As[i] X) = b[i]
-
-    :param b:
-    A vector showing linear constraints
-
-    :param iter_count:
-    maximum number of iterations for the physarum solver
-
-    :param dominating_factor:
-    The dominating factor of the starting point
-
-    :param output_summary:
-    If it is true then an output summary will be printed in out_file
-
-    :param out_file:
-    A file in which the output is written
-
-    :return:
-    """
-    min_eig = - np.min(np.linalg.eigh(C)[0])
-    C_ = C + (1 + min_eig) * np.eye(n)
-    X_opt, y, gap, count, max_error, infeasibility = physarum_solver_methods[method_number](C_, X0, m, n, A, b,
-                                                                                            iter_count,
-                                                                                            output_summary, out_file,
-                                                                                            restart_factor=restart_factor,
-                                                                                            h_rate=h_rate,
-                                                                                            epoch_limit=epoch_limit)
     return X_opt, y, gap, count, max_error, infeasibility
 
 
@@ -263,7 +229,7 @@ def convert_block_sparse_to_dense(block_sizes, A):
 
 
 def solve_test_list(test_names_list, max_iter, method_number, gamma=None, restart_factor=1, h_rate=0.01,
-                    epoch_limit=inf, max_cut=False):
+                    epoch_limit=1, max_cut=False):
     """
     This function solves a list of .dat-s files
     It then creates .physarum_out outputs next to each test
@@ -302,38 +268,34 @@ def solve_test_list(test_names_list, max_iter, method_number, gamma=None, restar
         # max_iter = int(input("Enter maximum iteration count: "))
         with open(os.path.join('.', test_name + ".physarum_out"), 'w') as output_file:
             output_file.write("Answer of test {}\n".format(test_name))
+            C_ = np.copy(C)
+            if max_cut:
+                min_eig = - np.min(np.linalg.eigh(C)[0])
+                C = C + (1 + min_eig) * np.eye(n)
+                X0 = 10 * np.eye(n)
 
             if gamma is not None:
                 C, m, n, A, b = augment_problem(C, m, n, A, b, gamma)
-            X0 = np.linalg.pinv(C)
-            if max_cut:
-                X0 = np.eye(n)
+                X0 = np.linalg.pinv(C)
+
+            if not max_cut:
+                X0 = np.linalg.pinv(C)
 
             bef = time.time()
-            if max_cut:
-                X_opt, y, gap, count, max_error, infeasibility = solve_SDP_max_cut(C, X0, m, n, A, b, max_iter,
-                                                                                   method_number=method_number,
-                                                                                   output_summary=True,
-                                                                                   out_file=output_file,
-                                                                                   restart_factor=restart_factor,
-                                                                                   h_rate=h_rate,
-                                                                                   epoch_limit=epoch_limit)
-            else:
-                X_opt, y, gap, count, max_error, infeasibility = solve_SDP_pos_definite_C(C, X0, m, n, A, b, max_iter,
-                                                                                          method_number=method_number,
-                                                                                          output_summary=True,
-                                                                                          out_file=output_file,
-                                                                                          restart_factor=restart_factor,
-                                                                                          h_rate=h_rate,
-                                                                                          epoch_limit=epoch_limit)
+            X_opt, y, gap, count, max_error, infeasibility = solve_SDP_pos_definite_C(C, X0, m, n, A, b, max_iter,
+                                                                                      method_number=method_number,
+                                                                                      output_summary=True,
+                                                                                      out_file=output_file,
+                                                                                      restart_factor=restart_factor,
+                                                                                      h_rate=h_rate,
+                                                                                      epoch_limit=epoch_limit)
             spent = time.time() - bef
             if gamma is not None:
                 output_file.write("[Augmented Setting]\n")
                 beta = X_opt[n - 1, n - 1]
                 X_opt = X_opt[:n - 1, :n - 1]
-                C = C[:n - 1, :n - 1] / gamma
                 output_file.write(
-                    "Primal solution:\n{}\nDual solution:\n{}\nTr(CX) = {}\n".format(X_opt, y, np.sum(C * X_opt)))
+                    "Primal solution:\n{}\nDual solution:\n{}\nTr(CX) = {}\n".format(X_opt, y, np.sum(C_ * X_opt)))
                 output_file.write("Primal and dual gap: {}\n".format(gap))
                 output_file.write("Number of iterations: {}\n".format(count - 1))
                 output_file.write("Max error in symmetry of Q: {}\n".format(max_error))
@@ -345,7 +307,7 @@ def solve_test_list(test_names_list, max_iter, method_number, gamma=None, restar
             else:
                 output_file.write("[General Setting]\n")
                 output_file.write(
-                    "Primal solution:\n{}\nDual solution:\n{}\nTr(CX) = {}\n".format(X_opt, y, C.dot(X_opt).trace()))
+                    "Primal solution:\n{}\nDual solution:\n{}\nTr(CX) = {}\n".format(X_opt, y, C_.dot(X_opt).trace()))
                 output_file.write("Primal and dual gap: {}\n".format(gap))
                 output_file.write("Number of iterations: {}\n".format(count - 1))
                 output_file.write("Max error in symmetry of Q: {}\n".format(max_error))

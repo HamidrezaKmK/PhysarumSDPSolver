@@ -1,4 +1,4 @@
-Answer of test tests\maxcut\maxcut100-7.dat-s
+Answer of test tests\maxcut2\maxcut100-7.dat-s
 ------------------------------
 ----- Last Matrix Values -----
 ------------------------------
@@ -173,4 +173,4 @@ Maximum h bound: 0.01
 Method name is: Physarum SDC vanilla
 Restart factor: 1000
 Infeasibility: 0
-Time spent (seconds): 107.09223079681396
+Time spent (seconds): 118.9523606300354

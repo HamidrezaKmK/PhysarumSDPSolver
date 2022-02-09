@@ -12,4 +12,5 @@ DONE,TestSet,IterationCount,MethodNumber,Gamma,RestartFactor,h,EpochLimit,maxcut
 1,large1,3000,1,0.01,3000,0.05,1
 1,large2,3000,1,0.01,3000,0.05,1
 1,vertexcover3,3000,1,0.01,1000,0.05,1
-0,maxcut,3000,1,,1000,0.01,,1
+1,maxcut1,10000,5,,1,0.01,,1
+0,maxcut2,10000,5,,1,0.01,,1
