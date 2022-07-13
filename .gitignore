@@ -83,7 +83,7 @@ CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
 CMakeScripts
-Testing
+testing
 Makefile
 cmake_install.cmake
 install_manifest.txt
@@ -200,7 +200,7 @@ out/*
 bin/*
 build
 
-# exe files which are needed
-!SDPA/windows/sdpa.exe
-!SDPA/testSet/generated/dist/*.exe
-!run.exe
+experiments/*
+!experiments/results.json
+!experiments/summary-results.csv
+data

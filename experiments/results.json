@@ -1,0 +1,1731 @@
+{
+    "vertexcover2-1": {
+        "vertexcover201": {
+            "ground_truth_exists": true,
+            "ground_truth": 10.999999938845818,
+            "beta": 9.584129787776182e-05,
+            "produced_result": 10.98358245662591,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 336.1008200645447,
+            "gap": 0.016417482219907242
+        },
+        "vertexcover2012": {
+            "ground_truth_exists": true,
+            "ground_truth": 12.999999577969481,
+            "beta": 0.00046679387060203465,
+            "produced_result": 12.671405480531863,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 323.9090905189514,
+            "gap": 0.3285940974376178
+        },
+        "vertexcover207": {
+            "ground_truth_exists": true,
+            "ground_truth": 7.999999915261021,
+            "beta": 2.861738968138804e-09,
+            "produced_result": 8.00000010881367,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 9.747315168380737,
+            "gap": 1.935526485752348e-07
+        },
+        "vertexcover2011": {
+            "ground_truth_exists": true,
+            "ground_truth": 12.99999928676844,
+            "beta": 0.0004759740979168128,
+            "produced_result": 12.666606747459877,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 343.91666984558105,
+            "gap": 0.33339253930856394
+        }
+    },
+    "testset2-1": {
+        "negative-definite-dense-106": {
+            "ground_truth_exists": true,
+            "ground_truth": 3.9792534707876572,
+            "beta": 8.433357592187165e-268,
+            "produced_result": 3.9792549406507285,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.5916157281026244e-12,
+            "time_spent": 0.6360695362091064,
+            "gap": 1.4698630712572935e-06
+        },
+        "negative-definite-dense-1010": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.1406373228641,
+            "beta": 2.615672802211225e-17,
+            "produced_result": 2.1406377185664165,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 3.979039320256561e-12,
+            "time_spent": 0.2277071475982666,
+            "gap": 3.9570231669117106e-07
+        },
+        "negative-definite-dense-107": {
+            "ground_truth_exists": true,
+            "ground_truth": 0.9669749584719822,
+            "beta": 9.14062011510502e-32,
+            "produced_result": 0.9669758032080163,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 2.2737367544323206e-12,
+            "time_spent": 0.1666579246520996,
+            "gap": 8.447360341223842e-07
+        },
+        "negative-definite-dense-108": {
+            "ground_truth_exists": true,
+            "ground_truth": 3.6218221153697994,
+            "beta": 5.7093961696585446e-92,
+            "produced_result": 3.621823137137227,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.3642420526593924e-12,
+            "time_spent": 0.2686276435852051,
+            "gap": 1.0217674275558863e-06
+        },
+        "negative-definite-dense-1015": {
+            "ground_truth_exists": true,
+            "ground_truth": 1.0546438315466737,
+            "beta": 1.4281438689579628e-35,
+            "produced_result": 1.0546439668459135,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 5.9117155615240335e-12,
+            "time_spent": 0.2043626308441162,
+            "gap": 1.3529923981181469e-07
+        },
+        "negative-definite-dense-1017": {
+            "ground_truth_exists": true,
+            "ground_truth": 4.536198329160069,
+            "beta": 1.6304952081511066e-55,
+            "produced_result": 4.536200076058467,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 4.547473508864641e-13,
+            "time_spent": 0.2044832706451416,
+            "gap": 1.746898398380381e-06
+        },
+        "negative-definite-dense-1012": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.326176457515742,
+            "beta": 1.6772932913967764e-185,
+            "produced_result": 2.326176514864944,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 5.7980287238024175e-12,
+            "time_spent": 0.9252245426177979,
+            "gap": 5.734920183186887e-08
+        },
+        "negative-definite-dense-1014": {
+            "ground_truth_exists": true,
+            "ground_truth": 0.3830403685565665,
+            "beta": 3.3699730889620365e-08,
+            "produced_result": 0.38303818409210705,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 8.526512829121202e-12,
+            "time_spent": 0.23940324783325195,
+            "gap": 2.1844644594315454e-06
+        },
+        "negative-definite-dense-101": {
+            "ground_truth_exists": true,
+            "ground_truth": 1.862181109767214,
+            "beta": 4.6764253044970865e-20,
+            "produced_result": 1.8621820914047436,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 4.547473508864641e-12,
+            "time_spent": 0.20008087158203125,
+            "gap": 9.81637529484658e-07
+        },
+        "negative-definite-dense-102": {
+            "ground_truth_exists": true,
+            "ground_truth": 0.4931657433521028,
+            "beta": 2.9540756214250354e-34,
+            "produced_result": 0.49316862200365336,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.094947017729282e-13,
+            "time_spent": 0.23666048049926758,
+            "gap": 2.8786515505752064e-06
+        },
+        "negative-definite-dense-100": {
+            "ground_truth_exists": true,
+            "ground_truth": 1.957001095041,
+            "beta": 2.1608375750223407e-16,
+            "produced_result": 1.9570011065693882,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 2.3874235921539366e-12,
+            "time_spent": 0.1876375675201416,
+            "gap": 1.1528388244030907e-08
+        },
+        "negative-definite-dense-105": {
+            "ground_truth_exists": true,
+            "ground_truth": 1.4475374927216342,
+            "beta": 5.734776140359288e-127,
+            "produced_result": 1.4475375130678323,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 2.7284841053187847e-12,
+            "time_spent": 0.5702438354492188,
+            "gap": 2.0346198059684184e-08
+        },
+        "negative-definite-dense-1013": {
+            "ground_truth_exists": true,
+            "ground_truth": 4.882228695820805,
+            "beta": 2.4863485955839055e-122,
+            "produced_result": 4.882229453972426,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.0942358130705543e-12,
+            "time_spent": 0.346210241317749,
+            "gap": 7.581516205945604e-07
+        },
+        "negative-definite-dense-109": {
+            "ground_truth_exists": true,
+            "ground_truth": 1.232364615546806,
+            "beta": 2.1258630401530817e-28,
+            "produced_result": 1.2323653808255282,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.094947017729282e-13,
+            "time_spent": 0.19785189628601074,
+            "gap": 7.652787221701374e-07
+        }
+    },
+    "maxcut2": {
+        "maxcut100-6": {
+            "ground_truth_exists": true,
+            "ground_truth": -2122.8156787588687,
+            "produced_result": -2122.8156676126473,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 207.41685843467712,
+            "gap": 1.1146221368107945e-05
+        },
+        "maxcut100-3": {
+            "ground_truth_exists": true,
+            "ground_truth": -2124.951630299929,
+            "produced_result": -2124.9516226359665,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 132.5073800086975,
+            "gap": 7.663962605874985e-06
+        },
+        "maxcut100-9": {
+            "ground_truth_exists": true,
+            "ground_truth": -2234.831750227146,
+            "produced_result": -2234.831742833548,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 156.1439356803894,
+            "gap": 7.393598025373649e-06
+        },
+        "maxcut100-7": {
+            "ground_truth_exists": true,
+            "ground_truth": -2220.650562188766,
+            "produced_result": -2220.6505543778444,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 164.0697648525238,
+            "gap": 7.81092148827156e-06
+        },
+        "maxcut100-8": {
+            "ground_truth_exists": true,
+            "ground_truth": -2145.0972347502793,
+            "produced_result": -2145.097217787616,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 237.44216752052307,
+            "gap": 1.6962663266895106e-05
+        },
+        "maxcut100-4": {
+            "ground_truth_exists": true,
+            "ground_truth": -2196.9382577121055,
+            "produced_result": -2196.938240432502,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 305.3432822227478,
+            "gap": 1.7279603525821585e-05
+        },
+        "maxcut100-1": {
+            "ground_truth_exists": true,
+            "ground_truth": -2191.6643719125786,
+            "produced_result": -2191.6643515887745,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 309.8036530017853,
+            "gap": 2.0323804164945614e-05
+        },
+        "maxcut100-5": {
+            "ground_truth_exists": true,
+            "ground_truth": -2225.1146310240624,
+            "produced_result": -2225.1146192706165,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 212.49029111862183,
+            "gap": 1.1753445960493991e-05
+        },
+        "maxcut100-2": {
+            "ground_truth_exists": true,
+            "ground_truth": -2267.7601205597985,
+            "produced_result": -2267.7601029305297,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 376.3215956687927,
+            "gap": 1.7629268768359907e-05
+        },
+        "maxcut100-10": {
+            "ground_truth_exists": true,
+            "ground_truth": -2180.7774224387895,
+            "produced_result": -2180.7774112943343,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 335.2516279220581,
+            "gap": 1.1144455129397102e-05
+        }
+    },
+    "testset2-2": {
+        "negative-definite-dense-1016": {
+            "ground_truth_exists": true,
+            "ground_truth": 6.123853644257715,
+            "beta": 3.829617912431412e-114,
+            "produced_result": 6.123854612434384,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 4.263256414560601e-13,
+            "time_spent": 0.8506169319152832,
+            "gap": 9.681766686142623e-07
+        },
+        "negative-definite-dense-1019": {
+            "ground_truth_exists": true,
+            "ground_truth": 6.605374664396551,
+            "beta": 4.7415488171822185e-229,
+            "produced_result": 6.6053769515432315,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.2505552149377763e-12,
+            "time_spent": 0.7155513763427734,
+            "gap": 2.2871466800467033e-06
+        },
+        "negative-definite-dense-1011": {
+            "ground_truth_exists": true,
+            "ground_truth": 4.399302426402843,
+            "beta": 0.0,
+            "produced_result": 4.399303152260039,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 4.774847184307873e-12,
+            "time_spent": 1.6116714477539062,
+            "gap": 7.258571956825222e-07
+        },
+        "negative-definite-dense-1018": {
+            "ground_truth_exists": true,
+            "ground_truth": 6.497864793745828,
+            "beta": 5e-324,
+            "produced_result": 6.497864872727508,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 7.73070496506989e-12,
+            "time_spent": 0.8692166805267334,
+            "gap": 7.898167986297722e-08
+        },
+        "negative-definite-dense-104": {
+            "ground_truth_exists": true,
+            "ground_truth": 3.681020691953798,
+            "beta": 3.0902219680422844e-139,
+            "produced_result": 3.6810238653357343,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 4.718003765447065e-12,
+            "time_spent": 0.6618881225585938,
+            "gap": 3.1733819363388704e-06
+        },
+        "negative-definite-dense-103": {
+            "ground_truth_exists": true,
+            "ground_truth": 4.681317919283881,
+            "beta": 1.8325764568565295e-234,
+            "produced_result": 4.6813184683368645,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.3642420526593924e-12,
+            "time_spent": 0.9878907203674316,
+            "gap": 5.490529835228131e-07
+        }
+    },
+    "testset3-2": {
+        "dense25negative-definite10": {
+            "ground_truth_exists": true,
+            "ground_truth": 8.301735671683897,
+            "beta": 5e-324,
+            "produced_result": 8.301737500862965,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.9099388737231493e-11,
+            "time_spent": 2.9823246002197266,
+            "gap": 1.8291790677693598e-06
+        },
+        "dense25negative-definite9": {
+            "ground_truth_exists": true,
+            "ground_truth": 10.65255468104307,
+            "beta": 0.0,
+            "produced_result": 10.652554693671936,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.77351466845721e-11,
+            "time_spent": 5.890045166015625,
+            "gap": 1.2628866841168929e-08
+        },
+        "dense25negative-definite4": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.2563289208753483,
+            "beta": -7.38509319266991e-189,
+            "produced_result": 2.2563289277347502,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 6.139089236967266e-12,
+            "time_spent": 1.2484757900238037,
+            "gap": 6.859401935344067e-09
+        },
+        "dense25negative-definite18": {
+            "ground_truth_exists": true,
+            "ground_truth": 5.0086500323500545,
+            "beta": 0.0,
+            "produced_result": 5.008650050526834,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 8.640199666842818e-12,
+            "time_spent": 11.068910121917725,
+            "gap": 1.8176779192913273e-08
+        }
+    },
+    "testset3-1": {
+        "dense25negative-definite0": {
+            "ground_truth_exists": true,
+            "ground_truth": 0.6243529563948843,
+            "beta": 0.0017048944330253775,
+            "produced_result": 0.33228281151440736,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 5.002220859751105e-12,
+            "time_spent": 0.8460986614227295,
+            "gap": 0.29207014488047695
+        },
+        "dense25negative-definite3": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.5828765882909295,
+            "beta": 2.9682008711370554e-87,
+            "produced_result": 2.582877377497519,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 7.275957614183426e-12,
+            "time_spent": 1.343761920928955,
+            "gap": 7.892065894132827e-07
+        },
+        "dense25negative-definite13": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.886227462960191,
+            "beta": 6.408599107564826e-68,
+            "produced_result": 2.8862285706795197,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 3.069544618483633e-11,
+            "time_spent": 1.238616704940796,
+            "gap": 1.1077193287079012e-06
+        },
+        "dense25negative-definite7": {
+            "ground_truth_exists": true,
+            "ground_truth": 0.15817983513550968,
+            "beta": 5.665177757498164e-32,
+            "produced_result": 0.1581826660049646,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 3.865352482534945e-12,
+            "time_spent": 0.9232802391052246,
+            "gap": 2.8308694549339375e-06
+        },
+        "dense25negative-definite12": {
+            "ground_truth_exists": true,
+            "ground_truth": 4.251406988161757,
+            "beta": 3.1418534331729135e-240,
+            "produced_result": 4.251407141248073,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.318767317570746e-11,
+            "time_spent": 2.5511014461517334,
+            "gap": 1.530863160681406e-07
+        },
+        "dense25negative-definite15": {
+            "ground_truth_exists": true,
+            "ground_truth": 4.434091052601332,
+            "beta": 5.091306580958547e-232,
+            "produced_result": 4.434092227090182,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 7.958078640513122e-12,
+            "time_spent": 1.8738117218017578,
+            "gap": 1.174488850175237e-06
+        },
+        "dense25negative-definite17": {
+            "ground_truth_exists": true,
+            "ground_truth": 5.031226487839172,
+            "beta": 4.9265208763508375e-90,
+            "produced_result": 5.031226510290709,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.094947017729282e-12,
+            "time_spent": 1.6276674270629883,
+            "gap": 2.245153751800899e-08
+        },
+        "dense25negative-definite5": {
+            "ground_truth_exists": true,
+            "ground_truth": 4.93797651336955,
+            "beta": 6.738807454648902e-286,
+            "produced_result": 4.937976575383019,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.1084466677857563e-11,
+            "time_spent": 1.763216257095337,
+            "gap": 6.201346902656724e-08
+        },
+        "dense25negative-definite14": {
+            "ground_truth_exists": true,
+            "ground_truth": 5.005492489138462,
+            "beta": 3.017190624677126e-113,
+            "produced_result": 5.005492527505937,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.6484591469634324e-11,
+            "time_spent": 1.5825238227844238,
+            "gap": 3.836747541896557e-08
+        },
+        "dense25negative-definite16": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.6661916795706144,
+            "beta": 0.006058907494068464,
+            "produced_result": 1.941975094652476,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.0231815394945443e-11,
+            "time_spent": 1.5341007709503174,
+            "gap": 0.7242165849181383
+        },
+        "dense25negative-definite11": {
+            "ground_truth_exists": true,
+            "ground_truth": 1.7729693439634047,
+            "beta": 9.257898365667028e-30,
+            "produced_result": 1.7729709120475485,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.4779288903810084e-12,
+            "time_spent": 0.6812222003936768,
+            "gap": 1.5680841438658888e-06
+        },
+        "dense25negative-definite8": {
+            "ground_truth_exists": true,
+            "ground_truth": 3.461576898145831,
+            "beta": 6.967239183980391e-87,
+            "produced_result": 3.461576929677086,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.0231815394945443e-12,
+            "time_spent": 1.454066514968872,
+            "gap": 3.1531254940375675e-08
+        },
+        "dense25negative-definite1": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.020144819158886,
+            "beta": 2.19597092830917e-92,
+            "produced_result": 2.0201468469241286,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 2.0463630789890885e-12,
+            "time_spent": 1.232874870300293,
+            "gap": 2.0277652423850157e-06
+        },
+        "dense25negative-definite19": {
+            "ground_truth_exists": true,
+            "ground_truth": 0.38359140887685905,
+            "beta": 1.1130471685805565e-69,
+            "produced_result": 0.383592742249574,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.3642420526593924e-12,
+            "time_spent": 0.6761865615844727,
+            "gap": 1.3333727149622554e-06
+        },
+        "dense25negative-definite6": {
+            "ground_truth_exists": true,
+            "ground_truth": 3.452643455518454,
+            "beta": 0.0,
+            "produced_result": 3.4526434599646425,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 6.252776074688882e-12,
+            "time_spent": 1.932555913925171,
+            "gap": 4.446188306417298e-09
+        },
+        "dense25negative-definite2": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.418472330307896,
+            "beta": -5e-324,
+            "produced_result": 2.4184723383266835,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.0800249583553523e-11,
+            "time_spent": 2.5964980125427246,
+            "gap": 8.018787411856465e-09
+        }
+    },
+    "testset0": {
+        "flow": {
+            "ground_truth_exists": true,
+            "ground_truth": null,
+            "beta": 1.0,
+            "produced_result": 200.0,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 0.0009622573852539062
+        },
+        "Iden0": {
+            "ground_truth_exists": true,
+            "ground_truth": 1.7119825735156744,
+            "beta": 2.382106563540622e-143,
+            "produced_result": 1.7119829175412256,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 0.5965263843536377,
+            "gap": 3.4402555115775613e-07
+        },
+        "sample_0": {
+            "ground_truth_exists": true,
+            "ground_truth": 3.930128661430378,
+            "beta": 5.502391346814665e-47,
+            "produced_result": 3.9301288628969724,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.7053025658242404e-13,
+            "time_spent": 0.12008357048034668,
+            "gap": 2.0146659451825144e-07
+        }
+    },
+    "large1": {
+        "large-507": {
+            "ground_truth_exists": true,
+            "ground_truth": 4.08955774332853,
+            "beta": 0.0,
+            "produced_result": 4.0895577661383955,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 2.05773176276125e-11,
+            "time_spent": 9.872621536254883,
+            "gap": 2.280986510783123e-08
+        },
+        "large-503": {
+            "ground_truth_exists": true,
+            "ground_truth": 1.649142919769142,
+            "beta": 5e-324,
+            "produced_result": 1.6491443964674168,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 2.7284841053187847e-11,
+            "time_spent": 30.33288049697876,
+            "gap": 1.4766982747715929e-06
+        },
+        "large-506": {
+            "ground_truth_exists": true,
+            "ground_truth": 3.5624488204303875,
+            "beta": 3.498148894821034e-171,
+            "produced_result": 3.562448825869307,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 3.433342499192804e-11,
+            "time_spent": 8.656258821487427,
+            "gap": 5.438919536970843e-09
+        },
+        "large-502": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.8450913209089013,
+            "beta": 7.032408547262887e-54,
+            "produced_result": 2.845091603633226,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.6143530956469476e-11,
+            "time_spent": 4.435566663742065,
+            "gap": 2.827243248404443e-07
+        },
+        "large-500": {
+            "ground_truth_exists": true,
+            "ground_truth": 4.497144929290595,
+            "beta": 5e-324,
+            "produced_result": 4.497144944877097,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 2.2964741219766438e-11,
+            "time_spent": 10.78761100769043,
+            "gap": 1.5586501866948765e-08
+        },
+        "large-505": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.4890447795584163,
+            "beta": -1.7098208851889556e-194,
+            "produced_result": 2.489044792878178,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 2.5011104298755527e-11,
+            "time_spent": 5.820632219314575,
+            "gap": 1.3319761738017633e-08
+        },
+        "large-504": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.3278445060305337,
+            "beta": -5e-324,
+            "produced_result": 2.3278463494207124,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.0913936421275139e-11,
+            "time_spent": 8.301859617233276,
+            "gap": 1.8433901787240359e-06
+        },
+        "large-501": {
+            "ground_truth_exists": true,
+            "ground_truth": 7.15523805889973,
+            "beta": 1.3259079953223046e-109,
+            "produced_result": 7.155238067530784,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.2278178473934531e-11,
+            "time_spent": 6.514921188354492,
+            "gap": 8.631054093655166e-09
+        },
+        "large-509": {
+            "ground_truth_exists": true,
+            "ground_truth": 3.02650722097679,
+            "beta": -5e-324,
+            "produced_result": 3.026509488838328,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.2278178473934531e-11,
+            "time_spent": 14.37261414527893,
+            "gap": 2.267861538118865e-06
+        },
+        "large-508": {
+            "ground_truth_exists": true,
+            "ground_truth": 3.36174090592524,
+            "beta": -6.711239860276063e-99,
+            "produced_result": 3.3617418384474824,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 3.0468072509393096e-11,
+            "time_spent": 5.207779407501221,
+            "gap": 9.32522242536038e-07
+        }
+    },
+    "vertexcover1-2": {
+        "vertex-cover516": {
+            "ground_truth_exists": true,
+            "ground_truth": 3.9999994726372994,
+            "beta": 0.0002506620454203371,
+            "produced_result": 3.942785505763933,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 7.313219308853149,
+            "gap": 0.05721396687336622
+        },
+        "vertex-cover52": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.9999999709045166,
+            "beta": 4.924353617128185e-10,
+            "produced_result": 3.0000003191850344,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 0.35953211784362793,
+            "gap": 3.4828051775903646e-07
+        },
+        "vertex-cover512": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.9999999709045375,
+            "beta": 4.924353625001261e-10,
+            "produced_result": 3.0000003180886408,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 0.35994625091552734,
+            "gap": 3.471841032443024e-07
+        },
+        "vertex-cover510": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.9999996188189275,
+            "beta": 1.80620407047273e-09,
+            "produced_result": 3.000000098150936,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 0.46385812759399414,
+            "gap": 4.793320083074093e-07
+        },
+        "vertex-cover519": {
+            "ground_truth_exists": true,
+            "ground_truth": 3.999999538895719,
+            "beta": 7.20639672940164e-05,
+            "produced_result": 3.990838536522563,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 22.23585081100464,
+            "gap": 0.00916100237315609
+        },
+        "vertex-cover514": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.9999999725195714,
+            "beta": 6.504151179895084e-10,
+            "produced_result": 3.000000315709215,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 0.5052440166473389,
+            "gap": 3.431896438144122e-07
+        },
+        "vertex-cover518": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.999999822026231,
+            "beta": 0.00018176043410815534,
+            "produced_result": 2.965750084778614,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 0.3404874801635742,
+            "gap": 0.03424973724761715
+        }
+    },
+    "vertexcover2-2": {
+        "vertexcover200": {
+            "ground_truth_exists": true,
+            "ground_truth": 15.999999380510062,
+            "beta": 0.0006258847416527071,
+            "produced_result": 15.260856403939197,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 743.260481595993,
+            "gap": 0.7391429765708644
+        },
+        "vertexcover208": {
+            "ground_truth_exists": true,
+            "ground_truth": 13.71012399467875,
+            "beta": 0.0004974816536395414,
+            "produced_result": 13.345040622773391,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 135.78831481933594,
+            "gap": 0.36508337190535833
+        },
+        "vertexcover2010": {
+            "ground_truth_exists": true,
+            "ground_truth": 11.999999972111771,
+            "beta": 0.00011681330723576573,
+            "produced_result": 11.981869841110964,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 317.1336236000061,
+            "gap": 0.018130131000807737
+        },
+        "vertexcover205": {
+            "ground_truth_exists": true,
+            "ground_truth": 8.999999965660969,
+            "beta": 4.080592804717679e-61,
+            "produced_result": 9.000731487587402,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 228.27947115898132,
+            "gap": 0.0007315219264327766
+        },
+        "vertexcover2019": {
+            "ground_truth_exists": true,
+            "ground_truth": 15.999999268083421,
+            "beta": 0.0005900903901732006,
+            "produced_result": 15.373519472493253,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 469.7616865634918,
+            "gap": 0.6264797955901678
+        },
+        "vertexcover203": {
+            "ground_truth_exists": true,
+            "ground_truth": 13.999999950194955,
+            "beta": 0.0003950614637202097,
+            "produced_result": 13.87190941793955,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 139.02686405181885,
+            "gap": 0.12809053225540445
+        },
+        "vertexcover206": {
+            "ground_truth_exists": true,
+            "ground_truth": 16.989561888846843,
+            "beta": 0.0006514315130260518,
+            "produced_result": 16.041423713006697,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 156.16661429405212,
+            "gap": 0.9481381758401461
+        },
+        "vertexcover2018": {
+            "ground_truth_exists": true,
+            "ground_truth": 14.999998787662918,
+            "beta": 0.0002588282630728915,
+            "produced_result": 14.933216264937919,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 444.2380850315094,
+            "gap": 0.06678252272499918
+        },
+        "vertexcover2016": {
+            "ground_truth_exists": true,
+            "ground_truth": 15.999999914052324,
+            "beta": 0.0005657194464134336,
+            "produced_result": 15.68124401082935,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 225.7949993610382,
+            "gap": 0.318755903222975
+        },
+        "vertexcover2013": {
+            "ground_truth_exists": true,
+            "ground_truth": 15.999999928584671,
+            "beta": 0.0005813964897578266,
+            "produced_result": 15.472037709037956,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 246.778662443161,
+            "gap": 0.5279622195467155
+        },
+        "vertexcover2014": {
+            "ground_truth_exists": true,
+            "ground_truth": 14.999999465105375,
+            "beta": 0.0004479747051113664,
+            "produced_result": 14.670825384767678,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 306.1071586608887,
+            "gap": 0.32917408033769746
+        },
+        "vertexcover204": {
+            "ground_truth_exists": true,
+            "ground_truth": 16.64278471290151,
+            "beta": 0.0006436566867833952,
+            "produced_result": 15.726420683410042,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 346.5663492679596,
+            "gap": 0.9163640294914668
+        },
+        "vertexcover2017": {
+            "ground_truth_exists": true,
+            "ground_truth": 15.999999957250544,
+            "beta": 0.0005991385193203972,
+            "produced_result": 15.474041646608308,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 268.9060916900635,
+            "gap": 0.5259583106422365
+        },
+        "vertexcover209": {
+            "ground_truth_exists": true,
+            "ground_truth": 12.999999818973471,
+            "beta": 3.398616085546133e-09,
+            "produced_result": 13.000000993933103,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 70.90271520614624,
+            "gap": 1.1749596318111344e-06
+        },
+        "vertexcover2015": {
+            "ground_truth_exists": true,
+            "ground_truth": 15.883823740685393,
+            "beta": 0.0006093428941693814,
+            "produced_result": 15.204593035254387,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 1056.480940580368,
+            "gap": 0.6792307054310065
+        },
+        "vertexcover202": {
+            "ground_truth_exists": true,
+            "ground_truth": 15.8034419337598,
+            "beta": 0.0006024593478207947,
+            "produced_result": 15.146231419398074,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 899.3407425880432,
+            "gap": 0.6572105143617257
+        }
+    },
+    "vertexcover1-1": {
+        "vertex-cover53": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.9999996188188485,
+            "beta": 1.8062041460868318e-09,
+            "produced_result": 3.000000098119921,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 0.4707527160644531,
+            "gap": 4.793010726089619e-07
+        },
+        "vertex-cover58": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.9999999721766217,
+            "beta": 4.724887121878819e-10,
+            "produced_result": 3.0000005251159387,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 0.34734296798706055,
+            "gap": 5.529393170000674e-07
+        },
+        "vertex-cover515": {
+            "ground_truth_exists": true,
+            "ground_truth": 1.999999969341443,
+            "beta": 9.78133338446661e-11,
+            "produced_result": 2.0000003761522507,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 0.2707688808441162,
+            "gap": 4.068108077071031e-07
+        },
+        "vertex-cover59": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.9999999665819557,
+            "beta": 3.9156066888636026e-10,
+            "produced_result": 3.0000003181694685,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 0.3707773685455322,
+            "gap": 3.5158751288122403e-07
+        },
+        "vertex-cover56": {
+            "ground_truth_exists": true,
+            "ground_truth": 3.9999995532026014,
+            "beta": 7.179556365501547e-05,
+            "produced_result": 3.9908880908816378,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 21.607844591140747,
+            "gap": 0.009111462320963604
+        },
+        "vertex-cover513": {
+            "ground_truth_exists": true,
+            "ground_truth": 1.9999999679726006,
+            "beta": 1.7647060281995755e-10,
+            "produced_result": 2.0000003177001813,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 0.21819782257080078,
+            "gap": 3.4972758067297605e-07
+        },
+        "vertex-cover54": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.999999959639153,
+            "beta": -4.468047757570507e-10,
+            "produced_result": 2.9999995471142036,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 3.9072678089141846,
+            "gap": 4.1252494931143247e-07
+        },
+        "vertex-cover51": {
+            "ground_truth_exists": true,
+            "ground_truth": 1.9999999679726472,
+            "beta": 1.764706027962975e-10,
+            "produced_result": 2.000000318460069,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 0.226304292678833,
+            "gap": 3.504874217519216e-07
+        },
+        "vertex-cover517": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.9999999721766395,
+            "beta": 4.724887124605982e-10,
+            "produced_result": 3.0000005250287507,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 0.37006092071533203,
+            "gap": 5.528521112019291e-07
+        },
+        "vertex-cover511": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.9999996301296816,
+            "beta": 4.1940717137336055e-06,
+            "produced_result": 2.999574314820391,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 18.365866661071777,
+            "gap": 0.0004253153092905748
+        },
+        "vertex-cover50": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.999999970904484,
+            "beta": 4.924353637974503e-10,
+            "produced_result": 3.000000319040998,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 0.3607938289642334,
+            "gap": 3.48136514283226e-07
+        },
+        "vertex-cover55": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.9999996301296976,
+            "beta": 4.194071713733907e-06,
+            "produced_result": 2.99957431482039,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 18.444356679916382,
+            "gap": 0.0004253153093074502
+        },
+        "vertex-cover57": {
+            "ground_truth_exists": true,
+            "ground_truth": 1.9999996849577284,
+            "beta": 3.0696884983147924e-10,
+            "produced_result": 2.000000123089015,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 0.19958257675170898,
+            "gap": 4.381312865842091e-07
+        }
+    },
+    "vertexcover3": {
+        "vertexcover3-509": {
+            "ground_truth_exists": true,
+            "ground_truth": 12.999999925971423,
+            "beta": 0.00022557262641373783,
+            "produced_result": 12.906434512487065,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 610.3409457206726,
+            "gap": 0.09356541348435776
+        },
+        "vertexcover3-505": {
+            "ground_truth_exists": true,
+            "ground_truth": 9.99999991599215,
+            "beta": 1.3314651577998884e-05,
+            "produced_result": 9.998448932972584,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 567.0677313804626,
+            "gap": 0.0015509830195661323
+        },
+        "vertexcover3-501": {
+            "ground_truth_exists": true,
+            "ground_truth": 8.999999941909325,
+            "beta": 0.00010669297153131907,
+            "produced_result": 8.976072804612208,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 27.14307737350464,
+            "gap": 0.023927137297116374
+        },
+        "vertexcover3-503": {
+            "ground_truth_exists": true,
+            "ground_truth": 11.999999850076028,
+            "beta": 0.00010148975474811103,
+            "produced_result": 11.976446930741924,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 609.6373097896576,
+            "gap": 0.023552919334104416
+        },
+        "vertexcover3-507": {
+            "ground_truth_exists": true,
+            "ground_truth": 7.999999940561865,
+            "beta": 1.5729606039074388e-07,
+            "produced_result": 7.999984667457846,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 121.32857275009155,
+            "gap": 1.5273104018831418e-05
+        },
+        "vertexcover3-504": {
+            "ground_truth_exists": true,
+            "ground_truth": 8.99999991076566,
+            "beta": 4.829105624268457e-05,
+            "produced_result": 8.992511897801844,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 520.6899316310883,
+            "gap": 0.007488012963815294
+        },
+        "vertexcover3-508": {
+            "ground_truth_exists": true,
+            "ground_truth": 14.999999602813741,
+            "beta": 0.00031062038007627986,
+            "produced_result": 14.82295507793734,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 598.7804081439972,
+            "gap": 0.17704452487640054
+        },
+        "vertexcover3-502": {
+            "ground_truth_exists": true,
+            "ground_truth": 9.99999986478594,
+            "beta": 0.0002618807920091503,
+            "produced_result": 9.888767207735906,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 487.2617835998535,
+            "gap": 0.11123265705003327
+        },
+        "vertexcover3-500": {
+            "ground_truth_exists": true,
+            "ground_truth": 13.99999958977792,
+            "beta": 0.0002932026203732942,
+            "produced_result": 13.845312231007382,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 596.6622552871704,
+            "gap": 0.15468735877053774
+        },
+        "vertexcover3-506": {
+            "ground_truth_exists": true,
+            "ground_truth": 10.999999922996048,
+            "beta": 5.339062866994566e-09,
+            "produced_result": 11.000000426836513,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 48.62871599197388,
+            "gap": 5.038404644608363e-07
+        }
+    },
+    "maxcut1": {
+        "maxcut50-10": {
+            "ground_truth_exists": true,
+            "ground_truth": -728.8394674071174,
+            "produced_result": -728.8394652070922,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 31.184463500976562,
+            "gap": 2.2000251647114055e-06
+        },
+        "maxcut50-9": {
+            "ground_truth_exists": true,
+            "ground_truth": -734.127861281618,
+            "produced_result": -734.1278511595785,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 96.08649206161499,
+            "gap": 1.0122039498128288e-05
+        },
+        "maxcut50-2": {
+            "ground_truth_exists": true,
+            "ground_truth": -687.928485535376,
+            "produced_result": -687.9284830564437,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 35.5660879611969,
+            "gap": 2.478932287885982e-06
+        },
+        "maxcut50-6": {
+            "ground_truth_exists": true,
+            "ground_truth": -716.9243787109579,
+            "produced_result": -716.9243747852728,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 62.92198085784912,
+            "gap": 3.925685064132267e-06
+        },
+        "maxcut50-4": {
+            "ground_truth_exists": true,
+            "ground_truth": -711.4101030471403,
+            "produced_result": -711.4100963642901,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 75.59166502952576,
+            "gap": 6.682850198558299e-06
+        },
+        "maxcut20-8": {
+            "ground_truth_exists": true,
+            "ground_truth": -137.81216876848129,
+            "produced_result": -137.8121685010796,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 3.350064516067505,
+            "gap": 2.6740167413663585e-07
+        },
+        "maxcut50-5": {
+            "ground_truth_exists": true,
+            "ground_truth": -700.6871178939338,
+            "produced_result": -700.6871155711788,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 52.12971115112305,
+            "gap": 2.322754994565912e-06
+        },
+        "maxcut20-4": {
+            "ground_truth_exists": true,
+            "ground_truth": -132.92682542143206,
+            "produced_result": -132.92682512836458,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 1.8280298709869385,
+            "gap": 2.9306747251212073e-07
+        },
+        "maxcut20-2": {
+            "ground_truth_exists": true,
+            "ground_truth": -170.5526285922535,
+            "produced_result": -170.55262787488448,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 3.415605306625366,
+            "gap": 7.173690335093852e-07
+        },
+        "maxcut50-7": {
+            "ground_truth_exists": true,
+            "ground_truth": -714.0864508925722,
+            "produced_result": -714.0864494520854,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 29.168251276016235,
+            "gap": 1.4404868124984205e-06
+        },
+        "maxcut50-8": {
+            "ground_truth_exists": true,
+            "ground_truth": -735.1911466134426,
+            "produced_result": -735.1911451616189,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 23.589683294296265,
+            "gap": 1.45182366395602e-06
+        },
+        "maxcut20-6": {
+            "ground_truth_exists": true,
+            "ground_truth": -123.01510835365828,
+            "produced_result": -123.01510557363783,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 2.364142656326294,
+            "gap": 2.780020452064491e-06
+        },
+        "maxcut50-3": {
+            "ground_truth_exists": true,
+            "ground_truth": -762.7573936677186,
+            "produced_result": -762.7573868304893,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 22.40902280807495,
+            "gap": 6.837229307166126e-06
+        },
+        "maxcut20-5": {
+            "ground_truth_exists": true,
+            "ground_truth": -153.39089895675278,
+            "produced_result": -153.39089507698037,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 9.54490852355957,
+            "gap": 3.879772407344717e-06
+        },
+        "maxcut20-10": {
+            "ground_truth_exists": true,
+            "ground_truth": -171.02863093672346,
+            "produced_result": -171.02862885552835,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 1.4130165576934814,
+            "gap": 2.081195106029554e-06
+        },
+        "maxcut20-7": {
+            "ground_truth_exists": true,
+            "ground_truth": -133.5457859832323,
+            "produced_result": -133.54578488949986,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 5.33757209777832,
+            "gap": 1.0937324361748324e-06
+        },
+        "maxcut50-1": {
+            "ground_truth_exists": true,
+            "ground_truth": -716.9325120077832,
+            "produced_result": -716.9325103777086,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 18.113804817199707,
+            "gap": 1.6300746210617945e-06
+        },
+        "maxcut20-9": {
+            "ground_truth_exists": true,
+            "ground_truth": -167.321161991809,
+            "produced_result": -167.32116153596357,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 6.810421466827393,
+            "gap": 4.558454236303078e-07
+        },
+        "maxcut20-3": {
+            "ground_truth_exists": true,
+            "ground_truth": -142.08594237232,
+            "produced_result": -142.08594203745685,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 2.0581538677215576,
+            "gap": 3.348631594235485e-07
+        },
+        "maxcut20-1": {
+            "ground_truth_exists": true,
+            "ground_truth": -116.12022721610722,
+            "produced_result": -116.12022509204803,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.0,
+            "time_spent": 2.819730281829834,
+            "gap": 2.1240591934201802e-06
+        }
+    },
+    "testset1": {
+        "dense-negative-definite-5-218": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.8606110759702315,
+            "beta": 3.3415473794036784e-125,
+            "produced_result": 2.860611446121109,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 9.094947017729282e-13,
+            "time_spent": 0.30498266220092773,
+            "gap": 3.701508775044715e-07
+        },
+        "dense-negative-definite-5-22": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.2653084617981127,
+            "beta": 9.276552090353362e-71,
+            "produced_result": 2.2653085021420405,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 2.4442670110147446e-12,
+            "time_spent": 0.1793229579925537,
+            "gap": 4.034392775409401e-08
+        },
+        "dense-negative-definite-5-24": {
+            "ground_truth_exists": true,
+            "ground_truth": 1.2163325742176365,
+            "beta": 3.435496025602997e-39,
+            "produced_result": 1.2163331127025896,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.1368683772161603e-12,
+            "time_spent": 0.10606169700622559,
+            "gap": 5.384849530720714e-07
+        },
+        "dense-negative-definite-5-214": {
+            "ground_truth_exists": true,
+            "ground_truth": 7.366958939174298,
+            "beta": -3.432160161568856e-123,
+            "produced_result": 7.366960162866869,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.0231815394945443e-12,
+            "time_spent": 0.3493354320526123,
+            "gap": 1.2236925712727498e-06
+        },
+        "dense-negative-definite-5-29": {
+            "ground_truth_exists": true,
+            "ground_truth": 0.4639321084205541,
+            "beta": 1.9730225627713233e-76,
+            "produced_result": 0.4639326774493067,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.2505552149377763e-12,
+            "time_spent": 0.21960115432739258,
+            "gap": 5.690287526172177e-07
+        },
+        "dense-negative-definite-5-211": {
+            "ground_truth_exists": true,
+            "ground_truth": 6.2528599106860625,
+            "beta": 1.0859618953862948e-184,
+            "produced_result": 6.252860755754267,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.1368683772161603e-12,
+            "time_spent": 0.23076891899108887,
+            "gap": 8.45068204746724e-07
+        },
+        "dense-negative-definite-5-28": {
+            "ground_truth_exists": true,
+            "ground_truth": 4.155098898688811,
+            "beta": 5e-324,
+            "produced_result": 4.155099019919497,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 4.547473508864641e-13,
+            "time_spent": 1.4788901805877686,
+            "gap": 1.2123068593439257e-07
+        },
+        "dense-negative-definite-5-27": {
+            "ground_truth_exists": true,
+            "ground_truth": 4.222617529253349,
+            "beta": 5.582002464303071e-67,
+            "produced_result": 4.222617607452261,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 7.958078640513122e-13,
+            "time_spent": 0.18414521217346191,
+            "gap": 7.819891134630552e-08
+        },
+        "dense-negative-definite-5-210": {
+            "ground_truth_exists": true,
+            "ground_truth": 5.776864072223619,
+            "beta": -6.2340647286873475e-105,
+            "produced_result": 5.776864085475301,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 2.2737367544323206e-13,
+            "time_spent": 0.23942351341247559,
+            "gap": 1.3251682418058408e-08
+        },
+        "dense-negative-definite-5-20": {
+            "ground_truth_exists": true,
+            "ground_truth": 3.8830049411419165,
+            "beta": 1.5240850091728495e-233,
+            "produced_result": 3.883005430097623,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 2.8421709430404007e-13,
+            "time_spent": 0.678504228591919,
+            "gap": 4.889557065901329e-07
+        },
+        "dense-negative-definite-5-217": {
+            "ground_truth_exists": true,
+            "ground_truth": 3.8113832202172775,
+            "beta": 1.7653135170621658e-190,
+            "produced_result": 3.8113845265257718,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.5631940186722204e-13,
+            "time_spent": 1.3581490516662598,
+            "gap": 1.3063084942643854e-06
+        },
+        "dense-negative-definite-5-212": {
+            "ground_truth_exists": true,
+            "ground_truth": 0.5057653352541167,
+            "beta": 0.0,
+            "produced_result": 0.5057660243238207,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 6.821210263296962e-13,
+            "time_spent": 0.7077922821044922,
+            "gap": 6.890697039629856e-07
+        },
+        "dense-negative-definite-5-219": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.206963970439973,
+            "beta": 3.1587218278506864e-25,
+            "produced_result": 2.2069651594193536,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.0231815394945443e-12,
+            "time_spent": 0.11416387557983398,
+            "gap": 1.1889793807284832e-06
+        },
+        "dense-negative-definite-5-215": {
+            "ground_truth_exists": true,
+            "ground_truth": 0.24516160089881248,
+            "beta": 1.761407433811759e-69,
+            "produced_result": 0.2451621371662212,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 1.1368683772161603e-13,
+            "time_spent": 0.18233466148376465,
+            "gap": 5.362674087294739e-07
+        },
+        "dense-negative-definite-5-26": {
+            "ground_truth_exists": true,
+            "ground_truth": 1.0224798387402598,
+            "beta": -9.412878879228209e-48,
+            "produced_result": 1.0224804526599038,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 3.183231456205249e-12,
+            "time_spent": 0.10480260848999023,
+            "gap": 6.139196440102523e-07
+        },
+        "dense-negative-definite-5-216": {
+            "ground_truth_exists": true,
+            "ground_truth": 3.6078774195279784,
+            "beta": 1.895261755183514e-49,
+            "produced_result": 3.607877647059448,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 2.2737367544323206e-13,
+            "time_spent": 0.15963530540466309,
+            "gap": 2.275314696653652e-07
+        },
+        "dense-negative-definite-5-21": {
+            "ground_truth_exists": true,
+            "ground_truth": 9.602462292624855,
+            "beta": 0.0,
+            "produced_result": 9.602463713163319,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 3.979039320256561e-13,
+            "time_spent": 0.4149458408355713,
+            "gap": 1.4205384637477891e-06
+        },
+        "dense-negative-definite-5-25": {
+            "ground_truth_exists": true,
+            "ground_truth": 4.720056921768257,
+            "beta": 5.374867897707166e-43,
+            "produced_result": 4.720058373846066,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 5.4569682106375694e-12,
+            "time_spent": 0.16721844673156738,
+            "gap": 1.4520778091053899e-06
+        },
+        "dense-negative-definite-5-213": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.03925414475186,
+            "beta": 1.91404594216013e-28,
+            "produced_result": 2.039255015107766,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 0.0,
+            "time_spent": 0.1087653636932373,
+            "gap": 8.703559060130317e-07
+        },
+        "dense-negative-definite-5-23": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.2336523998206874,
+            "beta": 6.26035481627899e-101,
+            "produced_result": 2.2336526340671234,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 8.071765478234738e-12,
+            "time_spent": 0.24162769317626953,
+            "gap": 2.3424643602609763e-07
+        }
+    },
+    "large2": {
+        "large2-100-1": {
+            "ground_truth_exists": true,
+            "ground_truth": 7.860040083607004,
+            "beta": 5e-324,
+            "produced_result": 7.860040161673522,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 3.8198777474462986e-11,
+            "time_spent": 31.41816997528076,
+            "gap": 7.80665185828866e-08
+        },
+        "large2-100-2": {
+            "ground_truth_exists": true,
+            "ground_truth": 4.826531448619203,
+            "beta": 1.9272737632453935e-275,
+            "produced_result": 4.826531465073725,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 3.501554601825774e-11,
+            "time_spent": 31.47306203842163,
+            "gap": 1.6454522189235377e-08
+        },
+        "large2-100-16": {
+            "ground_truth_exists": true,
+            "ground_truth": 4.787411342141642,
+            "beta": 3.4481398419563037e-296,
+            "produced_result": 4.787412426885457,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 4.3428372009657323e-11,
+            "time_spent": 32.75398111343384,
+            "gap": 1.0847438156602607e-06
+        },
+        "large2-100-13": {
+            "ground_truth_exists": true,
+            "ground_truth": 5.412366344058716,
+            "beta": 2.7923499815854664e-189,
+            "produced_result": 5.412366346486001,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 3.3651303965598345e-11,
+            "time_spent": 39.08919930458069,
+            "gap": 2.4272850396300782e-09
+        },
+        "large2-100-19": {
+            "ground_truth_exists": true,
+            "ground_truth": 5.468471212635033,
+            "beta": 5e-324,
+            "produced_result": 5.468475322634116,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 3.467448550509289e-11,
+            "time_spent": 30.264012098312378,
+            "gap": 4.1099990824022825e-06
+        },
+        "large2-100-14": {
+            "ground_truth_exists": true,
+            "ground_truth": 5.0851284444645675,
+            "beta": 1.867103590605497e-309,
+            "produced_result": 5.085128498620957,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 2.7284841053187847e-11,
+            "time_spent": 25.30578303337097,
+            "gap": 5.4156389595050314e-08
+        },
+        "large2-100-11": {
+            "ground_truth_exists": true,
+            "ground_truth": 5.542169515135335,
+            "beta": 9.377348519827345e-231,
+            "produced_result": 5.542169525342901,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 4.092726157978177e-11,
+            "time_spent": 37.00568604469299,
+            "gap": 1.020756634773079e-08
+        },
+        "large2-100-4": {
+            "ground_truth_exists": true,
+            "ground_truth": 3.757554860436634,
+            "beta": -5e-324,
+            "produced_result": 3.7575574309899222,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 3.092281986027956e-11,
+            "time_spent": 27.44047522544861,
+            "gap": 2.570553288450128e-06
+        },
+        "large2-100-6": {
+            "ground_truth_exists": true,
+            "ground_truth": 3.420066692006336,
+            "beta": 0.0,
+            "produced_result": 3.42006670288476,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 2.8194335754960775e-11,
+            "time_spent": 31.209152698516846,
+            "gap": 1.0878423939431059e-08
+        },
+        "large2-100-10": {
+            "ground_truth_exists": true,
+            "ground_truth": 3.5074388608361913,
+            "beta": 0.0,
+            "produced_result": 3.507441340741548,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 4.3655745685100555e-11,
+            "time_spent": 25.362359285354614,
+            "gap": 2.4799053566226803e-06
+        },
+        "large2-100-17": {
+            "ground_truth_exists": true,
+            "ground_truth": 4.822112479634766,
+            "beta": 3.871467891674708e-207,
+            "produced_result": 4.822112488278358,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 3.456079866737127e-11,
+            "time_spent": 28.704245567321777,
+            "gap": 8.643591620227653e-09
+        },
+        "large2-100-15": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.0904271049915186,
+            "beta": 5e-324,
+            "produced_result": 2.0904297334823947,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 4.547473508864641e-11,
+            "time_spent": 50.41180086135864,
+            "gap": 2.628490876066536e-06
+        },
+        "large2-100-18": {
+            "ground_truth_exists": true,
+            "ground_truth": 2.768822750609604,
+            "beta": -5e-324,
+            "produced_result": 2.7688250726805888,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 4.001776687800884e-11,
+            "time_spent": 21.77272057533264,
+            "gap": 2.322070984828173e-06
+        },
+        "large2-100-0": {
+            "ground_truth_exists": true,
+            "ground_truth": 1.961462893966337,
+            "beta": 5e-324,
+            "produced_result": 1.961465368071803,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 4.18367562815547e-11,
+            "time_spent": 50.93309664726257,
+            "gap": 2.4741054660548656e-06
+        },
+        "large2-100-12": {
+            "ground_truth_exists": true,
+            "ground_truth": 7.010494188538381,
+            "beta": 3.31704237e-316,
+            "produced_result": 7.01049610235186,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 2.9103830456733704e-11,
+            "time_spent": 49.398632526397705,
+            "gap": 1.9138134792484607e-06
+        },
+        "large2-100-8": {
+            "ground_truth_exists": true,
+            "ground_truth": 4.806008606160109,
+            "beta": 2.588449800557989e-143,
+            "produced_result": 4.806012411683375,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 3.1377567211166024e-11,
+            "time_spent": 33.82506585121155,
+            "gap": 3.8055232662870253e-06
+        },
+        "large2-100-9": {
+            "ground_truth_exists": true,
+            "ground_truth": 5.745550516564284,
+            "beta": -4.133948885475135e-292,
+            "produced_result": 5.745550518818397,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 3.433342499192804e-11,
+            "time_spent": 34.774961709976196,
+            "gap": 2.2541124522490463e-09
+        },
+        "large2-100-5": {
+            "ground_truth_exists": true,
+            "ground_truth": 7.542630523511608,
+            "beta": 5.712139788701605e-291,
+            "produced_result": 7.542631954124579,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 4.1382008930668235e-11,
+            "time_spent": 36.93381142616272,
+            "gap": 1.4306129711982862e-06
+        },
+        "large2-100-7": {
+            "ground_truth_exists": true,
+            "ground_truth": 3.0347218271332466,
+            "beta": 2.6005768438352757e-305,
+            "produced_result": 3.034721834502461,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 2.3646862246096134e-11,
+            "time_spent": 25.107739686965942,
+            "gap": 7.3692145718951e-09
+        },
+        "large2-100-3": {
+            "ground_truth_exists": true,
+            "ground_truth": 4.636958770554585,
+            "beta": 2.0496317145316303e-81,
+            "produced_result": 4.636959062876986,
+            "primal_dual_gap": 0.0,
+            "infeasibility": 3.3651303965598345e-11,
+            "time_spent": 26.52210307121277,
+            "gap": 2.9232240095211637e-07
+        }
+    }
+}
