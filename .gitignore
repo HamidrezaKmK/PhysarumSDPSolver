@@ -203,4 +203,9 @@ build
 experiments/*
 !experiments/results.json
 !experiments/summary-results.csv
-data
+modified-results
+data/*
+!data/FORMAT.dat-s
+!data/testset0
+
+!SDPA/windows/sdpa.exe
