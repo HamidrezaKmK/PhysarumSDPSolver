@@ -1,2 +1,3 @@
-from physarum_sdp.data.dat_s import dat_s_input
-from physarum_sdp.data.registry_base import PARSER_REGISTRY
+from typing import Any
+
+from physarum_sdp.data.base_registry import PARSER_REGISTRY

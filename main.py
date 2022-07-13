@@ -102,7 +102,7 @@ def main(arguments: Dict[str, str]) -> None:
                 warnings.warn(f"Test {d} ran into some problems! Check it out later!")
                 print(e)
                 print("-------------------------------")
-    gather_all()
+    gather_all(out_dir)
 
 
 if __name__ == '__main__':

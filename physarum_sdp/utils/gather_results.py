@@ -154,17 +154,20 @@ def gather_table(experiment_dir: str) -> None:
         for test in results[d].keys():
             rd = results[d][test]
             total_test_count += 1
-            max_infeasibility = max(max_infeasibility, rd['infeasibility'])
+            if 'infeasibility' in rd:
+                max_infeasibility = max(max_infeasibility, rd['infeasibility'])
             if 'gap' in rd:
                 ground_truth_available_test_count += 1
                 max_gap = max(max_gap, rd['gap'])
-            all_times_spent.append(rd['time_spent'])
+            if 'time_spent' in all_times_spent:
+                all_times_spent.append(rd['time_spent'])
 
         results_table['# Tests'].append(total_test_count)
         results_table['# Baseline Available'].append(ground_truth_available_test_count)
         results_table['Max Primal Gap'].append(max_gap)
         results_table['Max Infeasibility'].append(max_infeasibility)
-        results_table['Avg. Time Spent'].append(sum(all_times_spent) / len(all_times_spent))
+        results_table['Avg. Time Spent'].append(
+            None if len(all_times_spent) == 0 else sum(all_times_spent) / len(all_times_spent))
 
     pd.DataFrame(results_table).to_csv(os.path.join(experiment_dir, 'summary-results.csv'))
 

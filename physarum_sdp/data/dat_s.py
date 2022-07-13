@@ -6,8 +6,6 @@ import numpy as np
 from scipy.sparse import coo_matrix
 
 from physarum_sdp.config import PARSE_METHODS
-from physarum_sdp.data.registry_base import PARSER_REGISTRY
-
 
 class InputStates(Enum):
     M = 1
@@ -17,7 +15,6 @@ class InputStates(Enum):
     MATRICES = 5
 
 
-@PARSER_REGISTRY.register(PARSE_METHODS.DAT_S.__str__())
 def dat_s_input(input_file_dir: str) -> Tuple[List[List[coo_matrix]], np.array, List[coo_matrix], List[int], int]:
     """
     Gets an input file directory and parses it to come up with the appropriate SDP problem

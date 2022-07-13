@@ -1,4 +1,5 @@
 def _register_generic(module_dict, module_name, module):
+    module_name = str(module_name)
     assert module_name not in module_dict
     module_dict[module_name] = module
 

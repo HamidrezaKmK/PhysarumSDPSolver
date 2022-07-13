@@ -1,2 +1,2 @@
-from physarum_sdp.matrix_utils.dense_matrix import from_dat_s_to_dense_matrices
+
 from physarum_sdp.matrix_utils.base_registry import PROBLEM_BUILDER_REGISTRY

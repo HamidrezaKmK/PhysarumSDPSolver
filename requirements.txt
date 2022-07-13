@@ -2,3 +2,4 @@ tqdm
 scipy
 yasc
 docopt
+strenum

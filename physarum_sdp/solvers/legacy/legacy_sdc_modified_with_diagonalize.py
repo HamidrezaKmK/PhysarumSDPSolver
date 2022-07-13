@@ -2,8 +2,7 @@
 This is v2 Hamidreza's implementation of the dynamic with modified implementation
 to account for approaching the boundaries
 """
-import time
-from typing import Optional, Tuple, List
+from typing import Optional
 
 import numpy as np
 import math
@@ -11,15 +10,9 @@ from math import inf
 
 # "eps" the epsilon that is used in iterations for finding independent subset
 # it is also used as a threshold to consider an eigenvalue to be zero
-from debugpy._vendored.pydevd._pydev_bundle.pydev_override import overrides
 from tqdm import tqdm
-from yacs.config import CfgNode
-
-from physarum_sdp.config import METHODS
 from physarum_sdp.matrix_utils.block_dense import eps
-from physarum_sdp.solvers.base_registry import SOLVER_REGISTRY
 from physarum_sdp.solvers.base_solvers import PhysarumSDPSolver
-from physarum_sdp.solvers.legacy_solvers import LegacySolver
 
 
 
@@ -155,7 +148,3 @@ def physarum_hamid_modified(C, X, m, n, A, b, iter_count, restart_factor=1,
         infeasibility = max(infeasibility, abs(np.sum(A[i] * X) - b[i]))
     return X, 0, 0, iterations, 0, infeasibility
 
-
-@SOLVER_REGISTRY.register(METHODS.LEGACY_SDC_MODIFIED.__str__())
-def build_solver(cfg: CfgNode, linear_conditions, b, C):
-    return LegacySolver(cfg, linear_conditions, b, C, legacy_function=physarum_hamid_modified)

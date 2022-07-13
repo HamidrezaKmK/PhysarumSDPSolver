@@ -3,13 +3,8 @@ from typing import Optional
 
 import numpy as np
 from tqdm import tqdm
-from yacs.config import CfgNode
-
-from physarum_sdp.config import METHODS
-from physarum_sdp.solvers.base_registry import SOLVER_REGISTRY
 from physarum_sdp.solvers.base_solvers import PhysarumSDPSolver
-from physarum_sdp.solvers.legacy_solvers import LegacySolver
-from physarum_sdp.solvers.legacy_utils import vectorize, transformation_calculator, null_calculator, \
+from physarum_sdp.solvers.legacy.legacy_utils import vectorize, transformation_calculator, null_calculator, \
     find_best_coefficient, gap_goal, calculate_infeasibility
 
 
@@ -93,6 +88,3 @@ def physarum_SDC_vanilla(C, X, m, n, A, b, iter_count, restart_factor=1,
     return X_k, 0, 0, iterations, 0, calculate_infeasibility(X, A, b, m)
 
 
-@SOLVER_REGISTRY.register(METHODS.LEGACY_SDC_VANILLA.__str__())
-def build_solver(cfg: CfgNode, linear_conditions, b, C):
-    return LegacySolver(cfg, linear_conditions, b, C, legacy_function=physarum_SDC_vanilla)

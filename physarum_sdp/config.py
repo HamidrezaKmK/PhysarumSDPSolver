@@ -1,45 +1,41 @@
 import copy
-from enum import Enum
+from strenum import StrEnum
 from yacs.config import CfgNode
 
 
-class StringEnum(Enum):
-    def __str__(self):
-        return str(self.value)
 
-class PARSE_METHODS(StringEnum):
+class PARSE_METHODS(StrEnum):
     DAT_S = 'dat-s'
     SIMPLE = 'simple (.txt)'
 
 
-class METHODS(StringEnum):
+class METHODS(StrEnum):
     X_KRON_X = "R=inv(X)-kron-inv(X)"
     LEGACY_SDC_MODIFIED = 'Legacy-SDC-modified'
     LEGACY_SDC_VANILLA = 'Legacy-SDC-vanilla'
 
 
-class MATRIX_TYPES(StringEnum):
+class MATRIX_TYPES(StrEnum):
     DENSE = "dense (simple)"
     BLOCK_DENSE = "blocked-dense"
     SPARSE = "sparse"
     BLOCK_SPARSE = "block-sparse"
 
 
-class PREPROCESSING_METHODS(StringEnum):
+class PREPROCESSING_METHODS(StrEnum):
     STANDARD = 'standard'
 
 
 __C = CfgNode()
 
 __C.DATA = CfgNode()
-__C.DATA.PARSE_METHOD = PARSE_METHODS.DAT_S.__str__()
-__C.DATA.MATRIX_TYPE = MATRIX_TYPES.DENSE.__str__()
-
+__C.DATA.PARSE_METHOD = str(PARSE_METHODS.DAT_S)
+__C.DATA.MATRIX_TYPE = str(MATRIX_TYPES.DENSE)
 
 __C.SOLVER = CfgNode()
-__C.SOLVER.METHOD = METHODS.X_KRON_X.__str__()
+__C.SOLVER.METHOD = str(METHODS.X_KRON_X)
 __C.SOLVER.PREPROCESSING = CfgNode()
-__C.SOLVER.PREPROCESSING.METHOD = PREPROCESSING_METHODS.STANDARD.__str__()
+__C.SOLVER.PREPROCESSING.METHOD = str(PREPROCESSING_METHODS.STANDARD)
 __C.SOLVER.PREPROCESSING.AUGMENTATION = CfgNode()
 __C.SOLVER.PREPROCESSING.AUGMENTATION.HAS_AUGMENTATION = False
 __C.SOLVER.PREPROCESSING.AUGMENTATION.HYPER_PARAMETERS = CfgNode()
