@@ -16,6 +16,7 @@ Options:
 """
 import re
 import shutil
+import traceback
 import warnings
 from typing import Dict
 
@@ -81,13 +82,18 @@ def main(arguments: Dict[str, str]) -> None:
     pattern = re.compile(pattern)
     for d in tqdm(os.listdir(in_dir)):
         if re.match(pattern, d):
+            if arguments['--verbose']:
+                print(f"Solving {d}...")
             try:
                 # 1. Parse the input
                 parsed_input = PARSER_REGISTRY[cfg.DATA.PARSE_METHOD](os.path.join(in_dir, d))
                 # 2. Build the problem based on the parsed input
-                linear_condition_matrices, b, cost_matrix = PROBLEM_BUILDER_REGISTRY[cfg.DATA.PARSE_METHOD](parsed_input)
+                linear_condition_matrices, b, cost_matrix = PROBLEM_BUILDER_REGISTRY[cfg.DATA.PARSE_METHOD](
+                    parsed_input)
                 # 3. Create a solver according to the configurations
-                solver = SOLVER_REGISTRY[cfg.SOLVER.METHOD](cfg, linear_condition_matrices, b, cost_matrix)
+                verbose = 1 if arguments['--verbose'] else 0
+                solver = SOLVER_REGISTRY[cfg.SOLVER.METHOD](cfg, linear_condition_matrices, b, cost_matrix,
+                                                            verbose=verbose)
                 # 4. Run the solve method
                 solver.solve()
                 # 5. create an output directory and save all the log files and output files
@@ -99,8 +105,9 @@ def main(arguments: Dict[str, str]) -> None:
                 shutil.copyfile(os.path.join(in_dir, d + '.res'), os.path.join(out_dir_sample, 'results.txt'))
             except Exception as e:
                 print("------------[ERROR]------------")
-                warnings.warn(f"Test {d} ran into some problems! Check it out later!")
-                print(e)
+                warnings.warn(f"Test {d} ran into some problems! Check it out later! [error: {e}]")
+                trace = traceback.format_exc()
+                print(trace)
                 print("-------------------------------")
     gather_all(out_dir)
 

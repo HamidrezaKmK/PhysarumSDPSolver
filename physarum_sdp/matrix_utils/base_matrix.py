@@ -93,6 +93,11 @@ class BaseMatrix(ABC):
 
     @classmethod
     @abstractmethod
+    def zeros(cls, n: int, m: int) -> BaseMatrix:
+        raise NotImplementedError(f"Eye method not imlemented for {cls}")
+
+    @classmethod
+    @abstractmethod
     def diag(cls, diagonal_elements: Union[BaseMatrix, List[BaseMatrix], List[float]]) -> BaseMatrix:
         raise NotImplementedError(f"Diag method not implemented for {cls}")
 
@@ -104,6 +109,9 @@ class BaseMatrix(ABC):
         if self.shape[0] != self.shape[1]:
             raise AttributeError(f"The matrix should be a square one but it is {self.shape}")
         return type(self).eye(self.shape[0])
+
+    def zeros_like(self) -> BaseMatrix:
+        return type(self).zeros(self.shape[0], self.shape[1])
 
     def __rmul__(self, other: Union[BaseMatrix, int, float]) -> BaseMatrix:
         if type(other) in _SCALAR_TYPES:

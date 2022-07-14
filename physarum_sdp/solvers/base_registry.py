@@ -11,15 +11,15 @@ SOLVER_REGISTRY = Registry()
 
 
 @SOLVER_REGISTRY.register(METHODS.LEGACY_SDC_VANILLA)
-def build_solver1(cfg: CfgNode, linear_conditions, b, C):
-    return LegacySolver(cfg, linear_conditions, b, C, legacy_function=physarum_SDC_vanilla)
+def build_solver1(cfg: CfgNode, linear_conditions, b, C, verbose=None):
+    return LegacySolver(cfg, linear_conditions, b, C, legacy_function=physarum_SDC_vanilla, verbose=verbose)
 
 
 @SOLVER_REGISTRY.register(METHODS.LEGACY_SDC_MODIFIED)
-def build_solver2(cfg: CfgNode, linear_conditions, b, C):
-    return LegacySolver(cfg, linear_conditions, b, C, legacy_function=physarum_hamid_modified)
+def build_solver2(cfg: CfgNode, linear_conditions, b, C, verbose=None):
+    return LegacySolver(cfg, linear_conditions, b, C, legacy_function=physarum_hamid_modified, verbose=verbose)
 
 
 @SOLVER_REGISTRY.register(METHODS.X_KRON_X)
-def build_solver3(cfg: CfgNode, linear_conditions, b, C):
-    return XkronXSolver(cfg.SOLVER, linear_conditions, b, C)
+def build_solver3(cfg: CfgNode, linear_conditions, b, C, verbose=None):
+    return XkronXSolver(cfg, linear_conditions, b, C, verbose=verbose)

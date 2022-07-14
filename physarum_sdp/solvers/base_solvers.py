@@ -1,13 +1,15 @@
 import copy
+import json
 import os
 import time
+import warnings
 from typing import List, Optional, Tuple
 
 import numpy as np
+from tqdm import tqdm
 from yacs.config import CfgNode
 
 from physarum_sdp.matrix_utils.base_matrix import BaseMatrix
-
 
 
 def _create_if_not_available(dir: str):
@@ -49,15 +51,23 @@ class PhysarumSDPSolver:
         self.verbose = verbose
         self.time_spent = None
 
+        self.iteration_i = 0
+        self.epoch_i = 0
+
+        self.outputs_json = {}
+
     def add_log_line(self, line: str) -> None:
         self.logs.append(line)
 
     def add_output_line(self, line: str) -> None:
         self.outputs.append(line)
 
+    def add_output(self, key: str, value=str) -> None:
+        self.outputs_json[key] = value
+
     def save_logs(self, out_dir: str) -> None:
         _create_if_not_available(out_dir)
-        with open(os.path.join(out_dir, 'legacy-logs.txt'), 'w') as f:
+        with open(os.path.join(out_dir, 'logs.txt'), 'w') as f:
             f.writelines(self.logs)
 
     def save_configs(self, out_dir):
@@ -69,6 +79,9 @@ class PhysarumSDPSolver:
         _create_if_not_available(out_dir)
         with open(os.path.join(out_dir, 'legacy-physarum-out.txt'), 'w') as f:
             f.writelines(self.outputs)
+        if len(self.outputs_json.keys()) > 0:
+            with open(os.path.join(out_dir, 'output.json'), 'w') as f:
+                json.dump(self.outputs_json, f, indent=4)
 
     def calc_p_and_xdot(self) -> Tuple[BaseMatrix, Optional[np.array]]:
         """
@@ -81,9 +94,9 @@ class PhysarumSDPSolver:
         """
         This function fills up self.X with an initialized value
         """
-        pass
+        warnings.warn("Initialize method called but not implemented!")
 
-    def find_h(self) -> float:
+    def find_h(self, Xdot: BaseMatrix) -> float:
         """
         This function finds out the h to update the formula X = X + h * Xdot
         """
@@ -124,25 +137,38 @@ class PhysarumSDPSolver:
         if not self.preprocessing_cfg.MAX_CUT.IS_MAX_CUT_INSTANCE:
             self.X = self.C.pinv()
 
-        self.initialize()
-
     def core_solve(self) -> Tuple[BaseMatrix, Optional[np.array]]:
+        """
+        This is the heart of the solver where all the epochs and iterations
+        are performed
+        """
         n_epoch = self.solver_cfg.EPOCH_COUNT
         n_iteration = self.solver_cfg.ITERATION_COUNT
 
         p = None
         for epoch_i in range(n_epoch):
-            for iteration_i in range(n_iteration):
+            self.epoch_i = epoch_i
+            if self.verbose:
+                print(f"Epoch {epoch_i}:")
+                iterable = tqdm(range(n_iteration))
+            else:
+                iterable = range(n_iteration)
+
+            for iteration_i in iterable:
+                self.iteration_i = iteration_i
                 Xdot, p = self.calc_p_and_xdot()
-                h = self.find_h()
-                self.X += h * Xdot
+                h = self.find_h(Xdot)
+                self.X = self.X + h * Xdot
                 if self.break_midway():
                     break
             if n_epoch > 1:
                 self.next_epoch()
         return self.X, p
 
-    def get_time_spent(self):
+    def get_time_spent(self) -> float:
+        """
+        Return the time spent on the core_solve method
+        """
         if self.time_spent is None:
             raise AttributeError("core_solve has not been called yet or the solve function has been overridden!")
         return self.time_spent
@@ -156,7 +182,13 @@ class PhysarumSDPSolver:
         return X, p
 
     def solve(self) -> Tuple[BaseMatrix, Optional[np.array]]:
+        """
+        This is the function that is called ultimately for solving
+        and it returns a pair, first of which is a primal candidate solution and
+        the second is (potentially) a dual solution
+        """
         self.preprocess()
+        self.initialize()
         start_time = time.time()
         X_opt, p = self.core_solve()
         self.time_spent = time.time() - start_time

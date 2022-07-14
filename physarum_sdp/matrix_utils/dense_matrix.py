@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from typing import Union, Tuple, List
 
-
 import numpy as np
 
 from physarum_sdp.matrix_utils.base_matrix import BaseMatrix
@@ -79,6 +78,10 @@ class DenseMatrix(BaseMatrix):
     def eye(cls, n):
         return DenseMatrix(np.eye(n).astype(np.float32))
 
+    @classmethod
+    def zeros(cls, n: int, m: int):
+        return DenseMatrix(np.zeros((n, m)))
+
     def __str__(self) -> str:
         return self.content.__str__()
 
@@ -94,5 +97,3 @@ def convert_block_sparse_to_dense(block_sizes, A):
         ret[sum_until_now:sum_until_now + block_sizes[id], sum_until_now:sum_until_now + block_sizes[id]] = dense_block
         sum_until_now += block_sizes[id]
     return DenseMatrix(ret)
-
-
