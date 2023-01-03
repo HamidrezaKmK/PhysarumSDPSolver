@@ -8,7 +8,6 @@ A set of dummy experiments are currently available in the repository. However, f
 The subdirectories of `data` contain different data batches with each batch containing a set of semi-definite programs. The naming convention under each of these data batches is set according to the following:
 * `{problem-name}.dat-s`: The SDP problem itself in a standardized `.dat-s` format. For more information on this format, please check out the data format [explanation](./data/FORMAT.md).
 * `{problem-name}.dat-s.res`: We are trying to compare the results against ground truth, therefore, we have gathered the results of a standard solver of the corresponding problem in this file. The solver used as ground truth is the [SDPA](https://sdpa.sourceforge.net/) solver.
-* `{problem-name}.dat-s.log`: This file contains the logs of the solver which is not important for the moment.
 
 ### How to add your data?
 To do that, you can add a new subdirectory under data with the standard `.dat-s` notation introduced in this section. After creating the base data, you can run the SDPA solver. The only version of the solver which is available in the repo is the windows version available at [SDPA/windows](./SDPA/windows/). However, you can also check out the other solver binaries they have and add the `.res` and `.log` files next to the corresponding problem in the data folder.
