@@ -209,3 +209,6 @@ data/*
 !data/testset0
 
 !SDPA/windows/sdpa.exe
+
+# ignore all the pycache files
+__pycache__/

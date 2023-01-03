@@ -3,3 +3,5 @@ scipy
 yasc
 docopt
 strenum
+pandas
+debugpy

@@ -1,7 +1,7 @@
 @echo off
 
 set pp=%CD%
-cd ../testSet
+cd ../data
 
 for /R %%f in (*.dat-s) do (
     echo solving example %%f ...
