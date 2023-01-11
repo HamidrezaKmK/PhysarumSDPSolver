@@ -1,9 +1,0 @@
-DATA:
-  PARSE_METHOD: dat-s
-  MATRIX_TYPE: dense (simple)
-SOLVER:
-  METHOD: R=inv(X)-kron-inv(X)
-  HYPER_PARAMETERS:
-    ITERATION_COUNT: 50000
-    EPOCH_COUNT: 1
-    H: 0.1

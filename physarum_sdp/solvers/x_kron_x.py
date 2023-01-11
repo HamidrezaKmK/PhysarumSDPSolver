@@ -16,7 +16,8 @@ class XkronXSolver(PhysarumSDPSolver):
             self.original_linear_conditions.append(self.linear_conditions[i])
 
     def initialize(self) -> None:
-        self.X = self.C.pinv()
+        # self.X = self.C.pinv()
+        self.X = 10 * self.C.eye_like()
 
     def calc_p_and_xdot(self) -> Tuple[BaseMatrix, Optional[np.array]]:
         # Precompute values of XCX and A_iX
