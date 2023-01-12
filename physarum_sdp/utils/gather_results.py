@@ -88,6 +88,8 @@ def gather_json(experiment_dir: str) -> None:
         # Only iterate over the directories
         for test in os.listdir(real_d):
             test_dir = os.path.join(real_d, test)
+            if os.path.isfile(test_dir):
+                continue
 
             results[d][test] = {}
 
