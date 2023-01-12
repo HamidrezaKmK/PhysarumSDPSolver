@@ -20,28 +20,28 @@ class XkronXSolver(PhysarumSDPSolver):
         self.X = 10 * self.C.eye_like()
 
     def calc_p_and_xdot(self) -> Tuple[BaseMatrix, Optional[np.array]]:
-        # Precompute values of XCX and A_iX
+        # Precompute values of XCX and XA_iX
         XCX = self.X @ self.C @ self.X
         precomp = []
         for i in range(self.m):
-            precomp.append(self.linear_conditions[i] @ self.X)
+            precomp.append(self.X @ self.linear_conditions[i] @ self.X)
 
         # Calculate L
         L = np.zeros((self.m, self.m))
         for i in range(L.shape[0]):
             for j in range(i + 1):
-                L[i, j] = L[j, i] = (precomp[i] * precomp[j]).sum()
+                L[i, j] = L[j, i] = (self.linear_conditions[i] * precomp[j]).sum()
 
         # Calculate bb and solve Lp = bb
         bb = np.zeros(self.m)
         for i in range(self.m):
-            bb[i] = (self.linear_conditions[i] * XCX).sum()
+            bb[i] = (self.linear_conditions[i] * XCX).sum() + self.b[i] - (self.linear_conditions[i] * self.X).sum()
         p = np.linalg.solve(L, bb)
 
         # Calculate Xdot = \sum p_i (X A_i X) - X C X
         Xdot = self.X.zeros_like()
         for i in range(self.m):
-            Xdot = Xdot + p[i] * self.X @ self.linear_conditions[i] @ self.X
+            Xdot = Xdot + p[i] * precomp[i]
         Xdot = Xdot - XCX
 
         return Xdot, p
