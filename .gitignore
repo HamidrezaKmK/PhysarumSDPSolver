@@ -205,7 +205,7 @@ experiments/*
 !experiments/summary-results.csv
 modified-results
 data/*
-!data/FORMAT.dat-s
+!data/FORMAT.md
 !data/testset0
 
 !SDPA/windows/sdpa.exe
