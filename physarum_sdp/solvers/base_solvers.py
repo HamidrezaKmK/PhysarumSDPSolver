@@ -54,6 +54,10 @@ class PhysarumSDPSolver:
         self.iteration_i = 0
         self.epoch_i = 0
 
+        # count is the number of total iterations. 
+        # it's identical to iteration_i when epoch = 1
+        self.count = 0
+
         self.outputs_json = {}
 
     def add_log_line(self, line: str) -> None:
@@ -122,6 +126,7 @@ class PhysarumSDPSolver:
         Preprocessing over the data
         if one wants to do some augmentations, this would be the place to do so
         """
+        self.original_C = self.C
         self.X = 10 * self.C.eye_like()
 
         if self.preprocessing_cfg.MAX_CUT.IS_MAX_CUT_INSTANCE:
@@ -161,6 +166,7 @@ class PhysarumSDPSolver:
                 self.X = self.X + h * Xdot
                 if self.break_midway():
                     break
+            self.count += (self.iteration_i + 1)
             if n_epoch > 1:
                 self.next_epoch()
         return self.X, p
