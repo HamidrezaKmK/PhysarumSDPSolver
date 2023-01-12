@@ -166,6 +166,8 @@ class PhysarumSDPSolver:
                 self.X = self.X + h * Xdot
                 if self.break_midway():
                     break
+                if np.max(np.abs(Xdot.content)) < 10 ** -7:
+                    break
             self.count += (self.iteration_i + 1)
             if n_epoch > 1:
                 self.next_epoch()
