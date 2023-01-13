@@ -58,6 +58,8 @@ def parse_legacy_output(output_dir: str) -> Dict[str, Any]:
                 ret['time_spent'] = float(parts[-1])
             if parts[0] == 'Infeasibility' or parts[0] == 'Infeasibility:':
                 ret['infeasibility'] = float(parts[-1])
+            if parts[0] == 'Number' and parts[1] == 'of' and parts[2] == 'iterations:':
+                ret['iteration'] = int(parts[-1])
         return ret
 
 
