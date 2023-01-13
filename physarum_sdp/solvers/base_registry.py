@@ -6,6 +6,7 @@ from physarum_sdp.solvers.legacy.legacy_sdc_vanilla import physarum_SDC_vanilla
 from physarum_sdp.solvers.legacy.legacy_solvers import LegacySolver
 from physarum_sdp.solvers.x_kron_x import XkronXSolver
 from physarum_sdp.utils.registry import Registry
+from physarum_sdp.solvers.xc import XCSolver
 
 SOLVER_REGISTRY = Registry()
 
@@ -23,3 +24,7 @@ def build_solver2(cfg: CfgNode, linear_conditions, b, C, verbose=None):
 @SOLVER_REGISTRY.register(METHODS.X_KRON_X)
 def build_solver3(cfg: CfgNode, linear_conditions, b, C, verbose=None):
     return XkronXSolver(cfg, linear_conditions, b, C, verbose=verbose)
+
+@SOLVER_REGISTRY.register(METHODS.XC)
+def build_solver4(cfg: CfgNode, linear_conditions, b, C, verbose=None):
+    return XCSolver(cfg, linear_conditions, b, C, verbose=verbose)

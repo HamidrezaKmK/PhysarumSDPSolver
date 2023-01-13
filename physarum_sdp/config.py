@@ -11,6 +11,7 @@ class PARSE_METHODS(StrEnum):
 
 class METHODS(StrEnum):
     X_KRON_X = "R=inv(X)-kron-inv(X)"
+    XC = "XC"
     LEGACY_SDC_MODIFIED = 'Legacy-SDC-modified'
     LEGACY_SDC_VANILLA = 'Legacy-SDC-vanilla'
 

@@ -149,7 +149,6 @@ class PhysarumSDPSolver:
         """
         n_epoch = self.solver_cfg.EPOCH_COUNT
         n_iteration = self.solver_cfg.ITERATION_COUNT
-
         p = None
         for epoch_i in range(n_epoch):
             self.epoch_i = epoch_i
