@@ -163,7 +163,7 @@ def gather_table(experiment_dir: str) -> None:
             if 'gap' in rd:
                 ground_truth_available_test_count += 1
                 max_gap = max(max_gap, rd['gap'])
-            if 'time_spent' in all_times_spent:
+            if 'time_spent' in rd:
                 all_times_spent.append(rd['time_spent'])
 
         results_table['# Tests'].append(total_test_count)

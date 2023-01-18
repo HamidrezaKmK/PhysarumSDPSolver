@@ -4,6 +4,7 @@ import os
 import time
 import warnings
 from typing import List, Optional, Tuple
+import csv
 
 import numpy as np
 from tqdm import tqdm
@@ -46,7 +47,7 @@ class PhysarumSDPSolver:
         self.m = len(self.linear_conditions)
         self.X = X0
 
-        self.logs = []
+        self.logs = [["step-size", "Xdot-norm", "obj", "infeasibility", "X-mineig"]]
         self.outputs = []
         self.verbose = verbose
         self.time_spent = None
@@ -71,8 +72,10 @@ class PhysarumSDPSolver:
 
     def save_logs(self, out_dir: str) -> None:
         _create_if_not_available(out_dir)
-        with open(os.path.join(out_dir, 'logs.txt'), 'w') as f:
-            f.writelines(self.logs)
+        with open(os.path.join(out_dir, 'logs.csv'), 'w') as f:
+            # f.writelines(self.logs)
+            writer = csv.writer(f)
+            writer.writerows(self.logs)
 
     def save_configs(self, out_dir):
         _create_if_not_available(out_dir)
@@ -163,9 +166,17 @@ class PhysarumSDPSolver:
                 Xdot, p = self.calc_p_and_xdot()
                 h = self.find_h(Xdot)
                 self.X = self.X + h * Xdot
+                obj = self.C.dot(self.X).trace()
+                Xdot_norm = np.linalg.norm(Xdot.content)
+                X_mineig = np.min(np.linalg.eigh(self.X.content)[0])
+                infeasibility = -min(0, X_mineig)
+                for i in range(self.m):
+                    infeasibility = max(infeasibility, abs((self.linear_conditions[i] * self.X).sum() - self.b[i]))
+                self.add_log_line([h, Xdot_norm, obj, infeasibility, X_mineig])
+                # self.add_log_line("{}, {}, {}\n".format(iteration_i, h, obj))
                 if self.break_midway():
                     break
-                if np.max(np.abs(Xdot.content)) < 10 ** -7:
+                if Xdot_norm < 10 ** -7:
                     break
             self.count += (self.iteration_i + 1)
             if n_epoch > 1:
