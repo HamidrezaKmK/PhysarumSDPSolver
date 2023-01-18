@@ -134,7 +134,7 @@ class PhysarumSDPSolver:
 
         if self.preprocessing_cfg.MAX_CUT.IS_MAX_CUT_INSTANCE:
             self.C = self.C + (1 - self.C.min_eig()) * self.C.eye_like()
-            self.X = 10 * self.C.eye_like()
+            self.X = self.C.eye_like()
 
         if self.preprocessing_cfg.AUGMENTATION.HAS_AUGMENTATION:
             gamma = self.preprocessing_cfg.AUGMENTATION.HYPER_PARAMETERS.GAMMA
@@ -206,7 +206,7 @@ class PhysarumSDPSolver:
         the second is (potentially) a dual solution
         """
         self.preprocess()
-        self.initialize()
+        # self.initialize()
         start_time = time.time()
         X_opt, p = self.core_solve()
         self.time_spent = time.time() - start_time
