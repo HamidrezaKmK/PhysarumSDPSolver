@@ -29,8 +29,3 @@ The subdirectory ``dataset0`` will be created automatically.
 Run `main.py -h` to get a sense of the arguments that can be passed on to the executable python file.
 
 The first argument will take in a directory containing a bunch of `.dat-s` and `.dat-s.res` files and the second argument will take a directory to pour in the results. Finally, the `--cfg` obtains sets the directory of the configuration file being used. You can also pass on a `--test-regex` option to filter out a set of SDP problems in that subdirectory that match only a given regex. This is good when instead of a whole batch you are trying to run the test on a single problem or a subset of that batch.
-
-## Generic solvers
-
-The SDP solvers implemented here are written in a very generic way to be able to extend it later on with new ideas.
-
